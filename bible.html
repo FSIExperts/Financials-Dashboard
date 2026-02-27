@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSI Experts — Project Bible</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C; --gold-lt: #E8C97A; --gold-dk: #8B6914;
+  --black: #0A0A0A; --char: #141414; --char2: #1C1C1C; --char3: #242424;
+  --cream: #F5EDD9; --cream2: #DDD0B0; --silver: #888;
+  --green: #2ECC71; --blue: #4A8B9B; --purple: #9B6FD4;
+  --red: #e07070;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  font-family:'Cormorant Garamond',serif;
+  color:var(--cream); line-height:1.7;
+  font-size:16px;
+}
+
+/* ── SIDEBAR NAV ── */
+nav {
+  position:fixed; top:0; left:0; bottom:0;
+  width:260px; background:var(--char);
+  border-right:1px solid rgba(201,168,76,.15);
+  padding:32px 0; overflow-y:auto; z-index:100;
+}
+.nav-logo {
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:900;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text; padding:0 24px 24px;
+  border-bottom:1px solid rgba(201,168,76,.12);
+  margin-bottom:16px; display:block;
+}
+.nav-section {
+  font-family:'Courier Prime',monospace;
+  font-size:7px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);opacity:.5;
+  padding:16px 24px 6px;
+}
+nav a {
+  display:block; padding:7px 24px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px; color:var(--cream2);
+  text-decoration:none; opacity:.65;
+  transition:all .2s; border-left:2px solid transparent;
+}
+nav a:hover{opacity:1;color:var(--cream);border-left-color:var(--gold);padding-left:28px;}
+nav a.active{opacity:1;color:var(--gold);border-left-color:var(--gold);}
+
+/* ── MAIN ── */
+main {
+  margin-left:260px;
+  max-width:900px; padding:60px 60px 100px;
+}
+
+/* ── TYPOGRAPHY ── */
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:52px;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text; margin-bottom:12px;
+}
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;
+  color:var(--cream); margin:56px 0 20px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(201,168,76,.2);
+  position:relative;
+}
+h2::before{
+  content:'';position:absolute;bottom:-1px;left:0;
+  width:60px;height:1px;background:var(--gold);
+}
+h3{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:700;
+  color:var(--gold); margin:28px 0 10px;
+}
+h4{
+  font-family:'Courier Prime',monospace;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--silver);opacity:.7; margin:20px 0 8px;
+}
+p{margin-bottom:14px;color:var(--cream2);font-size:15px;}
+strong{color:var(--cream);font-weight:600;}
+em{color:var(--gold);font-style:italic;}
+
+/* ── SECTIONS ── */
+section{padding-top:20px;}
+.section-tag{
+  font-family:'Courier Prime',monospace;
+  font-size:8px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);opacity:.6; margin-bottom:6px;
+}
+
+/* ── HERO STRIP ── */
+.hero {
+  border-left:3px solid var(--gold);
+  padding:20px 28px; margin-bottom:48px;
+  background:rgba(201,168,76,.04);
+}
+.hero p{font-size:17px;color:var(--cream);opacity:.85;margin:0;}
+
+/* ── PROPERTY CARDS ── */
+.prop-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(380px,1fr));
+  gap:16px; margin:20px 0;
+}
+.prop-card{
+  background:var(--char2);
+  border:1px solid rgba(201,168,76,.14);
+  border-radius:4px; padding:18px 20px;
+  position:relative; overflow:hidden;
+}
+.prop-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--pcolor,var(--gold)),transparent);
+}
+.prop-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.prop-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);}
+.prop-addr{font-style:italic;font-size:11px;color:var(--silver);}
+.prop-badge{
+  font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;
+  padding:2px 7px;border:1px solid var(--pcolor,var(--gold));color:var(--pcolor,var(--gold));
+  flex-shrink:0;margin-left:10px;
+}
+.prop-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+.ps{background:rgba(255,255,255,.03);padding:5px 8px;border-radius:2px;}
+.ps-l{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.65;margin-bottom:1px;}
+.ps-v{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--cream);}
+.prop-note{
+  margin-top:10px;padding:8px 10px;
+  background:rgba(201,168,76,.05);border-left:2px solid rgba(201,168,76,.3);
+  font-size:12px;color:var(--cream2);line-height:1.5;
+}
+
+/* ── TABLES ── */
+table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:13px;}
+th{
+  font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);opacity:.7;text-align:left;
+  padding:8px 12px;border-bottom:1px solid rgba(201,168,76,.2);
+}
+td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--cream2);vertical-align:top;}
+tr:hover td{background:rgba(201,168,76,.03);}
+.td-gold{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;}
+.td-green{color:var(--green);}
+.td-red{color:var(--red);}
+
+/* ── CALLOUT BOXES ── */
+.callout{
+  padding:16px 20px;margin:16px 0 24px;border-radius:3px;
+}
+.callout.gold{background:rgba(201,168,76,.07);border-left:3px solid var(--gold);}
+.callout.green{background:rgba(46,204,113,.07);border-left:3px solid var(--green);}
+.callout.blue{background:rgba(74,139,155,.07);border-left:3px solid var(--blue);}
+.callout.red{background:rgba(224,112,112,.07);border-left:3px solid var(--red);}
+.callout-title{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px;}
+.callout p{margin:0;font-size:13px;}
+
+/* ── SPEC BLOCKS ── */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0;}
+.spec{background:var(--char2);border:1px solid rgba(201,168,76,.1);padding:10px 14px;border-radius:2px;}
+.spec-l{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:3px;}
+.spec-v{font-size:14px;color:var(--cream);font-weight:600;}
+
+/* ── STATUS BADGES ── */
+.badge{
+  display:inline-block;font-family:'Courier Prime',monospace;
+  font-size:7px;letter-spacing:2px;text-transform:uppercase;
+  padding:2px 8px;border-radius:1px;margin:2px;
+}
+.badge.active{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:var(--green);}
+.badge.future{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);}
+.badge.urgent{background:rgba(224,112,112,.12);border:1px solid rgba(224,112,112,.35);color:var(--red);}
+.badge.done{background:rgba(74,139,155,.12);border:1px solid rgba(74,139,155,.35);color:var(--blue);}
+
+/* ── TIMELINE ── */
+.timeline{margin:16px 0;}
+.tl-item{display:flex;gap:16px;margin-bottom:16px;}
+.tl-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;margin-top:5px;
+  box-shadow:0 0 8px rgba(201,168,76,.4);
+}
+.tl-dot.future{background:var(--char3);border:1px solid var(--gold);}
+.tl-line{width:1px;background:rgba(201,168,76,.15);margin:0 4.5px;}
+.tl-content{flex:1;}
+.tl-label{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:2px;}
+.tl-text{font-size:13px;color:var(--cream2);}
+
+/* ── CODE / PASSWORDS ── */
+.code-block{
+  font-family:'Courier Prime',monospace;font-size:13px;
+  background:var(--char3);border:1px solid rgba(201,168,76,.15);
+  padding:14px 18px;border-radius:3px;margin:10px 0;
+  color:var(--green);line-height:1.8;
+}
+
+/* ── TOP BAR ── */
+.top-bar{
+  position:fixed;top:0;left:260px;right:0;height:3px;
+  background:linear-gradient(to right,transparent,var(--gold),var(--gold-lt),var(--gold),transparent);
+  z-index:99;opacity:.6;
+}
+
+/* ── PRINT / AI BRIEF BOX ── */
+.ai-brief{
+  background:var(--char2);
+  border:1px solid rgba(201,168,76,.25);
+  border-radius:4px;padding:24px 28px;margin:0 0 40px;
+}
+.ai-brief-title{
+  font-family:'Playfair Display',serif;font-size:16px;font-weight:700;
+  color:var(--gold);margin-bottom:12px;
+}
+.ai-brief p{font-size:13px;margin-bottom:8px;}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{display:none;}
+  main{margin-left:0;padding:32px 20px 80px;}
+  .prop-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<!-- ── SIDEBAR ── -->
+<nav>
+  <span class="nav-logo">FSI Experts</span>
+  <div class="nav-section">Overview</div>
+  <a href="#brief">AI Briefing Block</a>
+  <a href="#about">About & Vision</a>
+  <a href="#portfolio">Portfolio Summary</a>
+
+  <div class="nav-section">Properties</div>
+  <a href="#active-ltr">Active LTR</a>
+  <a href="#active-str">Active STR</a>
+  <a href="#bellaire-future">Bellaire Future</a>
+  <a href="#international">International</a>
+
+  <div class="nav-section">Projects</div>
+  <a href="#card-deck">Property Card Deck</a>
+  <a href="#architecture">Architecture Specs</a>
+  <a href="#business-plan">Business Plan</a>
+  <a href="#github">GitHub Site</a>
+
+  <div class="nav-section">Reference</div>
+  <a href="#financials">Financial Reference</a>
+  <a href="#decisions">Key Decisions Log</a>
+  <a href="#next">Next Steps</a>
+  <a href="#passwords">Passwords & Access</a>
+</nav>
+
+<!-- ── MAIN CONTENT ── -->
+<main>
+
+<!-- HERO -->
+<div class="section-tag">Project Bible · FSI Experts LLC</div>
+<h1>Master Reference</h1>
+<div class="hero">
+  <p>This document is the single source of truth for all FSI Experts projects, properties, decisions, and context. Paste the AI Briefing Block at the top of any new Claude conversation to restore full context instantly.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     AI BRIEFING BLOCK
+══════════════════════════════════════════════════ -->
+<section id="brief">
+<h2>AI Briefing Block</h2>
+<p>Copy everything inside the box below and paste it at the start of any new Claude chat. It will fully brief the AI on who you are, what you're building, and where you left off.</p>
+
+<div class="ai-brief">
+<div class="ai-brief-title">📋 Paste This Into New Chats</div>
+<div class="code-block">
+YOU ARE CONTINUING WORK ON THE FSI EXPERTS / TARA RIVER HOMES PROJECT.
+
+WHO I AM:
+I am the owner of FSI Experts LLC and Tara River Homes, a real estate investment 
+portfolio based in Bellaire, Michigan with 13 properties. I came from ChatGPT 
+(got bad outputs — colored squares instead of designs) and migrated to Claude. 
+My time is precious. Do not waste it re-explaining things. Build first, ask second.
+I communicate directly and expect professional-grade outputs immediately.
+
+MY PORTFOLIO — 13 PROPERTIES:
+
+ACTIVE LTR (Grand Rapids, MI):
+- 535 Ethel: $1,500/mo rent · P&I $354.72 · Purchase $92K · Value ~$289K · Loan $68K · 4.75%/30yr · LTV 23%
+- 1032 Watson: $1,900/mo rent · P&I $603.97 · Purchase $149K · Value ~$238K · Loan $119.2K · 4.5%/30yr · LTV 50%
+
+ACTIVE LTR (Bellaire, MI):
+- 320 Park: $1,600/mo rent · P&I $603.97 · Purchase $149K · Value ~$275K · Loan ~$119K
+  → $25,000 RAISE OPEN: retire high-interest debt + lot split survey (creates 101 Anne St parcel worth $45-85K)
+  → Investor gets equity stake in 101 Anne Street parcel
+
+ACTIVE STR (Bellaire, MI):
+- 315 Seneca "The Tara": Airbnb + VRBO · Purchase $254,750 · Value ~$314K · Loan $249K · P&I $1,261.65/mo
+  → 2024 Airbnb actual: ~$16,148 net · VRBO est: ~$16,148 · ADR ~$260/night
+  → Expenses: Platform fees ~$5,812 · Supplies/ops ~$7,532 · Tax+Ins $3,762/yr
+  → Parcel: 05-46-124-044-00
+
+PRIMARY RESIDENCE + ADU:
+- 104 Court, Bellaire: Purchase $101K · Value ~$244K · NO MORTGAGE (cash purchase)
+  → ADU under renovation for STR · Target $30-50K gross/yr · Zero debt = pure cashflow
+
+BELLAIRE FUTURE BUILDS:
+- 313 Seneca (Tower Home): Purchase $85K · Value $125K · Loan $80K · 5-yr balloon note
+  → Future luxury STR · 3-story Scandinavian modern tower · $45-80K/yr projected
+  → Parcel: 05-46-150-043-00
+- 316 Seneca (Riverside Home A): Future build · Parcel 05-46-124-040-00
+- 314 Seneca (Riverside Home B): Future build · Parcel 05-46-124-039-01
+- 101 Anne Street: Future lot split from 320 Park rear · $5K split cost creates $45-85K parcel
+
+INTERNATIONAL:
+- Orchid Bay D58, Belize: Caribbean STR · USD-pegged currency · Master-planned community
+- San Juan del Sur, Nicaragua: Pacific coastal land · Long-term hold
+- Playa Yankee, Nicaragua: Pacific coastal land · Long-term hold
+
+RIVERSIDE HOMES A & B — LOCKED ARCHITECTURAL SPECS:
+- Width: 36 feet · Deck: 16 feet deep
+- Style: Scandinavian Modern · Shed roof (high on river side, low on entry side)
+- Foundation: Elevated on hillside piers
+- Great room: 10ft ceiling rising to 17ft vault (river side)
+- Bedrooms: 9ft ceilings · Dual masters (A mirrored to B)
+- Sliders: 2 large multi-panel glass sliders facing river
+- Fireplace: Corner, side wall
+- Hot tub: Under-deck spa with privacy screening + LED lighting
+- Entry: Side stair landing
+- Exterior: Black metal + wood
+- Revenue target: $55-95K/yr each · Combined A+B: $110-190K/yr
+
+FINANCIAL SNAPSHOT:
+- Total est. portfolio value: $1.8M+
+- LTR annual gross: $57.6K
+- LTR annual NOI: $22.9K
+- 315 Seneca STR 2024 gross est: $32.3K
+- Full Seneca corridor buildout NOI potential: $250K-$420K gross
+- GR cluster equity (Ethel + Watson): ~$340K available for leverage
+- Active raise: $25K (320 Park)
+
+PROJECTS IN PROGRESS:
+1. PROPERTY CARD DECK (tara-river-homes-cards.html) — BUILT, LIVE ON GITHUB
+   - 11 property cards + portfolio summary · Black/gold luxury aesthetic
+   - Playfair Display + Cormorant Garamond + Courier Prime fonts
+   - LTR cards: Monopoly green house tier system (4 tiers, starts $250 below current rent)
+   - STR cards: Actual P&L rows
+   - Future/land cards: Key data display
+   - Admin mode: drag photos onto cards (saves to localStorage)
+   - Investor mode: read-only view
+   - Passwords: Admin = bellaire2025 · Investor = tarariver
+   - Flip bug fix: card-scene/card-wrap/card separation (NOT hover-triggered)
+
+2. GITHUB SITE — LIVE
+   - Account: FSIExperts
+   - Repo: Financials-Dashboard (PUBLIC)
+   - URL: https://fsiexperts.github.io/Financials-Dashboard/
+   - Files: index.html (splash) · tara-river-homes-cards.html · portfolio_monitor.html
+
+3. STRATEGIC BUSINESS PLAN — NOT YET BUILT
+   - Investor/lender ready document
+   - Covers: Seneca Corridor vision, Phase 1/2/3/4 buildout, financial projections
+
+4. ARCHITECTURE DRAWINGS — NOT YET BUILT
+   - Riverside Homes A & B (specs locked above)
+   - 313 Seneca Tower Home
+
+PENDING DATA STILL NEEDED:
+- VRBO actual revenue for 315 Seneca (not just estimate)
+- Actual mortgage balance for 320 Park (est. ~$119K)
+- STR actual expense breakdown for 315 Seneca
+
+DEFERRED IDEAS (save, don't execute):
+- Value-tier card colors: 0-150K=bronze · 150-300K=silver · 300-500K=gold · 500-750K=platinum · 750K-1M=black · 1M+=obsidian
+- Monopoly-style game mechanic layer for card deck
+
+MY COMMUNICATION STYLE:
+- Direct and fast. Build first, ask second.
+- I say things casually but expect professional outputs.
+- I came from ChatGPT and am still learning Claude — be patient with GitHub/tech questions.
+- Quality matters enormously. The previous AI gave me "F and D-" work.
+- I think visually. Show me things, don't just describe them.
+</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ABOUT & VISION
+══════════════════════════════════════════════════ -->
+<section id="about">
+<h2>About FSI Experts & Vision</h2>
+
+<h3>The Big Picture</h3>
+<p>FSI Experts LLC is the holding entity for a growing real estate portfolio centered on the <strong>Seneca Corridor in Bellaire, Michigan</strong> — a riverfront stretch with direct access to the Intermediate River. The long-term vision is to develop this corridor into a branded short-term rental resort destination under the <strong>Tara River Homes</strong> brand.</p>
+
+<h3>The Seneca Corridor Strategy</h3>
+<p>Four contiguous or adjacent parcels on and near Seneca Street in Bellaire form the core of the development vision:</p>
+
+<div class="callout gold">
+  <div class="callout-title">Corridor Buildout Sequence</div>
+  <p><strong>315 Seneca (The Tara)</strong> — Already operating as STR anchor. Riverfront access, docks, hillside gardens, stair system to river.<br><br>
+  <strong>314 & 316 Seneca</strong> (Riverside Homes A & B) — Two riverfront lots below 315 to be built as premium Scandinavian modern pier homes.<br><br>
+  <strong>313 Seneca</strong> (Tower Home) — Adjacent lot, future 3-story tower home. Build triggers when 5-year balloon note comes due.<br><br>
+  <strong>Combined potential: $250K–$420K gross revenue per year</strong> at full buildout.</p>
+</div>
+
+<h3>Supporting Portfolio Role</h3>
+<p>The Grand Rapids LTR properties (535 Ethel, 1032 Watson) exist primarily to <strong>generate stable DSCR and provide equity leverage</strong> for Bellaire construction financing. With $340K+ combined equity, they are the funding engine for Phase 2 builds. 320 Park in Bellaire serves dual purpose as current LTR income + future lot-split value creation.</p>
+
+<h3>Origin Story</h3>
+<p>You migrated from ChatGPT after receiving unacceptably poor quality outputs (described as "F and D-" work — literally colored squares instead of actual property card designs). Claude is the new AI partner. The goal is to build investor-grade materials, architectural designs, and a strategic business plan entirely through AI collaboration.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     PORTFOLIO SUMMARY
+══════════════════════════════════════════════════ -->
+<section id="portfolio">
+<h2>Portfolio Summary</h2>
+
+<div class="spec-grid">
+  <div class="spec"><div class="spec-l">Total Properties</div><div class="spec-v">13</div></div>
+  <div class="spec"><div class="spec-l">Est. Portfolio Value</div><div class="spec-v">$1.8M+</div></div>
+  <div class="spec"><div class="spec-l">LTR Annual Gross</div><div class="spec-v">$57,600</div></div>
+  <div class="spec"><div class="spec-l">LTR Annual NOI</div><div class="spec-v">$22,900</div></div>
+  <div class="spec"><div class="spec-l">315 Seneca STR 2024</div><div class="spec-v">$32,300 est.</div></div>
+  <div class="spec"><div class="spec-l">ADU Revenue (future)</div><div class="spec-v">$30–50K/yr</div></div>
+  <div class="spec"><div class="spec-l">Corridor Full Build</div><div class="spec-v">$250K–$420K</div></div>
+  <div class="spec"><div class="spec-l">Active Capital Raise</div><div class="spec-v">$25,000</div></div>
+</div>
+
+<table>
+  <tr><th>Property</th><th>Type</th><th>Status</th><th>Value</th><th>Equity</th></tr>
+  <tr><td>535 Ethel, GR</td><td>LTR</td><td><span class="badge active">Active</span></td><td class="td-gold">~$289K</td><td class="td-green">~$221K</td></tr>
+  <tr><td>1032 Watson, GR</td><td>LTR</td><td><span class="badge active">Active</span></td><td class="td-gold">~$238K</td><td class="td-green">~$118K</td></tr>
+  <tr><td>320 Park, Bellaire</td><td>LTR + Split</td><td><span class="badge urgent">Raise Open</span></td><td class="td-gold">~$275K</td><td class="td-green">~$156K</td></tr>
+  <tr><td>315 Seneca, Bellaire</td><td>STR</td><td><span class="badge active">Active</span></td><td class="td-gold">~$314K</td><td class="td-green">~$65K</td></tr>
+  <tr><td>104 Court, Bellaire</td><td>Residence+ADU</td><td><span class="badge active">In Reno</span></td><td class="td-gold">~$244K</td><td class="td-green">~$244K</td></tr>
+  <tr><td>313 Seneca, Bellaire</td><td>Future STR</td><td><span class="badge future">Balloon Note</span></td><td class="td-gold">~$125K</td><td class="td-green">~$45K</td></tr>
+  <tr><td>316 Seneca (Home A)</td><td>Future STR</td><td><span class="badge future">Phase 2</span></td><td>—</td><td>—</td></tr>
+  <tr><td>314 Seneca (Home B)</td><td>Future STR</td><td><span class="badge future">Phase 2</span></td><td>—</td><td>—</td></tr>
+  <tr><td>101 Anne Street</td><td>Future Lot</td><td><span class="badge future">Lot Split</span></td><td>$45–85K</td><td>new equity</td></tr>
+  <tr><td>Orchid Bay D58, Belize</td><td>International</td><td><span class="badge future">Phase 4</span></td><td>—</td><td>—</td></tr>
+  <tr><td>San Juan del Sur, NIC</td><td>International</td><td><span class="badge future">Hold</span></td><td>—</td><td>—</td></tr>
+  <tr><td>Playa Yankee, NIC</td><td>International</td><td><span class="badge future">Hold</span></td><td>—</td><td>—</td></tr>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ACTIVE LTR
+══════════════════════════════════════════════════ -->
+<section id="active-ltr">
+<h2>Active LTR Properties</h2>
+
+<div class="prop-grid">
+  <div class="prop-card" style="--pcolor:#2ECC71">
+    <div class="prop-header">
+      <div><div class="prop-name">535 Ethel</div><div class="prop-addr">Grand Rapids, MI · Acquired Oct 2015</div></div>
+      <div class="prop-badge">LTR</div>
+    </div>
+    <div class="prop-stats">
+      <div class="ps"><div class="ps-l">Purchase Price</div><div class="ps-v">$92,000</div></div>
+      <div class="ps"><div class="ps-l">Est. Value</div><div class="ps-v">$289,400</div></div>
+      <div class="ps"><div class="ps-l">Loan Balance</div><div class="ps-v">$68,000</div></div>
+      <div class="ps"><div class="ps-l">Equity</div><div class="ps-v" style="color:var(--green)">~$221,400</div></div>
+      <div class="ps"><div class="ps-l">Rate / Term</div><div class="ps-v">4.75% / 30yr</div></div>
+      <div class="ps"><div class="ps-l">Monthly P&I</div><div class="ps-v">$354.72</div></div>
+      <div class="ps"><div class="ps-l">Current Rent</div><div class="ps-v">$1,500/mo</div></div>
+      <div class="ps"><div class="ps-l">LTV</div><div class="ps-v">23%</div></div>
+    </div>
+    <div class="prop-note">Lowest-LTV asset. $221K equity is primary leverage source for Bellaire Phase 2. HELOC or portfolio loan candidate. Every $250 rent increase = +$3,000/yr NOI.</div>
+  </div>
+
+  <div class="prop-card" style="--pcolor:#2ECC71">
+    <div class="prop-header">
+      <div><div class="prop-name">1032 Watson</div><div class="prop-addr">Grand Rapids, MI · Acquired Jun 2020</div></div>
+      <div class="prop-badge">LTR</div>
+    </div>
+    <div class="prop-stats">
+      <div class="ps"><div class="ps-l">Purchase Price</div><div class="ps-v">$149,000</div></div>
+      <div class="ps"><div class="ps-l">Est. Value</div><div class="ps-v">$238,000</div></div>
+      <div class="ps"><div class="ps-l">Loan Balance</div><div class="ps-v">$119,200</div></div>
+      <div class="ps"><div class="ps-l">Equity</div><div class="ps-v" style="color:var(--green)">~$118,800</div></div>
+      <div class="ps"><div class="ps-l">Rate / Term</div><div class="ps-v">4.5% / 30yr</div></div>
+      <div class="ps"><div class="ps-l">Monthly P&I</div><div class="ps-v">$603.97</div></div>
+      <div class="ps"><div class="ps-l">Current Rent</div><div class="ps-v">$1,900/mo</div></div>
+      <div class="ps"><div class="ps-l">LTV</div><div class="ps-v">50%</div></div>
+    </div>
+    <div class="prop-note">Highest monthly rent LTR. Combined with Ethel: $340K+ GR cluster equity for leverage. Both properties stabilise DSCR for Bellaire construction financing.</div>
+  </div>
+
+  <div class="prop-card" style="--pcolor:#2ECC71">
+    <div class="prop-header">
+      <div><div class="prop-name">320 Park</div><div class="prop-addr">Bellaire, MI · Active LTR + Lot Split</div></div>
+      <div class="prop-badge" style="border-color:var(--red);color:var(--red)">$25K Raise</div>
+    </div>
+    <div class="prop-stats">
+      <div class="ps"><div class="ps-l">Purchase Price</div><div class="ps-v">$149,000</div></div>
+      <div class="ps"><div class="ps-l">Est. Value</div><div class="ps-v">$275,000</div></div>
+      <div class="ps"><div class="ps-l">Loan Balance</div><div class="ps-v">~$119,000</div></div>
+      <div class="ps"><div class="ps-l">Equity</div><div class="ps-v" style="color:var(--green)">~$156,000</div></div>
+      <div class="ps"><div class="ps-l">Monthly P&I</div><div class="ps-v">$603.97</div></div>
+      <div class="ps"><div class="ps-l">Current Rent</div><div class="ps-v">$1,600/mo</div></div>
+    </div>
+    <div class="prop-note"><strong style="color:var(--red)">RAISE OPEN — $25,000</strong><br>Use: Retire high-interest debt + new furnace + survey/lot split to create 101 Anne Street parcel. Split cost ~$5K creates $45–85K new buildable equity (~16× return on split cost). Investor receives equity stake in 101 Anne Street parcel.</div>
+  </div>
+</div>
+
+<h4>LTR Rent Tier Reference</h4>
+<p>Card deck tiers: Tier 1 = $250 below current rent · Tier 2 = current · Tier 3 = +$250 · Tier 4 = +$500. Expenses stay fixed — shows pure NOI uplift from rent increases. Tenant pays utilities.</p>
+<table>
+  <tr><th>Property</th><th>Tier 1</th><th>Tier 2 (Current)</th><th>Tier 3</th><th>Tier 4</th></tr>
+  <tr><td>535 Ethel</td><td>$1,250/mo</td><td class="td-gold">$1,500/mo</td><td>$1,750/mo</td><td>$2,000/mo</td></tr>
+  <tr><td>1032 Watson</td><td>$1,650/mo</td><td class="td-gold">$1,900/mo</td><td>$2,150/mo</td><td>$2,400/mo</td></tr>
+  <tr><td>320 Park</td><td>$1,350/mo</td><td class="td-gold">$1,600/mo</td><td>$1,850/mo</td><td>$2,100/mo</td></tr>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ACTIVE STR
+══════════════════════════════════════════════════ -->
+<section id="active-str">
+<h2>Active STR — 315 Seneca "The Tara"</h2>
+
+<div class="prop-card" style="--pcolor:#E8C97A;max-width:100%">
+  <div class="prop-header">
+    <div><div class="prop-name">315 Seneca — "The Tara"</div><div class="prop-addr">Bellaire, MI · Intermediate River · Airbnb + VRBO · Acquired Aug 2021</div></div>
+    <div class="prop-badge">Mythic · Anchor</div>
+  </div>
+  <div class="prop-stats">
+    <div class="ps"><div class="ps-l">Purchase Price</div><div class="ps-v">$254,750</div></div>
+    <div class="ps"><div class="ps-l">Est. Value</div><div class="ps-v">$314,000</div></div>
+    <div class="ps"><div class="ps-l">Loan Balance</div><div class="ps-v">$249,000</div></div>
+    <div class="ps"><div class="ps-l">Monthly P&I</div><div class="ps-v">$1,261.65</div></div>
+    <div class="ps"><div class="ps-l">LTV</div><div class="ps-v">79%</div></div>
+    <div class="ps"><div class="ps-l">ADR (Airbnb)</div><div class="ps-v">~$260/night</div></div>
+    <div class="ps"><div class="ps-l">Parcel ID</div><div class="ps-v">05-46-124-044-00</div></div>
+    <div class="ps"><div class="ps-l">Cap Rate</div><div class="ps-v">4.60%</div></div>
+  </div>
+  <div class="prop-note">Riverfront access · Docks · Hillside gardens · Stair system to river · Anchor property for entire Seneca Corridor brand</div>
+</div>
+
+<h3>2024 P&L</h3>
+<table>
+  <tr><th>Line Item</th><th>Amount</th><th>Notes</th></tr>
+  <tr><td>Airbnb Revenue</td><td class="td-green">$16,148</td><td>Actual</td></tr>
+  <tr><td>VRBO Revenue</td><td class="td-green">$16,148</td><td>Estimated (VRBO data pending)</td></tr>
+  <tr><td><strong>Gross Revenue</strong></td><td class="td-gold">$32,296</td><td>Est. total</td></tr>
+  <tr><td>Mortgage P&I</td><td class="td-red">–$15,140</td><td>Annual</td></tr>
+  <tr><td>Tax + Insurance</td><td class="td-red">–$3,762</td><td>Annual</td></tr>
+  <tr><td>Platform Fees (~18%)</td><td class="td-red">–$5,812</td><td>Airbnb/VRBO combined</td></tr>
+  <tr><td>Supplies + Operations</td><td class="td-red">–$7,532</td><td>Cleaning, supplies, misc</td></tr>
+  <tr><td><strong>Est. Annual NOI</strong></td><td class="td-gold">~$50</td><td>Baseline — target $45–60K at optimisation</td></tr>
+</table>
+
+<div class="callout gold">
+  <div class="callout-title">Pending Data</div>
+  <p>VRBO actual revenue figure still needed. Using estimate only. Also need confirmed actual expense breakdown to finalise NOI.</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     BELLAIRE FUTURE
+══════════════════════════════════════════════════ -->
+<section id="bellaire-future">
+<h2>Bellaire Future Builds</h2>
+
+<h3>104 Court — Primary Residence + ADU</h3>
+<div class="prop-card" style="--pcolor:#5B8ED4">
+  <div class="prop-stats">
+    <div class="ps"><div class="ps-l">Purchase</div><div class="ps-v">$101,000</div></div>
+    <div class="ps"><div class="ps-l">Est. Value</div><div class="ps-v">$244,200</div></div>
+    <div class="ps"><div class="ps-l">Mortgage</div><div class="ps-v" style="color:var(--green)">None · Cash</div></div>
+    <div class="ps"><div class="ps-l">ADU Revenue</div><div class="ps-v">$30–50K/yr</div></div>
+  </div>
+  <div class="prop-note">Zero debt = ADU income is pure cashflow, no mortgage to service. Branded "Village Suite" within Tara River Homes. Owner proximity = lowest operating cost in portfolio.</div>
+</div>
+
+<h3>313 Seneca — Tower Home</h3>
+<div class="prop-card" style="--pcolor:#C9A84C">
+  <div class="prop-stats">
+    <div class="ps"><div class="ps-l">Purchase</div><div class="ps-v">$85,000</div></div>
+    <div class="ps"><div class="ps-l">Est. Value</div><div class="ps-v">$125,000</div></div>
+    <div class="ps"><div class="ps-l">Loan Balance</div><div class="ps-v">$80,000</div></div>
+    <div class="ps"><div class="ps-l">Note Type</div><div class="ps-v" style="color:var(--red)">5-Year Balloon</div></div>
+    <div class="ps"><div class="ps-l">STR Revenue</div><div class="ps-v">$45–80K/yr</div></div>
+    <div class="ps"><div class="ps-l">Parcel</div><div class="ps-v">05-46-150-043-00</div></div>
+  </div>
+  <div class="prop-note">Build triggers when balloon note comes due. 3-story Scandinavian modern tower. Premium ADR as unique architectural destination. Adjacent to 315 — resort integration potential.</div>
+</div>
+
+<h3>316 & 314 Seneca — Riverside Homes A & B</h3>
+<div class="prop-card" style="--pcolor:#9B6FD4">
+  <div class="prop-stats">
+    <div class="ps"><div class="ps-l">Home A Parcel</div><div class="ps-v">05-46-124-040-00</div></div>
+    <div class="ps"><div class="ps-l">Home B Parcel</div><div class="ps-v">05-46-124-039-01</div></div>
+    <div class="ps"><div class="ps-l">Revenue Each</div><div class="ps-v">$55–95K/yr</div></div>
+    <div class="ps"><div class="ps-l">Combined A+B</div><div class="ps-v">$110–190K/yr</div></div>
+  </div>
+  <div class="prop-note">Mirrored pair. Under-deck hot tub spas. Full glass river façade. Shared stair system from 315 Seneca. Separate private deck pathways. Phase 2 build.</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ARCHITECTURE SPECS
+══════════════════════════════════════════════════ -->
+<section id="architecture">
+<h2>Architecture Specs — Riverside Homes A & B</h2>
+<p>These specs are <strong>locked and final</strong>. Do not re-ask or re-propose alternatives to these unless explicitly instructed.</p>
+
+<div class="callout green">
+  <div class="callout-title">Status: Locked · Do Not Change</div>
+  <p>All dimensions and design decisions below were confirmed through extended design sessions. Build from these specs directly.</p>
+</div>
+
+<div class="spec-grid">
+  <div class="spec"><div class="spec-l">Width</div><div class="spec-v">36 feet</div></div>
+  <div class="spec"><div class="spec-l">Deck Depth</div><div class="spec-v">16 feet</div></div>
+  <div class="spec"><div class="spec-l">Style</div><div class="spec-v">Scandinavian Modern</div></div>
+  <div class="spec"><div class="spec-l">Roof Type</div><div class="spec-v">Shed Roof</div></div>
+  <div class="spec"><div class="spec-l">Roof Direction</div><div class="spec-v">High on river side</div></div>
+  <div class="spec"><div class="spec-l">Foundation</div><div class="spec-v">Hillside Piers</div></div>
+  <div class="spec"><div class="spec-l">Great Room Ceiling</div><div class="spec-v">10ft → 17ft vault</div></div>
+  <div class="spec"><div class="spec-l">Bedroom Ceilings</div><div class="spec-v">9 feet</div></div>
+  <div class="spec"><div class="spec-l">Bedrooms</div><div class="spec-v">Dual Masters</div></div>
+  <div class="spec"><div class="spec-l">A vs B</div><div class="spec-v">Mirrored floor plans</div></div>
+  <div class="spec"><div class="spec-l">Sliders</div><div class="spec-v">2 large multi-panel</div></div>
+  <div class="spec"><div class="spec-l">Fireplace</div><div class="spec-v">Corner · Side wall</div></div>
+  <div class="spec"><div class="spec-l">Hot Tub</div><div class="spec-v">Under-deck spa</div></div>
+  <div class="spec"><div class="spec-l">Privacy</div><div class="spec-v">Screening + LED lighting</div></div>
+  <div class="spec"><div class="spec-l">Entry</div><div class="spec-v">Side stair landing</div></div>
+  <div class="spec"><div class="spec-l">Exterior</div><div class="spec-v">Black metal + wood</div></div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     CARD DECK PROJECT
+══════════════════════════════════════════════════ -->
+<section id="card-deck">
+<h2>Property Card Deck — Project Status</h2>
+
+<div class="callout blue">
+  <div class="callout-title">Status: Built · Live on GitHub</div>
+  <p>File: <strong>tara-river-homes-cards.html</strong> · URL: https://fsiexperts.github.io/Financials-Dashboard/tara-river-homes-cards.html</p>
+</div>
+
+<h3>Design System</h3>
+<div class="spec-grid">
+  <div class="spec"><div class="spec-l">Primary Font</div><div class="spec-v">Playfair Display</div></div>
+  <div class="spec"><div class="spec-l">Body Font</div><div class="spec-v">Cormorant Garamond</div></div>
+  <div class="spec"><div class="spec-l">Mono Font</div><div class="spec-v">Courier Prime</div></div>
+  <div class="spec"><div class="spec-l">Primary Color</div><div class="spec-v">#C9A84C (Gold)</div></div>
+  <div class="spec"><div class="spec-l">Background</div><div class="spec-v">#0A0A0A (Black)</div></div>
+  <div class="spec"><div class="spec-l">Aesthetic</div><div class="spec-v">Luxury Black & Gold</div></div>
+  <div class="spec"><div class="spec-l">Card Height</div><div class="spec-v">600px (CSS var --ch)</div></div>
+  <div class="spec"><div class="spec-l">Flip Trigger</div><div class="spec-v">Click only (NOT hover)</div></div>
+</div>
+
+<h3>Rarity Tiers</h3>
+<table>
+  <tr><th>Class</th><th>Color</th><th>Properties</th></tr>
+  <tr><td>Mythic</td><td style="color:#E8C97A">#E8C97A</td><td>315 Seneca "The Tara"</td></tr>
+  <tr><td>Legendary</td><td style="color:#C9A84C">#C9A84C</td><td>313 Seneca Tower</td></tr>
+  <tr><td>Epic</td><td style="color:#9B6FD4">#9B6FD4</td><td>Riverside Homes A & B</td></tr>
+  <tr><td>LTR</td><td style="color:#2ECC71">#2ECC71</td><td>535 Ethel · 1032 Watson · 320 Park</td></tr>
+  <tr><td>Rare</td><td style="color:#5B8ED4">#5B8ED4</td><td>104 Court</td></tr>
+  <tr><td>Future</td><td style="color:#4A9B6F">#4A9B6F</td><td>101 Anne Street</td></tr>
+  <tr><td>International</td><td style="color:#4A8B9B">#4A8B9B</td><td>Belize · Nicaragua</td></tr>
+</table>
+
+<h3>Critical Flip Bug Fix</h3>
+<p>The "row drop" bug during card rotation was caused by <strong>perspective + preserve-3d on the same element</strong> causing browser layout recalculation mid-animation. Fixed by 3-layer separation:</p>
+<div class="code-block">
+.card-scene  — holds perspective · explicit px height · NEVER transforms itself
+.card-wrap   — plain sizing container · no 3D properties
+.card        — the rotator · translateZ(0) primes GPU layer from frame 1
+.cf / .cb    — faces · translateZ(1px) each have own compositing layer
+</div>
+
+<h3>Deferred Card Ideas</h3>
+<div class="callout gold">
+  <div class="callout-title">Save For Later — Do Not Execute Yet</div>
+  <p><strong>Value-Tier Color System:</strong> Card border/accent color based on property value:<br>
+  $0–150K = Bronze · $150–300K = Silver · $300–500K = Gold · $500–750K = Platinum · $750K–1M = Black · $1M+ = Obsidian<br><br>
+  <strong>Monopoly Game Layer:</strong> Full game mechanic overlay on the card deck system.</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     GITHUB SITE
+══════════════════════════════════════════════════ -->
+<section id="github">
+<h2>GitHub Site — Structure & Access</h2>
+
+<div class="spec-grid">
+  <div class="spec"><div class="spec-l">GitHub Username</div><div class="spec-v">FSIExperts</div></div>
+  <div class="spec"><div class="spec-l">Repository</div><div class="spec-v">Financials-Dashboard</div></div>
+  <div class="spec"><div class="spec-l">Visibility</div><div class="spec-v">Public</div></div>
+  <div class="spec"><div class="spec-l">Live URL</div><div class="spec-v">fsiexperts.github.io/Financials-Dashboard/</div></div>
+</div>
+
+<h3>File Structure</h3>
+<table>
+  <tr><th>File</th><th>URL Path</th><th>Status</th></tr>
+  <tr><td>index.html</td><td>/</td><td><span class="badge done">Live</span> Splash page</td></tr>
+  <tr><td>portfolio_monitor.html</td><td>/portfolio_monitor.html</td><td><span class="badge done">Live</span> Financial dashboard</td></tr>
+  <tr><td>tara-river-homes-cards.html</td><td>/tara-river-homes-cards.html</td><td><span class="badge done">Live</span> Property card deck</td></tr>
+  <tr><td>bible.html</td><td>/bible.html</td><td><span class="badge future">Add This File</span></td></tr>
+</table>
+
+<h3>How to Update Files</h3>
+<p>In your GitHub repo → <strong>Add file → Upload files</strong> → drag file in → <strong>Commit changes</strong>. Wait 60 seconds. Done. To replace an existing file, upload one with the exact same name — GitHub will overwrite it.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     BUSINESS PLAN
+══════════════════════════════════════════════════ -->
+<section id="business-plan">
+<h2>Strategic Business Plan — Not Yet Built</h2>
+
+<div class="callout red">
+  <div class="callout-title">Status: Queued · Not Started</div>
+  <p>This is a major outstanding deliverable. Investor and lender-ready document covering the full Seneca Corridor vision.</p>
+</div>
+
+<h3>What It Needs to Cover</h3>
+<p><strong>Executive Summary</strong> — Portfolio overview, current income, development vision, total addressable revenue.</p>
+<p><strong>Phase 1</strong> — 315 Seneca (active), 104 Court ADU (in renovation), 320 Park (current LTR + lot split).</p>
+<p><strong>Phase 2</strong> — Riverside Homes A & B construction. GR equity leverage strategy. Construction financing approach.</p>
+<p><strong>Phase 3</strong> — 313 Seneca Tower Home. Balloon note trigger date and refinance/build plan.</p>
+<p><strong>Phase 4</strong> — International holdings. Long-term hold and development strategy.</p>
+<p><strong>Financial Projections</strong> — Year 1 through Year 5 revenue, NOI, and equity growth at each phase.</p>
+<p><strong>Capital Raise Section</strong> — $25K raise details for 320 Park. Investor terms. Equity mechanics for 101 Anne Street.</p>
+<p><strong>Market Analysis</strong> — Bellaire/Northern Michigan STR market. Comparable properties and ADR benchmarks.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     FINANCIAL REFERENCE
+══════════════════════════════════════════════════ -->
+<section id="financials">
+<h2>Financial Reference</h2>
+
+<h3>Mortgage Payments</h3>
+<table>
+  <tr><th>Property</th><th>Monthly P&I</th><th>Annual P&I</th><th>Rate</th><th>Balance</th></tr>
+  <tr><td>535 Ethel</td><td>$354.72</td><td class="td-red">$4,257</td><td>4.75%</td><td>$68,000</td></tr>
+  <tr><td>1032 Watson</td><td>$603.97</td><td class="td-red">$7,248</td><td>4.5%</td><td>$119,200</td></tr>
+  <tr><td>320 Park</td><td>$603.97</td><td class="td-red">$7,248</td><td>—</td><td>~$119,000</td></tr>
+  <tr><td>315 Seneca</td><td>$1,261.65</td><td class="td-red">$15,140</td><td>—</td><td>$249,000</td></tr>
+  <tr><td>313 Seneca</td><td>—</td><td>—</td><td>Balloon</td><td>$80,000</td></tr>
+  <tr><td>104 Court</td><td class="td-green">$0</td><td class="td-green">$0</td><td>Cash</td><td>$0</td></tr>
+</table>
+
+<h3>Parcel IDs</h3>
+<table>
+  <tr><th>Property</th><th>Parcel ID</th></tr>
+  <tr><td>315 Seneca</td><td class="td-gold">05-46-124-044-00</td></tr>
+  <tr><td>316 Seneca (Home A)</td><td class="td-gold">05-46-124-040-00</td></tr>
+  <tr><td>314 Seneca (Home B)</td><td class="td-gold">05-46-124-039-01</td></tr>
+  <tr><td>313 Seneca</td><td class="td-gold">05-46-150-043-00</td></tr>
+</table>
+
+<h3>Pending Data — Still Needed</h3>
+<div class="callout red">
+  <div class="callout-title">Missing Information</div>
+  <p>
+    • <strong>VRBO actual revenue for 315 Seneca</strong> — currently using estimate only<br>
+    • <strong>Actual mortgage balance for 320 Park</strong> — currently ~$119K estimate<br>
+    • <strong>STR actual expense breakdown for 315 Seneca</strong> — cleaning, supplies, utilities detail<br>
+    • <strong>313 Seneca balloon note due date</strong> — triggers Phase 3 build timing
+  </p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     KEY DECISIONS LOG
+══════════════════════════════════════════════════ -->
+<section id="decisions">
+<h2>Key Decisions Log</h2>
+<p>Decisions made during our sessions that should not be re-debated.</p>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div><div class="tl-dot"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">Card Flip Trigger</div>
+      <div class="tl-text"><strong>Click only — never hover.</strong> Hover triggering caused layout drop bug. Fixed permanently with card-scene/card-wrap/card 3-layer separation.</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div><div class="tl-dot"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">LTR Tier System</div>
+      <div class="tl-text"><strong>4 tiers starting $250 below current rent.</strong> Tier 1 = rent–$250 · Tier 2 = current · Tier 3 = rent+$250 · Tier 4 = rent+$500. Expenses fixed. Visual = Monopoly green house icons.</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div><div class="tl-dot"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">Riverside Home Specs</div>
+      <div class="tl-text"><strong>Locked in full.</strong> 36×16ft deck, Scandinavian Modern, shed roof, hillside piers, dual masters mirrored, 10→17ft vault, under-deck hot tubs, black metal + wood exterior.</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div><div class="tl-dot"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">GitHub — Public Repo</div>
+      <div class="tl-text"><strong>Repo is public.</strong> Password protection on the HTML files themselves provides security. Free GitHub Pages requires public repo.</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div><div class="tl-dot"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">Photo System</div>
+      <div class="tl-text"><strong>Admin drag-and-drop, saves to localStorage.</strong> Photos persist on admin's device. Investors see SVG art until photos are baked into the HTML as base64.</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div><div class="tl-dot future"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">Value-Tier Colors — DEFERRED</div>
+      <div class="tl-text">Card border colors based on property value tiers. Save for next card revision. Do not execute until instructed.</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div><div class="tl-dot future"></div></div>
+    <div class="tl-content">
+      <div class="tl-label">Monopoly Game Layer — DEFERRED</div>
+      <div class="tl-text">Full game mechanic system for the card deck. Will be built in a dedicated new chat. Do not execute until instructed.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     NEXT STEPS
+══════════════════════════════════════════════════ -->
+<section id="next">
+<h2>Next Steps — Priority Order</h2>
+
+<table>
+  <tr><th>#</th><th>Task</th><th>Status</th><th>Notes</th></tr>
+  <tr><td>1</td><td>Upload bible.html to GitHub</td><td><span class="badge urgent">Do Now</span></td><td>Add this file to the repo</td></tr>
+  <tr><td>2</td><td>Get VRBO actual revenue for 315 Seneca</td><td><span class="badge urgent">Pending You</span></td><td>Updates STR P&L card</td></tr>
+  <tr><td>3</td><td>Confirm 320 Park mortgage balance</td><td><span class="badge urgent">Pending You</span></td><td>Needed for equity calc</td></tr>
+  <tr><td>4</td><td>Add real photo of 315 Seneca to card deck</td><td><span class="badge future">When Ready</span></td><td>Flagship card — highest priority photo</td></tr>
+  <tr><td>5</td><td>Add real photo of 320 Park</td><td><span class="badge future">When Ready</span></td><td>Raise is open — investors need to see it</td></tr>
+  <tr><td>6</td><td>Strategic Business Plan document</td><td><span class="badge future">New Chat</span></td><td>Major deliverable · investor/lender ready</td></tr>
+  <tr><td>7</td><td>Architecture drawings — Riverside Homes A & B</td><td><span class="badge future">New Chat</span></td><td>Specs locked · ready to build</td></tr>
+  <tr><td>8</td><td>Value-tier card color system</td><td><span class="badge future">Next Card Rev</span></td><td>Deferred — next revision only</td></tr>
+  <tr><td>9</td><td>Monopoly game layer</td><td><span class="badge future">New Chat</span></td><td>Dedicated session needed</td></tr>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     PASSWORDS
+══════════════════════════════════════════════════ -->
+<section id="passwords">
+<h2>Passwords & Access</h2>
+
+<div class="callout red">
+  <div class="callout-title">⚠ Keep This Page Private</div>
+  <p>This bible contains passwords. Do not share the bible URL publicly. Consider keeping this file out of GitHub or password-protecting it.</p>
+</div>
+
+<table>
+  <tr><th>System</th><th>Password</th><th>Access Level</th></tr>
+  <tr><td>Card Deck — Admin</td><td class="td-gold">bellaire2025</td><td>Full · Can upload photos · Edit mode</td></tr>
+  <tr><td>Card Deck — Investor</td><td class="td-gold">tarariver</td><td>Read-only · No edit controls</td></tr>
+  <tr><td>GitHub Account</td><td>—</td><td>FSIExperts · Your own credentials</td></tr>
+</table>
+
+<h3>Changing Passwords</h3>
+<p>In <strong>tara-river-homes-cards.html</strong>, find near the top of the script section:</p>
+<div class="code-block">
+const APWD = 'bellaire2025';   // ← admin password (you)
+const IPWD = 'tarariver';     // ← investor/family password
+</div>
+<p>Change, save, re-upload to GitHub. Takes effect immediately.</p>
+</section>
+
+</main>
+
+<script>
+// Highlight active nav link on scroll
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
