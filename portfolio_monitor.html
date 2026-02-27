@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anne's War Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #00ff9d;
+    --warn: #ffb800;
+    --danger: #ff3b5c;
+    --muted: #444460;
+    --text: #e8e8f0;
+    --dim: #888899;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    padding: 24px 16px;
+    background-image: radial-gradient(ellipse at 20% 20%, #0d1f1a 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 80%, #1a0d1f 0%, transparent 50%);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .title-block h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--accent);
+  }
+
+  .title-block p {
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 4px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .clock {
+    text-align: right;
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 1px;
+  }
+
+  .clock #time {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .clock #market-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+
+  .open { background: #00ff9d22; color: var(--accent); border: 1px solid var(--accent); }
+  .closed { background: #ff3b5c22; color: var(--danger); border: 1px solid var(--danger); }
+  .prepost { background: #ffb80022; color: var(--warn); border: 1px solid var(--warn); }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .card.status-hold::before { background: var(--accent); }
+  .card.status-watch::before { background: var(--warn); }
+  .card.status-exit::before { background: var(--danger); }
+  .card.status-add::before { background: #4488ff; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .ticker {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .shares {
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .price-block { text-align: right; }
+
+  .price {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .change {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .up { color: var(--accent); }
+  .down { color: var(--danger); }
+  .flat { color: var(--dim); }
+
+  .progress-section { margin-bottom: 12px; }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--dim);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: visible;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    position: relative;
+    transition: width 1s ease;
+  }
+
+  .stop-marker {
+    position: absolute;
+    top: -4px;
+    width: 2px;
+    height: 12px;
+    background: var(--danger);
+    border-radius: 1px;
+  }
+
+  .target-marker {
+    position: absolute;
+    top: -4px;
+    width: 2px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 1px;
+  }
+
+  .action-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .badge-hold { background: #00ff9d15; color: var(--accent); border: 1px solid #00ff9d40; }
+  .badge-watch { background: #ffb80015; color: var(--warn); border: 1px solid #ffb80040; }
+  .badge-exit { background: #ff3b5c15; color: var(--danger); border: 1px solid #ff3b5c40; }
+  .badge-add { background: #4488ff15; color: #4488ff; border: 1px solid #4488ff40; }
+  .badge-trade { background: #ff880015; color: #ff8800; border: 1px solid #ff880040; }
+
+  .thesis {
+    font-size: 10px;
+    color: var(--dim);
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 6px;
+  }
+
+  .alert-box {
+    background: #ffb80010;
+    border: 1px solid #ffb80040;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    color: var(--warn);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
+  .alert-box.danger {
+    background: #ff3b5c10;
+    border-color: #ff3b5c40;
+    color: var(--danger);
+  }
+
+  .alert-box.good {
+    background: #00ff9d10;
+    border-color: #00ff9d40;
+    color: var(--accent);
+  }
+
+  .catalysts {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+
+  .catalyst-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+
+  .catalyst-item:last-child { border-bottom: none; }
+
+  .catalyst-date {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--warn);
+    min-width: 80px;
+    font-size: 12px;
+  }
+
+  .catalyst-ticker {
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 50px;
+  }
+
+  .deploy-section {
+    background: var(--surface);
+    border: 1px solid #4488ff40;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+
+  .deploy-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4488ff;
+    margin-bottom: 14px;
+  }
+
+  .deploy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  .deploy-item {
+    background: #4488ff08;
+    border: 1px solid #4488ff25;
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .deploy-ticker {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #4488ff;
+    margin-bottom: 4px;
+  }
+
+  .deploy-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+  }
+
+  .deploy-why {
+    font-size: 10px;
+    color: var(--dim);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .cash-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #00ff9d08;
+    border: 1px solid #00ff9d30;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+  }
+
+  .cash-badge span:first-child {
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .cash-badge span:last-child {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .refresh-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--dim);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+  }
+
+  .refresh-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .spinning { animation: spin 1s linear infinite; display: inline-block; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  footer {
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .deploy-grid { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>⚡ WAR ROOM</h1>
+    <p>Anne's Portfolio Monitor — Feb 2026</p>
+  </div>
+  <div class="clock">
+    <span id="time">--:--:--</span>
+    <span id="market-status" class="closed">LOADING</span>
+  </div>
+</header>
+
+<div id="alerts-container"></div>
+
+<button class="refresh-btn" onclick="fetchPrices()">
+  <span id="refresh-icon">↻</span> REFRESH PRICES
+</button>
+
+<!-- WATCH LIST -->
+<div class="section-label">🎯 Active Watch — Stop-Limits Set</div>
+<div class="cards-grid" id="watch-cards"></div>
+
+<!-- CORE HOLDS -->
+<div class="section-label">💎 Core Holdings — AI Chip + Energy</div>
+<div class="cards-grid" id="core-cards"></div>
+
+<!-- CATALYSTS -->
+<div class="catalysts">
+  <div class="section-label" style="margin-bottom:14px">📅 Upcoming Catalysts</div>
+  <div class="catalyst-item">
+    <span class="catalyst-date">FEB 26</span>
+    <span class="catalyst-ticker">NVDA</span>
+    <span style="color:var(--warn)">Q4 Earnings after close — Blackwell demand, data center guidance. STOP SET ✓</span>
+  </div>
+  <div class="catalyst-item">
+    <span class="catalyst-date">FEB 26</span>
+    <span class="catalyst-ticker">RKLB</span>
+    <span style="color:var(--dim)">Q4 Earnings — 50% EPS growth expected, Neutron rocket update</span>
+  </div>
+  <div class="catalyst-item">
+    <span class="catalyst-date">FEB 26</span>
+    <span class="catalyst-ticker">RKT</span>
+    <span style="color:var(--dim)">Q4 Earnings — watch mortgage origination volume guidance</span>
+  </div>
+  <div class="catalyst-item">
+    <span class="catalyst-date">TONIGHT</span>
+    <span class="catalyst-ticker">SNOW</span>
+    <span style="color:var(--warn)">Q4 Earnings after close — ±12% move priced in. SET STOP TOMORROW MORNING</span>
+  </div>
+  <div class="catalyst-item">
+    <span class="catalyst-date">ONGOING</span>
+    <span class="catalyst-ticker">NFLX</span>
+    <span style="color:var(--dim)">WBD acquisition + DOJ probe — exit target $115-125. STOP SET ✓</span>
+  </div>
+</div>
+
+<!-- DEPLOY -->
+<div class="deploy-section">
+  <div class="cash-badge">
+    <span>IRA Cash Available</span>
+    <span>$7,752.07</span>
+  </div>
+  <div class="deploy-header">🚀 Deploy Into — Complete the AI Thesis</div>
+  <div class="deploy-grid">
+    <div class="deploy-item">
+      <div class="deploy-ticker">CEG</div>
+      <div class="deploy-amount">~$1,938</div>
+      <div class="deploy-why">Nuclear power + Microsoft AI contract. 20% off highs.</div>
+    </div>
+    <div class="deploy-item">
+      <div class="deploy-ticker">VST</div>
+      <div class="deploy-amount">~$1,938</div>
+      <div class="deploy-why">2nd largest nuclear fleet. AI always-on power demand.</div>
+    </div>
+    <div class="deploy-item">
+      <div class="deploy-ticker">MU</div>
+      <div class="deploy-amount">~$1,938</div>
+      <div class="deploy-why">High-bandwidth memory. Completes chip supply chain.</div>
+    </div>
+    <div class="deploy-item">
+      <div class="deploy-ticker">GEV</div>
+      <div class="deploy-amount">~$1,938</div>
+      <div class="deploy-why">Power infrastructure. $2B data center orders. 71% EPS growth.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  PRICES VIA YAHOO FINANCE — REFRESH MANUALLY — NOT FINANCIAL ADVICE — IRA ACCOUNT
+</footer>
+
+<script>
+const positions = {
+  watch: [
+    { ticker: 'NVDA', shares: 50, stop: 171, stopLimit: 169, target: null, action: 'STOP SET', badge: 'badge-watch', status: 'status-watch', thesis: 'STOP-LIMIT: $171/$169 GTC exp 02/27. Earnings tomorrow — Blackwell cycle. Exit if AMD erodes GPU market share.' },
+    { ticker: 'NVDL', shares: 50, stop: 70, stopLimit: 68, target: null, action: 'TRADE', badge: 'badge-trade', status: 'status-watch', thesis: 'STOP-LIMIT: $70/$68 GTC exp 02/27. 2x NVDA. Sell after earnings if up 15%+. Tighten stop after print.' },
+    { ticker: 'NFLX', shares: 45, stop: 72, stopLimit: 70, target: 125, action: 'TRADE', badge: 'badge-trade', status: 'status-watch', thesis: 'STOP-LIMIT: $72/$70. Exit TARGET: $115-125. WBD deal + DOJ probe overhang. Reversion trade only.' },
+    { ticker: 'SNOW', shares: 20, stop: null, stopLimit: null, target: null, action: 'WATCH', badge: 'badge-watch', status: 'status-watch', thesis: 'Earnings TONIGHT. ±12% move priced in. SET STOP TOMORROW MORNING after print. Planning to trim/exit.' },
+  ],
+  core: [
+    { ticker: 'AVGO', shares: 25, stop: null, stopLimit: null, target: 414, action: 'STRONG HOLD', badge: 'badge-hold', status: 'status-hold', thesis: 'AI custom chips doubling 2026. $73B backlog. Pays dividend. Mizuho "rare gift" at current price.' },
+    { ticker: 'AMD', shares: 18, stop: null, stopLimit: null, target: 267, action: 'HOLD', badge: 'badge-hold', status: 'status-hold', thesis: 'AI GPU #2. MI300X gaining enterprise traction. Watch data center revenue segment quarterly.' },
+    { ticker: 'LRCX', shares: 15, stop: null, stopLimit: null, target: null, action: 'HOLD', badge: 'badge-hold', status: 'status-hold', thesis: 'Chip equipment. Benefits whoever wins GPU wars. BofA top pick. Beats every quarter.' },
+    { ticker: 'XOM', shares: 51, stop: null, stopLimit: null, target: 157, action: 'HOLD', badge: 'badge-hold', status: 'status-hold', thesis: 'Energy ballast. AI gas demand tailwind. Strong dividend ~3.5%. Near 52-wk high.' },
+    { ticker: 'ET', shares: 750, stop: null, stopLimit: null, target: null, action: 'STRONG HOLD', badge: 'badge-hold', status: 'status-hold', thesis: 'Largest position. 7-8% distribution. Raised EBITDA guidance $17.85B. AI data center gas pipelines.' },
+    { ticker: 'HWM', shares: 20, stop: null, stopLimit: null, target: 320, action: 'STRONG HOLD', badge: 'badge-hold', status: 'status-hold', thesis: 'Just hit ATH. Record revenue +16% YoY. Raised guidance. JPM $320 target. Let winners run.' },
+  ]
+};
+
+let prices = {};
+
+function getMarketStatus() {
+  const now = new Date();
+  const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const h = et.getHours(), m = et.getMinutes();
+  const mins = h * 60 + m;
+  const day = et.getDay();
+  if (day === 0 || day === 6) return 'closed';
+  if (mins >= 240 && mins < 570) return 'prepost'; // 4am-9:30am
+  if (mins >= 570 && mins < 960) return 'open';    // 9:30am-4pm
+  if (mins >= 960 && mins < 1200) return 'prepost'; // 4pm-8pm
+  return 'closed';
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('time').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+  const status = getMarketStatus();
+  const el = document.getElementById('market-status');
+  el.className = status;
+  el.textContent = status === 'open' ? 'MARKET OPEN' : status === 'prepost' ? 'PRE/POST' : 'MARKET CLOSED';
+}
+
+async function fetchPrices() {
+  const icon = document.getElementById('refresh-icon');
+  icon.className = 'spinning';
+  icon.textContent = '↻';
+
+  const tickers = [...positions.watch, ...positions.core].map(p => p.ticker);
+
+  for (const ticker of tickers) {
+    try {
+      const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=2d`);
+      const data = await res.json();
+      const result = data.chart.result[0];
+      const meta = result.meta;
+      const current = meta.regularMarketPrice;
+      const prev = meta.chartPreviousClose || meta.previousClose;
+      const change = current - prev;
+      const changePct = (change / prev) * 100;
+      prices[ticker] = { current, prev, change, changePct };
+    } catch(e) {
+      prices[ticker] = null;
+    }
+  }
+
+  renderCards();
+  renderAlerts();
+  icon.className = '';
+  icon.textContent = '↻';
+}
+
+function pct(current, ref) {
+  return ((current - ref) / ref * 100).toFixed(1);
+}
+
+function renderCard(pos) {
+  const p = prices[pos.ticker];
+  const current = p ? p.current : null;
+
+  let priceHtml = current
+    ? `<div class="price">${current.toFixed(2)}</div>
+       <div class="change ${p.change >= 0 ? 'up' : 'down'}">
+         ${p.change >= 0 ? '▲' : '▼'} ${Math.abs(p.changePct).toFixed(2)}%
+       </div>`
+    : `<div class="price dim">---</div><div class="change flat">loading</div>`;
+
+  // Progress bar between stop and target
+  let progressHtml = '';
+  if (current && (pos.stop || pos.target)) {
+    const low = pos.stop ? pos.stop * 0.95 : current * 0.85;
+    const high = pos.target ? pos.target * 1.02 : current * 1.20;
+    const range = high - low;
+    const fillPct = Math.max(0, Math.min(100, ((current - low) / range) * 100));
+    const stopPct = pos.stop ? Math.max(0, Math.min(100, ((pos.stop - low) / range) * 100)) : null;
+    const targetPct = pos.target ? Math.max(0, Math.min(100, ((pos.target - low) / range) * 100)) : null;
+
+    const color = current < (pos.stop || 0) ? 'var(--danger)' :
+                  current > (pos.target || Infinity) ? 'var(--accent)' : 'var(--warn)';
+
+    progressHtml = `
+      <div class="progress-section">
+        <div class="progress-label">
+          <span>${pos.stop ? '🛑 $' + pos.stop : ''}</span>
+          <span style="color:var(--dim);font-size:9px">PRICE RANGE</span>
+          <span>${pos.target ? '🎯 $' + pos.target : ''}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${fillPct}%;background:${color}"></div>
+          ${stopPct !== null ? `<div class="stop-marker" style="left:${stopPct}%"></div>` : ''}
+          ${targetPct !== null ? `<div class="target-marker" style="left:${targetPct}%"></div>` : ''}
+        </div>
+      </div>`;
+  }
+
+  // Distance from stop
+  let stopNote = '';
+  if (current && pos.stop) {
+    const distPct = ((current - pos.stop) / pos.stop * 100).toFixed(1);
+    stopNote = `<div style="font-size:9px;color:var(--dim);margin-bottom:6px">
+      Stop is ${distPct}% away ${distPct > 0 ? '↑ safe' : '⚠️ NEAR'}
+    </div>`;
+  }
+
+  return `
+    <div class="card ${pos.status}">
+      <div class="card-top">
+        <div>
+          <div class="ticker">${pos.ticker}</div>
+          <div class="shares">${pos.shares} SHARES</div>
+        </div>
+        <div class="price-block">${priceHtml}</div>
+      </div>
+      <span class="action-badge ${pos.badge}">${pos.action}</span>
+      ${progressHtml}
+      ${stopNote}
+      <div class="thesis">${pos.thesis}</div>
+    </div>`;
+}
+
+function renderCards() {
+  document.getElementById('watch-cards').innerHTML = positions.watch.map(renderCard).join('');
+  document.getElementById('core-cards').innerHTML = positions.core.map(renderCard).join('');
+}
+
+function renderAlerts() {
+  const alerts = [];
+  const allPos = [...positions.watch, ...positions.core];
+
+  for (const pos of allPos) {
+    const p = prices[pos.ticker];
+    if (!p) continue;
+    const c = p.current;
+
+    if (pos.stop && c <= pos.stop * 1.03) {
+      alerts.push({ type: 'danger', msg: `⚠️ ${pos.ticker} NEAR STOP — Trading $${c.toFixed(2)}, stop at $${pos.stop}. Within 3%.` });
+    }
+    if (pos.target && c >= pos.target * 0.97) {
+      alerts.push({ type: 'good', msg: `🎯 ${pos.ticker} NEAR TARGET — Trading $${c.toFixed(2)}, target $${pos.target}. Consider taking profits.` });
+    }
+    if (pos.ticker === 'NVDL' && p.changePct >= 15) {
+      alerts.push({ type: 'good', msg: `🚀 NVDL UP ${p.changePct.toFixed(1)}% — Post-earnings trigger hit. Consider selling per plan.` });
+    }
+    if (pos.ticker === 'NVDA' && p.changePct <= -8) {
+      alerts.push({ type: 'danger', msg: `📉 NVDA DOWN ${Math.abs(p.changePct).toFixed(1)}% — Approaching stop territory. Stop-limit at $171/$169 should trigger.` });
+    }
+  }
+
+  const container = document.getElementById('alerts-container');
+  if (alerts.length === 0) {
+    container.innerHTML = `<div class="alert-box good" style="margin-bottom:20px">✓ ALL CLEAR — No positions near stops or targets. Last checked: ${new Date().toLocaleTimeString()}</div>`;
+  } else {
+    container.innerHTML = alerts.map(a =>
+      `<div class="alert-box ${a.type}" style="margin-bottom:8px">${a.msg}</div>`
+    ).join('');
+  }
+}
+
+// Init
+updateClock();
+setInterval(updateClock, 1000);
+fetchPrices();
+// Auto-refresh every 5 minutes
+setInterval(fetchPrices, 300000);
+</script>
+</body>
+</html>
