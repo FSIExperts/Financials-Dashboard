@@ -361,6 +361,8 @@ function frontPL(p,tier=2){
     return`<div class="fpl"><div class="fr inc"><span class="fl">Est. Annual Gross</span><span class="fv pos">${fm(inc)}</span></div><div class="fr exp"><span class="fl">Platform + Ops</span><span class="fv neg">${fm(exp)}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Est. NOI</span><span class="fv gld">${fm(noi)}<span class="fp">${pct}%</span></span></div></div>`;}
   return`<div class="fpl">${r.rows.slice(0,3).map(row=>`<div class="fr ${row.c==='inc'?'inc':row.c==='exp'?'exp':'noi'}"><span class="fl">${row.l}</span><span class="fv ${row.v>0?'pos':row.v<0?'neg':'gld'}">${row.v?fm(row.v):'—'}</span></div>`).join('')}${r.proj?`<div class="fr noi"><span class="fl" style="font-size:7px;color:var(--gold)">${r.proj}</span></div>`:''}</div>`;}
 
+function calcDSCR(p){const r=p.rev,e=p.exp;let noi=0;if(r.t==='ltr'){const c=calcLTR(r,2);noi=c.noi;}else if(r.t==='str'){const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);noi=inc+exp-e.pi;}else return null;if(!e.pi||e.pi<=0)return null;return(noi/e.pi).toFixed(2);}
+
 function revFace(p){const r=p.rev;let rows='';
   if(r.t==='ltr'){const c=calcLTR(r,2);
     rows=`<div class="rftp"><span class="rftpl">Tier</span><div class="htiers">${[1,2,3,4].map(t=>`<button class="tbtn${t===2?' active':''}" onclick="setRT(event,'${p.id}',${t})">${hi(t)}</button>`).join('')}</div></div><div id="rfl-${p.id}"><div class="rfr inc"><span class="rfl">Monthly Rent</span><span class="rfv pos">$${c.r.toLocaleString()}<span class="rfp">/mo</span></span></div><div class="rfr inc"><span class="rfl">Annual Gross</span><span class="rfv pos">${fm(c.ann)}</span></div><div class="rfr exp"><span class="rfl">Mortgage P&I</span><span class="rfv neg">${fm(-c.pi)}</span></div><div class="rfr exp"><span class="rfl">Tax + Insurance</span><span class="rfv neg">${fm(-c.tx)}</span></div><div class="rfr exp"><span class="rfl">Mgmt ${(r.mgmt*100).toFixed(0)}%</span><span class="rfv neg">${fm(-c.mg)}</span></div><div class="rfr tot"><span class="rfl" style="color:var(--gold)">Annual NOI</span><span class="rfv gld">${fm(c.noi)}<span class="rfp">${c.pct}%</span></span></div><div class="rfr proj"><span class="rfl">Tier 4 Potential</span><span class="rfv blu">${fm(calcLTR(r,4).noi)}<span class="rfp">${calcLTR(r,4).pct}%</span></span></div></div>`;}
@@ -369,19 +371,9 @@ function revFace(p){const r=p.rev;let rows='';
     if(inc>0&&exp<0)rows+=`<div class="rfr tot"><span class="rfl" style="color:var(--gold)">NOI</span><span class="rfv gld">${fm(noi)}<span class="rfp">${pct}%</span></span></div>`;
     if(r.proj)rows+=`<div class="rfr proj"><span class="rfl" style="font-size:7px">${r.proj}</span></div>`;}
   const dscr=calcDSCR(p);
-  const dscrRow=dscr?`<div class="rfr ${parseFloat(dscr)>=1.25?'inc':parseFloat(dscr)>=1?'tot':'exp'}"><span class="rfl">DSCR <span style="opacity:.5;font-size:6px">≥1.25 = lender ready</span></span><span class="rfv ${parseFloat(dscr)>=1.25?'pos':parseFloat(dscr)>=1?'gld':'neg'}">${dscr}×</span></div>`:'';
+  let dscrRow='';
+  if(dscr){const dv=parseFloat(dscr);const rc=dv>=1.25?'inc':dv>=1?'tot':'exp';const vc=dv>=1.25?'pos':dv>=1?'gld':'neg';dscrRow=`<div class="rfr ${rc}"><span class="rfl">DSCR <span style="opacity:.5;font-size:6px">1.25+ = lender ready</span></span><span class="rfv ${vc}">${dscr}x</span></div>`;}
   return`<div class="rfhd"><div><div class="rft">${p.name}</div><div class="rfs">Revenue Summary</div></div><div class="rfi">REV<br>SIDE</div></div><div class="rfd"></div><div class="rfrows">${rows}${dscrRow}</div><div class="rfft"><span class="rfftl">Tap again for expenses</span><span class="rfftv">${p.type}</span></div>`;}
-
-function calcDSCR(p){
-  // DSCR = NOI / Annual Debt Service (P&I only)
-  const r=p.rev,e=p.exp;
-  let noi=0;
-  if(r.t==='ltr'){const c=calcLTR(r,2);noi=c.noi;}
-  else if(r.t==='str'){const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);noi=inc+exp-e.pi;}
-  else return null;
-  if(!e.pi||e.pi<=0)return null;
-  return(noi/e.pi).toFixed(2);
-}
 
 function impLogHTML(pid){
   const items=loadImp(pid);
