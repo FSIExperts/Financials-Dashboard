@@ -3,544 +3,688 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Tara River Homes — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<title>Tara River Homes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --gold:#C9A84C;--gold-lt:#E8C97A;--gold-dk:#8B6914;
-  --black:#0A0A0A;--char:#161616;--char2:#1E1E1E;
-  --cream:#F5EDD9;--cream2:#DDD0B0;--silver:#888;
+  --black:#0A0A0A;--char:#161616;--cream:#F5EDD9;--cream2:#DDD0B0;--silver:#888;
   --green:#2ECC71;--red:#E07070;--blue:#4A8B9B;
-  --tier-bronze:#CD7F32;--tier-silver:#C0C0C0;--tier-gold:#C9A84C;
-  --tier-platinum:#E5E4E2;--tier-black:#777;--tier-obsidian:#9B6FD4;
-  --cw:480px;--ch:700px;--gap:24px;
+  --tb:#CD7F32;--ts:#C0C0C0;--tg:#C9A84C;--tp:#E5E4E2;--tk:#777;--to:#9B6FD4;
+  --cw:460px;--ch:700px;--gap:24px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{-webkit-text-size-adjust:100%;}
-body{background:var(--black);background-image:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.03) 0%,transparent 50%);min-height:100vh;font-family:'Cormorant Garamond',serif;color:var(--cream);overflow-x:hidden;}
+body{background:var(--black);min-height:100vh;font-family:"Cormorant Garamond",serif;color:var(--cream);overflow-x:hidden;}
 
-/* LOGIN */
-#loginScreen{position:fixed;inset:0;background:var(--black);display:flex;align-items:center;justify-content:center;z-index:9999;}
-.lbox{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(330px,90vw);}
-.llogo{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;background:linear-gradient(160deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;margin-bottom:4px;}
-.lname{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cream);}
-.lsub{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:16px;}
-.lbox input{width:100%;padding:13px 16px;background:var(--char);border:1px solid rgba(201,168,76,.3);color:var(--cream);font-family:'Courier Prime',monospace;font-size:18px;letter-spacing:8px;text-align:center;outline:none;border-radius:2px;transition:border-color .2s;}
-.lbox input:focus{border-color:var(--gold);}
-.lbox input::placeholder{letter-spacing:3px;font-size:11px;opacity:.4;}
-.lbox button{width:100%;padding:13px;background:var(--gold);color:var(--black);border:none;cursor:pointer;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;border-radius:2px;transition:background .2s;}
-.lbox button:hover{background:var(--gold-lt);}
-.lerr{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);min-height:16px;}
+#ls{position:fixed;inset:0;background:var(--black);display:flex;align-items:center;justify-content:center;z-index:9999;}
+.lb{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(320px,90vw);}
+.ll{font-family:"Playfair Display",serif;font-size:56px;font-weight:900;background:linear-gradient(160deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;}
+.ln{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;}
+.ls2{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:12px;}
+.lb input{width:100%;padding:13px 16px;background:var(--char);border:1px solid rgba(201,168,76,.3);color:var(--cream);font-family:"Courier Prime",monospace;font-size:18px;letter-spacing:8px;text-align:center;outline:none;border-radius:2px;transition:border-color .2s;}
+.lb input:focus{border-color:var(--gold);}
+.lb input::placeholder{letter-spacing:3px;font-size:11px;opacity:.4;}
+.lb button{width:100%;padding:13px;background:var(--gold);color:var(--black);border:none;cursor:pointer;font-family:"Courier Prime",monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;border-radius:2px;}
+.lb button:hover{background:var(--gold-lt);}
+.lerr{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);min-height:16px;}
 
-/* ADMIN BANNER */
-#adminBanner{display:none;align-items:center;justify-content:space-between;background:linear-gradient(90deg,rgba(201,168,76,.1),transparent);border-bottom:1px solid rgba(201,168,76,.2);padding:7px 32px;}
-#adminBanner.on{display:flex;}
-.abmsg{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.75;}
-.lout{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:4px 12px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;transition:all .2s;}
-.lout:hover{background:var(--gold);color:var(--black);}
+#ab{display:none;align-items:center;justify-content:space-between;background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.2);padding:7px 28px;}
+#ab.on{display:flex;}
+.abm{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.7;}
+.lo{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:4px 12px;cursor:pointer;font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;}
+.lo:hover{background:var(--gold);color:var(--black);}
 
-/* HEADER — compact */
 header{text-align:center;padding:18px 20px 10px;}
-.btag{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:5px;}
-h1{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,48px);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-lt) 0%,var(--gold) 40%,var(--gold-dk) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;margin-bottom:3px;}
-.hsub{font-style:italic;font-size:12px;color:var(--cream2);opacity:.55;margin-bottom:12px;}
-/* COLLAPSIBLE SUMMARY */
-.summ-wrap{margin:0 20px 10px;border:1px solid rgba(201,168,76,.18);border-radius:8px;overflow:hidden;}
-.summ-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:9px 18px;background:rgba(201,168,76,.06);border:none;cursor:pointer;font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);transition:background .2s;}
-.summ-toggle:hover{background:rgba(201,168,76,.1);}
-.summ-arrow{font-size:13px;transition:transform .3s;opacity:.6;}
-.summ-wrap.open .summ-arrow{transform:rotate(180deg);}
-.summ-body{display:none;padding:14px 18px 16px;background:var(--char);}
-.summ-wrap.open .summ-body{display:block;}
-.ssgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;}
-.sg{border-left:2px solid rgba(201,168,76,.2);padding-left:10px;}
-.sgl{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:2px;}
-.sgv{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);line-height:1;}
-.sgs{font-style:italic;font-size:11px;color:var(--silver);}
-.tleg{margin-top:14px;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);}
-.tlegtitle{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.45;margin-bottom:7px;}
-.tlegi{display:flex;gap:10px;flex-wrap:wrap;}
-.tlegitem{display:flex;align-items:center;gap:4px;}
-.tlegsw{width:10px;height:10px;border-radius:2px;}
-.tlegl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.6;}
+.btag{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:4px;}
+h1{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,50px);font-weight:900;background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;margin-bottom:3px;}
+.hs{font-style:italic;font-size:12px;color:var(--cream2);opacity:.55;margin-bottom:12px;}
 
-/* TABS */
-.tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding:0 16px;}
-.tab{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;padding:7px 15px;border:1px solid rgba(201,168,76,.3);background:transparent;color:var(--gold);cursor:pointer;transition:all .2s;}
-.tab:hover,.tab.active{background:var(--gold);color:var(--black);border-color:var(--gold);}
-.phint{text-align:center;font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);opacity:.35;margin-bottom:18px;}
+.tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;padding:0 16px;}
+.tab{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(201,168,76,.3);background:transparent;color:var(--gold);cursor:pointer;transition:all .2s;}
+.tab:hover,.tab.act{background:var(--gold);color:var(--black);border-color:var(--gold);}
+.ph{text-align:center;font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);opacity:.3;margin-bottom:10px;}
 
-/* SCROLL TRACK */
-.stw{position:relative;padding-bottom:36px;}
-.stw::before,.stw::after{content:'';position:absolute;top:0;bottom:36px;width:60px;z-index:10;pointer-events:none;}
-.stw::before{left:0;background:linear-gradient(to right,var(--black),transparent);}
-.stw::after{right:0;background:linear-gradient(to left,var(--black),transparent);}
-.st{display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:18px 64px;scrollbar-width:none;}
-.st::-webkit-scrollbar{display:none;}
-.sarrow{position:absolute;top:calc(50% - 18px);transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(22,22,22,.92);border:1px solid rgba(201,168,76,.35);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:20;backdrop-filter:blur(6px);}
-.sarrow:hover{background:var(--gold);color:var(--black);}
-.sarrow.sl{left:10px;}
-.sarrow.sr{right:10px;}
+.sw{margin:0 20px 10px;border:1px solid rgba(201,168,76,.18);border-radius:6px;overflow:hidden;}
+.st2{width:100%;display:flex;justify-content:space-between;align-items:center;padding:9px 18px;background:rgba(201,168,76,.06);border:none;cursor:pointer;font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+.sa{font-size:12px;transition:transform .3s;opacity:.6;}
+.sw.op .sa{transform:rotate(180deg);}
+.sb{display:none;padding:14px 18px 16px;background:var(--char);}
+.sw.op .sb{display:block;}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;}
+.si{border-left:2px solid rgba(201,168,76,.2);padding-left:10px;}
+.sil{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:2px;}
+.siv{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--cream);line-height:1;}
+.sis{font-style:italic;font-size:11px;color:var(--silver);}
+.tl{margin-top:12px;padding-top:10px;border-top:1px solid rgba(201,168,76,.1);}
+.tlt{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.45;margin-bottom:6px;}
+.tli{display:flex;gap:10px;flex-wrap:wrap;}
+.tlic{display:flex;align-items:center;gap:4px;}
+.tlisw{width:9px;height:9px;border-radius:2px;}
+.tlil{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.6;}
 
-/* CARD SCENE / WRAP / CARD — flip bug fix */
-.cs{perspective:1400px;perspective-origin:50% 50%;flex-shrink:0;width:var(--cw);height:var(--ch);scroll-snap-align:start;transform:none !important;cursor:pointer;}
-.cs.hidden{display:none;}
-.cs.p1 .card{transform:translateZ(0) rotateY(180deg);}
-.cs.p2 .card{transform:translateZ(0) rotateY(360deg);}
-.cw{width:100%;height:var(--ch);position:relative;isolation:isolate;}
-.card{width:100%;height:var(--ch);position:absolute;top:0;left:0;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,.2,.2,1);will-change:transform;transform:translateZ(0) rotateY(0deg);}
-.face{position:absolute;inset:0;width:100%;height:var(--ch);backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden;transform:translateZ(1px);}
-.frev{transform:translateZ(1px) rotateY(180deg);}
-.fexp{transform:translateZ(1px) rotateY(360deg);}
+.trw{position:relative;padding-bottom:32px;}
+.trw::before,.trw::after{content:"";position:absolute;top:0;bottom:32px;width:50px;z-index:10;pointer-events:none;}
+.trw::before{left:0;background:linear-gradient(to right,var(--black),transparent);}
+.trw::after{right:0;background:linear-gradient(to left,var(--black),transparent);}
+.tr{display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:16px 60px;scrollbar-width:none;}
+.tr::-webkit-scrollbar{display:none;}
+.arr{position:absolute;top:calc(50% - 16px);width:36px;height:36px;border-radius:50%;background:rgba(22,22,22,.95);border:1px solid rgba(201,168,76,.35);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:20;}
+.arr:hover{background:var(--gold);color:var(--black);}
+.arl{left:10px;}.arr2{right:10px;}
 
-/* VALUE TIER — border color via CSS var */
-[data-tier="bronze"]{--tc:var(--tier-bronze);}
-[data-tier="silver"]{--tc:var(--tier-silver);}
-[data-tier="gold"]{--tc:var(--tier-gold);}
-[data-tier="platinum"]{--tc:var(--tier-platinum);}
-[data-tier="black"]{--tc:var(--tier-black);}
-[data-tier="obsidian"]{--tc:var(--tier-obsidian);}
+.cs{perspective:1400px;flex-shrink:0;width:var(--cw);height:var(--ch);scroll-snap-align:start;cursor:pointer;}
+.cs.hid{display:none;}
+.cw2{width:100%;height:var(--ch);position:relative;}
+.card{width:100%;height:var(--ch);position:absolute;top:0;left:0;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,.2,.2,1);transform:rotateY(0deg);}
+.cs.p1 .card{transform:rotateY(180deg);}
+.cs.p2 .card{transform:rotateY(360deg);}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;overflow:hidden;}
+.fr2{transform:rotateY(180deg);}
+.fe{transform:rotateY(360deg);}
+
+[data-tier="bronze"]{--tc:var(--tb);}
+[data-tier="silver"]{--tc:var(--ts);}
+[data-tier="gold"]{--tc:var(--tg);}
+[data-tier="platinum"]{--tc:var(--tp);}
+[data-tier="black"]{--tc:var(--tk);}
+[data-tier="obsidian"]{--tc:var(--to);}
 [data-tier="tbd"]{--tc:var(--silver);}
 
-/* FRONT FACE */
-.ff{background:var(--char);border:1px solid rgba(201,168,76,.1);border-top:3px solid var(--tc,var(--gold));display:flex;flex-direction:column;position:relative;}
-.ff::before,.ff::after{content:'';position:absolute;width:20px;height:20px;border-color:var(--tc,var(--gold));border-style:solid;opacity:.45;z-index:10;pointer-events:none;}
-.ff::before{top:12px;left:12px;border-width:1px 0 0 1px;}
-.ff::after{bottom:12px;right:12px;border-width:0 1px 1px 0;}
-.tbadge{position:absolute;top:10px;right:12px;z-index:20;font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border:1px solid var(--tc,var(--gold));color:var(--tc,var(--gold));background:rgba(10,10,10,.82);backdrop-filter:blur(4px);}
+.ff2{background:var(--char);border:1px solid rgba(201,168,76,.1);border-top:3px solid var(--tc,var(--gold));display:flex;flex-direction:column;position:relative;}
+.ff2::before,.ff2::after{content:"";position:absolute;width:18px;height:18px;border-color:var(--tc,var(--gold));border-style:solid;opacity:.4;z-index:10;pointer-events:none;}
+.ff2::before{top:10px;left:10px;border-width:1px 0 0 1px;}
+.ff2::after{bottom:10px;right:10px;border-width:0 1px 1px 0;}
+.tbg{position:absolute;top:10px;right:10px;z-index:20;font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border:1px solid var(--tc,var(--gold));color:var(--tc,var(--gold));background:rgba(10,10,10,.85);}
 
-/* ART ZONE */
-.az{height:190px;flex-shrink:0;position:relative;overflow:hidden;background:#0a0a0a;}
-.az .asvg{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
-.az img.pp{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;display:none;}
-.az.hp .asvg{display:none;}
+.az{height:195px;flex-shrink:0;position:relative;overflow:hidden;background:#0a0a0a;}
+.az svg{position:absolute;inset:0;width:100%;height:100%;}
+.az img.pp{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;}
+.az.hp svg{display:none;}
 .az.hp img.pp{display:block;}
-.ag{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.75) 100%);}
-.rbadge{position:absolute;bottom:10px;left:12px;z-index:5;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--tc,var(--gold));border-left:2px solid var(--tc,var(--gold));padding-left:5px;background:rgba(10,10,10,.55);backdrop-filter:blur(4px);}
-.pbtn{display:none;position:absolute;bottom:10px;right:12px;z-index:6;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;background:rgba(10,10,10,.85);border:1px solid var(--gold);color:var(--gold);cursor:pointer;transition:all .2s;}
+.ag{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.75) 100%);}
+.rb{position:absolute;bottom:10px;left:12px;z-index:5;font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--tc,var(--gold));border-left:2px solid var(--tc,var(--gold));padding-left:5px;background:rgba(10,10,10,.55);}
+.pbtn{display:none;position:absolute;bottom:10px;right:12px;z-index:6;font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;background:rgba(10,10,10,.85);border:1px solid var(--gold);color:var(--gold);cursor:pointer;}
 .pbtn:hover{background:var(--gold);color:var(--black);}
 body.admin .pbtn{display:block;}
 
-/* PROP IDENTITY */
-.pid{padding:9px 15px 3px;flex-shrink:0;}
-.pnum{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;color:var(--tc,var(--gold));opacity:.42;margin-bottom:1px;}
-.pname{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--cream);line-height:1.1;}
-.pnick{font-style:italic;font-size:12px;opacity:.6;}
-.padr{font-style:italic;font-size:10px;color:var(--silver);margin-top:1px;}
+.pid{padding:10px 16px 3px;flex-shrink:0;}
+.pnum{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:3px;color:var(--tc,var(--gold));opacity:.4;margin-bottom:1px;}
+.pname{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:var(--cream);line-height:1.1;}
+.pnick{font-style:italic;font-size:13px;opacity:.6;}
+.padr{font-style:italic;font-size:11px;color:var(--silver);margin-top:1px;}
 
-/* VITALS STRIP */
-.vits{display:flex;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);margin:5px 0 0;flex-shrink:0;}
-.vit{flex:1;padding:5px 6px;border-right:1px solid rgba(255,255,255,.04);text-align:center;}
+.vits{display:flex;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);margin:6px 0 0;flex-shrink:0;}
+.vit{flex:1;padding:6px 6px;border-right:1px solid rgba(255,255,255,.04);text-align:center;}
 .vit:last-child{border-right:none;}
-.vitl{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver);opacity:.55;margin-bottom:1px;}
-.vitv{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--tc,var(--gold));}
+.vitl{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver);opacity:.55;margin-bottom:1px;}
+.vitv{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--tc,var(--gold));}
 
-.cline{height:1px;margin:0 15px;background:linear-gradient(to right,var(--tc,var(--gold)),transparent);opacity:.18;flex-shrink:0;}
+.cln{height:1px;margin:0 14px;background:linear-gradient(to right,var(--tc,var(--gold)),transparent);opacity:.18;flex-shrink:0;}
 
-/* FRONT P&L */
-.fpl{flex:1;padding:4px 13px 5px;display:flex;flex-direction:column;gap:2px;overflow:hidden;}
-.fr{display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:2px;}
-.fr.inc{background:rgba(46,204,113,.07);border-left:2px solid var(--green);}
-.fr.exp{background:rgba(255,255,255,.02);border-left:2px solid rgba(255,255,255,.06);}
-.fr.noi{background:rgba(201,168,76,.09);border-left:2px solid var(--gold);margin-top:1px;}
-.fl{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.fv{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;}
-.fv.pos{color:var(--green);}.fv.neg{color:var(--red);}.fv.gld{color:var(--gold);}
-.fp{font-family:'Courier Prime',monospace;font-size:7.5px;color:var(--silver);opacity:.6;margin-left:3px;}
-.hrow{display:flex;align-items:center;gap:6px;padding:4px 13px 2px;flex-shrink:0;}
-.hlbl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.7;flex-shrink:0;}
+.fpl{flex:1;padding:5px 14px 5px;display:flex;flex-direction:column;gap:3px;overflow:hidden;}
+.ro{display:flex;justify-content:space-between;align-items:center;padding:4px 7px;border-radius:2px;}
+.ro.inc{background:rgba(46,204,113,.07);border-left:2px solid var(--green);}
+.ro.exp{background:rgba(255,255,255,.02);border-left:2px solid rgba(255,255,255,.06);}
+.ro.noi{background:rgba(201,168,76,.09);border-left:2px solid var(--gold);margin-top:2px;}
+.rl{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
+.rv{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;}
+.rv.pos{color:var(--green);}.rv.neg{color:var(--red);}.rv.gld{color:var(--gold);}.rv.blu{color:var(--blue);}
+.rp{font-family:"Courier Prime",monospace;font-size:8px;color:var(--silver);opacity:.6;margin-left:3px;}
+
+.hrow{display:flex;align-items:center;gap:6px;padding:4px 14px 2px;flex-shrink:0;}
+.hlbl{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.7;flex-shrink:0;}
 .htiers{display:flex;gap:3px;}
-.tbtn{background:none;border:1px solid transparent;cursor:pointer;padding:2px 3px;border-radius:2px;opacity:.28;transition:all .15s;display:flex;gap:1px;align-items:flex-end;}
-.tbtn:hover{opacity:.6;}.tbtn.active{opacity:1;border-color:rgba(46,204,113,.4);background:rgba(46,204,113,.07);}
+.tbtn{background:none;border:1px solid transparent;cursor:pointer;padding:2px 3px;border-radius:2px;opacity:.25;transition:all .15s;display:flex;gap:1px;align-items:flex-end;}
+.tbtn:hover{opacity:.6;}.tbtn.act{opacity:1;border-color:rgba(46,204,113,.4);background:rgba(46,204,113,.07);}
 
-/* TAP HINT / DOTS */
-.taphint{flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:5px 15px 9px;}
+.dts{flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:5px 16px 9px;}
 .dots{display:flex;gap:5px;}
-.dot{width:5px;height:5px;border-radius:50%;background:rgba(201,168,76,.18);transition:background .3s;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.18);transition:background .3s;}
 .dot.on{background:var(--gold);}
-.dotlbl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.28;}
+.dtl{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.28;}
 
-/* REVENUE FACE */
-.rf{background:var(--char);border:1px solid rgba(46,204,113,.14);border-top:3px solid var(--green);display:flex;flex-direction:column;padding:13px 15px 11px;}
-.rfhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
-.rft{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);}
-.rfs{font-style:italic;font-size:10px;color:var(--silver);}
-.rfi{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;color:var(--green);opacity:.45;text-align:right;}
-.rfd{height:1px;margin-bottom:9px;background:linear-gradient(to right,var(--green),transparent);opacity:.2;}
-.rfrows{display:flex;flex-direction:column;gap:2.5px;flex:1;overflow:hidden;}
-.rfr{display:flex;justify-content:space-between;align-items:center;padding:3.5px 7px;border-radius:2px;}
-.rfr.inc{background:rgba(46,204,113,.07);border-left:2px solid var(--green);}
-.rfr.exp{background:rgba(255,255,255,.02);border-left:2px solid rgba(255,255,255,.06);}
-.rfr.tot{background:rgba(201,168,76,.1);border-left:2px solid var(--gold);margin-top:3px;}
-.rfr.proj{background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px;}
-.rfl{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.rfv{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;}
-.rfv.pos{color:var(--green);}.rfv.neg{color:var(--red);}.rfv.gld{color:var(--gold);}.rfv.blu{color:var(--blue);}
-.rfp{font-family:'Courier Prime',monospace;font-size:7.5px;color:var(--silver);opacity:.6;margin-left:3px;}
+.rface{background:var(--char);border:1px solid rgba(46,204,113,.14);border-top:3px solid var(--green);display:flex;flex-direction:column;padding:14px 16px 12px;}
+.rfhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.rft{font-family:"Playfair Display",serif;font-size:16px;font-weight:700;color:var(--cream);}
+.rfs{font-style:italic;font-size:11px;color:var(--silver);}
+.rfi{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;color:var(--green);opacity:.45;text-align:right;}
+.rfd{height:1px;margin-bottom:10px;background:linear-gradient(to right,var(--green),transparent);opacity:.2;}
+.rfrs{display:flex;flex-direction:column;gap:3px;flex:1;overflow:hidden;}
+.rfft{margin-top:auto;padding-top:8px;border-top:1px solid rgba(46,204,113,.1);display:flex;justify-content:space-between;}
+.rfftl{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.45;}
+.rfftv{font-family:"Playfair Display",serif;font-size:11px;color:var(--silver);}
 .rftp{display:flex;align-items:center;gap:7px;padding:3px 7px;margin-bottom:3px;background:rgba(46,204,113,.04);border-radius:2px;}
-.rftpl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.7;}
-.rfft{margin-top:auto;padding-top:7px;border-top:1px solid rgba(46,204,113,.1);display:flex;justify-content:space-between;align-items:center;}
-.rfftl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.45;}
-.rfftv{font-family:'Playfair Display',serif;font-size:10px;color:var(--silver);}
+.rftpl{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.7;}
 
-/* EXPENSE FACE */
-.ef{background:var(--char);border:1px solid rgba(224,112,112,.14);border-top:3px solid var(--red);display:flex;flex-direction:column;padding:13px 15px 11px;}
-.efhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
-.eft{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);}
-.efs{font-style:italic;font-size:10px;color:var(--silver);}
-.efi{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;color:var(--red);opacity:.45;text-align:right;}
-.efd{height:1px;margin-bottom:9px;background:linear-gradient(to right,var(--red),transparent);opacity:.2;}
-.efrows{display:flex;flex-direction:column;gap:2.5px;flex:1;overflow:hidden;}
-.efr{display:flex;justify-content:space-between;align-items:center;padding:3.5px 7px;border-radius:2px;}
-.efr.exp{background:rgba(224,112,112,.06);border-left:2px solid rgba(224,112,112,.4);}
-.efr.tot{background:rgba(201,168,76,.1);border-left:2px solid var(--gold);margin-top:3px;}
-.efr.eq{background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px;}
-.efr.apr{background:rgba(46,204,113,.07);border-left:2px solid var(--green);margin-top:2px;}
-.efl{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.efv{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;}
-.efv.neg{color:var(--red);}.efv.gld{color:var(--gold);}.efv.pos{color:var(--green);}.efv.blu{color:var(--blue);}
-.efp{font-family:'Courier Prime',monospace;font-size:7.5px;color:var(--silver);opacity:.6;margin-left:3px;}
-.eqbar{margin:5px 0;}
-.eqtrack{height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
-.eqfill{height:100%;background:linear-gradient(to right,var(--red) 0%,var(--gold) 50%,var(--green) 100%);border-radius:3px;}
-.eqlbls{display:flex;justify-content:space-between;margin-top:2px;}
-.eqll{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.5;}
-.efft{margin-top:auto;padding-top:7px;border-top:1px solid rgba(224,112,112,.1);}
-.efftl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.4;line-height:1.5;}
+.eface{background:var(--char);border:1px solid rgba(224,112,112,.14);border-top:3px solid var(--red);display:flex;flex-direction:column;padding:14px 16px 12px;}
+.efhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.eft{font-family:"Playfair Display",serif;font-size:16px;font-weight:700;color:var(--cream);}
+.efs{font-style:italic;font-size:11px;color:var(--silver);}
+.efi{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;color:var(--red);opacity:.45;text-align:right;}
+.efd{height:1px;margin-bottom:10px;background:linear-gradient(to right,var(--red),transparent);opacity:.2;}
+.efrs{display:flex;flex-direction:column;gap:3px;flex:1;overflow:hidden;}
+.eqb{margin:5px 0;}
+.eqt{height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.eqf{height:100%;background:linear-gradient(to right,var(--red),var(--gold),var(--green));border-radius:3px;}
+.eqls{display:flex;justify-content:space-between;margin-top:2px;}
+.eql{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.5;}
 
-/* IMPROVEMENTS LOG */
-.implog{margin-top:6px;border-top:1px solid rgba(201,168,76,.12);padding-top:6px;}
-.implhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
-.impltitle{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.55;}
-.impladdbtn{display:none;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);cursor:pointer;transition:all .2s;}
-.impladdbtn:hover{background:var(--gold);color:var(--black);}
-body.admin .impladdbtn{display:block;}
-.implist{display:flex;flex-direction:column;gap:2px;max-height:120px;overflow-y:auto;scrollbar-width:none;}
-.implist::-webkit-scrollbar{display:none;}
-.impitem{display:flex;align-items:center;gap:4px;padding:3px 6px;border-radius:2px;position:relative;}
-.impitem.done{background:rgba(46,204,113,.06);border-left:2px solid rgba(46,204,113,.35);}
-.impitem.forecast{background:rgba(74,139,155,.06);border-left:2px solid rgba(74,139,155,.35);}
-.impitem-date{font-family:'Courier Prime',monospace;font-size:7px;color:var(--silver);opacity:.55;flex-shrink:0;min-width:34px;}
-.impitem-desc{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--cream2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.impitem-amt{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;flex-shrink:0;}
-.impitem.done .impitem-amt{color:var(--red);}
-.impitem.forecast .impitem-amt{color:var(--blue);}
-.impitem-del{display:none;position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--red);opacity:.4;cursor:pointer;font-size:11px;padding:0 2px;line-height:1;}
-.impitem-del:hover{opacity:1;}
-body.admin .impitem-del{display:block;}
-/* Editable inputs on items in admin mode */
-.impitem input.ei{background:transparent;border:none;outline:none;color:inherit;font:inherit;width:100%;padding:0;}
-.impitem input.ei:focus{background:rgba(255,255,255,.04);border-radius:1px;}
-.impempty{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;padding:3px 6px;}
-/* Add row form (admin only) */
-.impadd{display:none;margin-top:4px;padding:5px 6px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:2px;gap:4px;flex-wrap:wrap;}
-body.admin .impadd.open{display:flex;}
-.impadd input,.impadd select{background:var(--char);border:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Courier Prime',monospace;font-size:9px;padding:3px 5px;outline:none;border-radius:1px;}
-.impadd input:focus,.impadd select:focus{border-color:var(--gold);}
-.impadd input.ia-date{width:58px;}
-.impadd input.ia-desc{flex:1;min-width:80px;}
-.impadd input.ia-amt{width:64px;}
-.impadd select.ia-type{width:72px;}
-.impadd button{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border:none;cursor:pointer;border-radius:1px;}
-.impadd .ia-save{background:var(--gold);color:var(--black);}
-.impadd .ia-cancel{background:rgba(255,255,255,.06);color:var(--silver);}
+.imp{margin-top:6px;border-top:1px solid rgba(201,168,76,.12);padding-top:6px;}
+.imph{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.impt{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.55;}
+.impab{display:none;font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);cursor:pointer;}
+.impab:hover{background:var(--gold);color:var(--black);}
+body.admin .impab{display:block;}
+.impl{display:flex;flex-direction:column;gap:2px;max-height:110px;overflow-y:auto;scrollbar-width:none;}
+.impl::-webkit-scrollbar{display:none;}
+.ii{display:flex;align-items:center;gap:4px;padding:3px 6px;border-radius:2px;position:relative;}
+.ii.done{background:rgba(46,204,113,.06);border-left:2px solid rgba(46,204,113,.35);}
+.ii.fore{background:rgba(74,139,155,.06);border-left:2px solid rgba(74,139,155,.35);}
+.iid{font-family:"Courier Prime",monospace;font-size:7px;color:var(--silver);opacity:.55;flex-shrink:0;min-width:34px;}
+.iis{font-family:"Cormorant Garamond",serif;font-size:13px;color:var(--cream2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.iia{font-family:"Playfair Display",serif;font-size:13px;font-weight:700;flex-shrink:0;}
+.ii.done .iia{color:var(--red);}.ii.fore .iia{color:var(--blue);}
+.iidel{display:none;position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--red);opacity:.4;cursor:pointer;font-size:12px;padding:0 2px;}
+.iidel:hover{opacity:1;}
+body.admin .iidel{display:block;}
+.impmt{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;padding:3px 6px;}
+.impaf{display:none;margin-top:4px;padding:5px 6px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:2px;gap:4px;flex-wrap:wrap;}
+body.admin .impaf.op{display:flex;}
+.impaf input,.impaf select{background:var(--char);border:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:"Courier Prime",monospace;font-size:9px;padding:3px 5px;outline:none;border-radius:1px;}
+.impaf input:focus,.impaf select:focus{border-color:var(--gold);}
+.iad{width:54px;}.ias{flex:1;min-width:80px;}.iaa{width:64px;}.iat{width:72px;}
+.impaf button{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border:none;cursor:pointer;border-radius:1px;}
+.iasv{background:var(--gold);color:var(--black);}.iacn{background:rgba(255,255,255,.06);color:var(--silver);}
 
+footer{border-top:1px solid rgba(201,168,76,.1);padding:12px 28px;margin-top:6px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.flogo{font-family:"Playfair Display",serif;font-size:12px;font-weight:700;color:var(--gold);opacity:.4;}
+.fcopy{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;}
 
-/* SUMMARY */
-.ss-scene{flex-shrink:0;width:min(calc(100vw - 128px),720px);height:var(--ch);scroll-snap-align:start;}
-.ss-inner{width:100%;height:100%;background:var(--char);border:1px solid rgba(201,168,76,.22);border-top:3px solid var(--gold);border-radius:14px;padding:26px 28px;display:flex;flex-direction:column;overflow:hidden;}
-.sstitle{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px;}
-.ssgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;flex:1;}
-.sg{border-left:2px solid rgba(201,168,76,.2);padding-left:9px;}
-.sgl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:2px;}
-.sgv{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cream);line-height:1;}
-.sgs{font-style:italic;font-size:10px;color:var(--silver);}
-.tleg{margin-top:14px;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);}
-.tlegtitle{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.45;margin-bottom:7px;}
-.tlegi{display:flex;gap:9px;flex-wrap:wrap;}
-.tlegitem{display:flex;align-items:center;gap:4px;}
-.tlegsw{width:9px;height:9px;border-radius:2px;}
-.tlegl{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.55;}
-
-footer{border-top:1px solid rgba(201,168,76,.1);padding:13px 28px;margin-top:6px;}
-.fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.flogo{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--gold);opacity:.4;}
-.fcopy{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;}
-
-.ab-river{background:linear-gradient(180deg,#0a1a2e,#1a3a5c 40%,#1a3a2a 70%,#0d2018);}
-.ab-hills{background:linear-gradient(135deg,#0d1a1a,#1a3a3a 40%,#2a5a40 70%,#1a2a1a);}
-.ab-tower{background:linear-gradient(170deg,#0a0a1a,#1a1a3a 40%,#2a2a5a 70%,#111);}
-.ab-gr{background:linear-gradient(135deg,#1a180a,#3a3018 40%,#4a3818 70%,#2a2010);}
-.ab-park{background:linear-gradient(135deg,#1a0d0a,#3a1a10 40%,#4a2015 70%,#2a1008);}
-.ab-court{background:linear-gradient(135deg,#0a180a,#1a3015 40%,#2a4a20 70%,#152010);}
-.ab-intl{background:linear-gradient(135deg,#001a28,#003a58 30%,#005a48 60%,#001a38);}
-.ab-blue{background:linear-gradient(135deg,#0a0a12,#12121e 40%,#0e0e18);}
-
-@media(min-width:900px){:root{--cw:500px;--ch:720px;}}
-@media(min-width:1400px){:root{--cw:540px;--ch:740px;}}
-@media(max-width:600px){:root{--cw:calc(100vw - 40px);--ch:680px;}.st{padding:14px 20px;}}
+@media(min-width:900px){:root{--cw:490px;--ch:720px;}}
+@media(min-width:1400px){:root{--cw:520px;--ch:740px;}}
+@media(max-width:600px){:root{--cw:calc(100vw - 40px);--ch:680px;}.tr{padding:14px 20px;}}
 </style>
 </head>
 <body>
-<div id="loginScreen">
-  <div class="lbox">
-    <div class="llogo">TRH</div>
-    <div class="lname">Tara River Homes</div>
-    <div class="lsub">Portfolio Access</div>
-    <input type="password" id="pi" placeholder="access code" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')auth()">
-    <button onclick="auth()">Enter Portfolio</button>
+
+<div id="ls">
+  <div class="lb">
+    <div class="ll">TRH</div>
+    <div class="ln">Tara River Homes</div>
+    <div class="ls2">Portfolio Access</div>
+    <input type="password" id="pi" placeholder="access code" autocomplete="off" onkeydown="if(event.key==='Enter')doAuth()">
+    <button onclick="doAuth()">Enter Portfolio</button>
     <div id="aerr" class="lerr"></div>
   </div>
 </div>
+
 <div id="site" style="display:none">
-<div id="adminBanner">
-  <span class="abmsg">⬡ Admin Mode · Drag photos onto card images to upload · Saved to your device</span>
-  <button class="lout" onclick="bye()">Log Out</button>
-</div>
-<header>
-  <div class="btag">Portfolio Deck · Established 2015</div>
-  <h1>Tara River Homes</h1>
-  <div class="hsub">Bellaire, Michigan · Intermediate River · Seneca Corridor</div>
-</header>
-<div class="tabs">
-  <button class="tab active" onclick="filt('all',this)">All</button>
-  <button class="tab" onclick="filt('active',this)">Active Income</button>
-  <button class="tab" onclick="filt('bellaire',this)">Bellaire</button>
-  <button class="tab" onclick="filt('future',this)">Future Builds</button>
-  <button class="tab" onclick="filt('intl',this)">International</button>
-</div>
-<div class="phint">Tap card · Front → Revenue → Expense → Front · Swipe or use arrows</div>
-<div class="summ-wrap" id="summWrap">
-  <button class="summ-toggle" onclick="toggleSumm()">
-    <span>Portfolio Overview</span>
-    <span class="summ-arrow">▼</span>
-  </button>
-  <div class="summ-body">
-    <div class="ssgrid">
-      <div class="sg"><div class="sgl">Properties</div><div class="sgv">13</div><div class="sgs">Active + Future</div></div>
-      <div class="sg"><div class="sgl">Portfolio Value</div><div class="sgv">$1.8M+</div><div class="sgs">Est. current</div></div>
-      <div class="sg"><div class="sgl">LTR NOI</div><div class="sgv">$22.9K</div><div class="sgs">Annual · 3 rentals</div></div>
-      <div class="sg"><div class="sgl">The Tara STR</div><div class="sgv">$32.3K</div><div class="sgs">Est. gross 2024</div></div>
-      <div class="sg"><div class="sgl">Full Build NOI</div><div class="sgv">$250K+</div><div class="sgs">Seneca corridor</div></div>
-      <div class="sg"><div class="sgl">GR Equity</div><div class="sgv">$340K+</div><div class="sgs">Bellaire leverage</div></div>
-      <div class="sg"><div class="sgl">Raise Open</div><div class="sgv">$25K</div><div class="sgs">320 Park</div></div>
-      <div class="sg"><div class="sgl">International</div><div class="sgv">3</div><div class="sgs">Belize + Nicaragua</div></div>
-    </div>
-    <div class="tleg">
-      <div class="tlegtitle">Value Tier System</div>
-      <div class="tlegi">
-        <div class="tlegitem"><div class="tlegsw" style="background:#CD7F32"></div><div class="tlegl">Bronze</div></div>
-        <div class="tlegitem"><div class="tlegsw" style="background:#C0C0C0"></div><div class="tlegl">Silver</div></div>
-        <div class="tlegitem"><div class="tlegsw" style="background:#C9A84C"></div><div class="tlegl">Gold</div></div>
-        <div class="tlegitem"><div class="tlegsw" style="background:#E5E4E2"></div><div class="tlegl">Platinum</div></div>
-        <div class="tlegitem"><div class="tlegsw" style="background:#777"></div><div class="tlegl">Black</div></div>
-        <div class="tlegitem"><div class="tlegsw" style="background:#9B6FD4"></div><div class="tlegl">Obsidian</div></div>
+  <div id="ab">
+    <span class="abm">Admin Mode &middot; Drag photos onto cards &middot; Saved to device</span>
+    <button class="lo" onclick="doLogout()">Log Out</button>
+  </div>
+  <header>
+    <div class="btag">Portfolio Deck &middot; Established 2015</div>
+    <h1>Tara River Homes</h1>
+    <div class="hs">Bellaire, Michigan &middot; Intermediate River &middot; Seneca Corridor</div>
+  </header>
+  <div class="tabs">
+    <button class="tab act" onclick="doFilt('all',this)">All</button>
+    <button class="tab" onclick="doFilt('active',this)">Active Income</button>
+    <button class="tab" onclick="doFilt('bellaire',this)">Bellaire</button>
+    <button class="tab" onclick="doFilt('future',this)">Future Builds</button>
+    <button class="tab" onclick="doFilt('intl',this)">International</button>
+  </div>
+  <div class="ph">Tap card &middot; Front &rarr; Revenue &rarr; Expense &rarr; Front &middot; Arrows or swipe</div>
+  <div class="sw" id="sw">
+    <button class="st2" onclick="toggleSumm()">
+      <span>Portfolio Overview</span><span class="sa">&#9660;</span>
+    </button>
+    <div class="sb">
+      <div class="sg">
+        <div class="si"><div class="sil">Properties</div><div class="siv">13</div><div class="sis">Active + Future</div></div>
+        <div class="si"><div class="sil">Portfolio Value</div><div class="siv">$1.8M+</div><div class="sis">Est. current</div></div>
+        <div class="si"><div class="sil">LTR NOI</div><div class="siv">$22.9K</div><div class="sis">Annual &middot; 3 rentals</div></div>
+        <div class="si"><div class="sil">The Tara STR</div><div class="siv">$32.3K</div><div class="sis">Est. gross 2024</div></div>
+        <div class="si"><div class="sil">Full Build NOI</div><div class="siv">$250K+</div><div class="sis">Seneca corridor</div></div>
+        <div class="si"><div class="sil">GR Equity</div><div class="siv">$340K+</div><div class="sis">Bellaire leverage</div></div>
+        <div class="si"><div class="sil">Raise Open</div><div class="siv">$25K</div><div class="sis">320 Park</div></div>
+        <div class="si"><div class="sil">International</div><div class="siv">3</div><div class="sis">Belize + Nicaragua</div></div>
+      </div>
+      <div class="tl">
+        <div class="tlt">Value Tier System</div>
+        <div class="tli">
+          <div class="tlic"><div class="tlisw" style="background:#CD7F32"></div><div class="tlil">Bronze</div></div>
+          <div class="tlic"><div class="tlisw" style="background:#C0C0C0"></div><div class="tlil">Silver</div></div>
+          <div class="tlic"><div class="tlisw" style="background:#C9A84C"></div><div class="tlil">Gold</div></div>
+          <div class="tlic"><div class="tlisw" style="background:#E5E4E2"></div><div class="tlil">Platinum</div></div>
+          <div class="tlic"><div class="tlisw" style="background:#777"></div><div class="tlil">Black</div></div>
+          <div class="tlic"><div class="tlisw" style="background:#9B6FD4"></div><div class="tlil">Obsidian</div></div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="trw">
+    <button class="arr arl" onclick="scrollCards(-1)">&#8249;</button>
+    <div class="tr" id="track"></div>
+    <button class="arr arr2" onclick="scrollCards(1)">&#8250;</button>
+  </div>
+  <footer>
+    <span class="flogo">Tara River Homes</span>
+    <span class="fcopy">Private &amp; Confidential</span>
+  </footer>
 </div>
-<div class="stw">
-  <button class="sarrow sl" onclick="sc(-1)">&#8249;</button>
-  <div class="st" id="track"></div>
-  <button class="sarrow sr" onclick="sc(1)">&#8250;</button>
-</div>
-<footer><div class="fi"><span class="flogo">Tara River Homes</span><span class="fcopy">Private &amp; Confidential · Not for Distribution</span></div></footer>
-</div>
+
 <script>
-const APWD='bellaire2025',IPWD='tarariver';
-let ADMIN=false;
-function auth(){const v=document.getElementById('pi').value.trim().toLowerCase();if(v===APWD){ADMIN=true;go('admin');}else if(v===IPWD){ADMIN=false;go('investor');}else{document.getElementById('aerr').textContent='Incorrect code';document.getElementById('pi').value='';}}
-function go(role){sessionStorage.setItem('role',role);document.getElementById('loginScreen').style.display='none';document.getElementById('site').style.display='block';if(role==='admin'){document.body.classList.add('admin');document.getElementById('adminBanner').classList.add('on');}buildAll();loadPhotos();}
-function bye(){sessionStorage.removeItem('role');location.reload();}
+var ADMIN=false;
+var APWD='bellaire2025', IPWD='tarariver';
 
-function getTier(v){if(!v||v<=0)return'tbd';if(v<150000)return'bronze';if(v<300000)return'silver';if(v<500000)return'gold';if(v<750000)return'platinum';if(v<1000000)return'black';return'obsidian';}
-const TL={bronze:'Bronze · <$150K',silver:'Silver · $150–300K',gold:'Gold · $300–500K',platinum:'Platinum · $500–750K',black:'Black · $750K–$1M',obsidian:'Obsidian · $1M+',tbd:'TBD'};
-const TC={bronze:'#CD7F32',silver:'#C0C0C0',gold:'#C9A84C',platinum:'#E5E4E2',black:'#777',obsidian:'#9B6FD4',tbd:'#666'};
+function doAuth(){
+  var v=document.getElementById('pi').value.trim().toLowerCase();
+  if(v===APWD){ADMIN=true;doGo('admin');}
+  else if(v===IPWD){ADMIN=false;doGo('investor');}
+  else{document.getElementById('aerr').textContent='Incorrect code';document.getElementById('pi').value='';}
+}
+function doGo(role){
+  sessionStorage.setItem('role',role);
+  document.getElementById('ls').style.display='none';
+  document.getElementById('site').style.display='block';
+  if(role==='admin'){document.body.classList.add('admin');document.getElementById('ab').classList.add('on');}
+  buildAll();
+  loadPhotos();
+}
+function doLogout(){sessionStorage.removeItem('role');location.reload();}
+function toggleSumm(){document.getElementById('sw').classList.toggle('op');}
 
-function s1(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0a1a2e"/><circle cx="55" cy="18" r="1" fill="#E8C97A" opacity=".7"/><circle cx="140" cy="10" r=".8" fill="white" opacity=".5"/><circle cx="220" cy="24" r="1" fill="#E8C97A" opacity=".6"/><circle cx="310" cy="7" r=".8" fill="white" opacity=".4"/><path d="M0 90 Q90 60 180 76 Q270 90 360 63 L360 168 L0 168Z" fill="#1a3a2a"/><path d="M0 110 Q75 86 150 101 Q225 116 300 86 Q335 71 360 81 L360 168 L0 168Z" fill="#2a5a3a"/><rect x="0" y="128" width="360" height="40" fill="#0d2a3a" opacity=".9"/><path d="M20 134 Q90 130 180 134 Q270 138 340 132" stroke="#C9A84C" stroke-width=".7" fill="none" opacity=".3"/><rect x="138" y="116" width="84" height="3" fill="#0a0a0a" opacity=".8"/><rect x="150" y="110" width="3" height="11" fill="#0a0a0a" opacity=".8"/><rect x="215" y="112" width="3" height="9" fill="#0a0a0a" opacity=".8"/><rect x="118" y="68" width="78" height="44" fill="#0d1a0d" opacity=".85"/><polygon points="113,68 201,68 157,45" fill="#0d0d10" opacity=".9"/><rect x="126" y="77" width="17" height="13" fill="#C9A84C" opacity=".28" rx="1"/><rect x="163" y="77" width="17" height="13" fill="#C9A84C" opacity=".28" rx="1"/><text x="180" y="36" text-anchor="middle" font-family="serif" font-size="11" fill="#C9A84C" opacity=".85" font-style="italic">The Tara</text><line x1="132" y1="41" x2="228" y2="41" stroke="#C9A84C" stroke-width=".5" opacity=".4"/></svg>`;}
-function s2(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#1a180a"/><path d="M0 118 Q90 98 180 108 Q270 118 360 98 L360 168 L0 168Z" fill="#2a2410" opacity=".7"/><rect x="118" y="66" width="124" height="72" fill="#221e0a"/><polygon points="113,66 247,66 180,38" fill="#1a1805"/><rect x="128" y="76" width="22" height="17" fill="#C9A84C" opacity=".22" rx="1"/><rect x="214" y="76" width="22" height="17" fill="#C9A84C" opacity=".22" rx="1"/><rect x="169" y="81" width="22" height="32" fill="#0a0a05"/><ellipse cx="72" cy="96" rx="30" ry="36" fill="#1a2a0a" opacity=".8"/></svg>`;}
-function s3(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#181510"/><path d="M0 120 Q90 102 180 110 Q270 120 360 100 L360 168 L0 168Z" fill="#2a2218" opacity=".7"/><rect x="108" y="62" width="144" height="80" fill="#1e1a10"/><polygon points="101,62 258,62 180,34" fill="#161205"/><rect x="120" y="72" width="27" height="18" fill="#C9A84C" opacity=".22" rx="1"/><rect x="217" y="72" width="27" height="18" fill="#C9A84C" opacity=".22" rx="1"/><rect x="172" y="100" width="16" height="26" fill="#0a0808" rx="1"/></svg>`;}
-function s4(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#180d0a"/><path d="M0 118 Q90 98 180 108 Q270 118 360 98 L360 168 L0 168Z" fill="#2a1a12" opacity=".7"/><rect x="113" y="60" width="134" height="72" fill="#221212"/><polygon points="108,60 252,60 180,33" fill="#1a0d0d"/><rect x="118" y="69" width="24" height="18" fill="#C9A84C" opacity=".2" rx="1"/><rect x="218" y="69" width="24" height="18" fill="#C9A84C" opacity=".2" rx="1"/><rect x="169" y="65" width="22" height="30" fill="#0a0505"/><line x1="180" y1="118" x2="180" y2="168" stroke="#C9A84C" stroke-width="1" opacity=".2" stroke-dasharray="4,4"/><text x="236" y="152" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".5">101 ANNE</text><text x="123" y="152" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".5">320 PARK</text></svg>`;}
-function s5(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0a180a"/><path d="M0 126 Q90 106 180 116 Q270 126 360 106 L360 168 L0 168Z" fill="#1a3015" opacity=".7"/><rect x="95" y="66" width="108" height="70" fill="#1a2a1a"/><polygon points="90,66 208,66 149,40" fill="#141e14"/><rect x="103" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/><rect x="130" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/><rect x="159" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/><rect x="138" y="106" width="22" height="30" fill="#0a0a0a"/><rect x="222" y="90" width="72" height="46" fill="#152015"/><text x="258" y="124" text-anchor="middle" font-family="monospace" font-size="5.5" fill="#C9A84C" opacity=".55">ADU · IN RENO</text></svg>`;}
-function s6(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#080812"/><circle cx="65" cy="20" r="1" fill="#E8C97A" opacity=".7"/><circle cx="215" cy="27" r="1" fill="#E8C97A" opacity=".6"/><path d="M0 138 Q42 116 68 126 L68 168 L0 168Z" fill="#0a1a0a"/><path d="M292 116 Q322 101 352 110 L352 168 L292 168Z" fill="#0a1a0a"/><rect x="130" y="96" width="100" height="58" fill="#1a1a2a"/><rect x="137" y="60" width="86" height="40" fill="#1a1a30"/><rect x="145" y="32" width="70" height="32" fill="#1a1a38"/><rect x="141" y="28" width="78" height="6" fill="#2a2a4a"/><rect x="140" y="103" width="18" height="12" fill="#C9A84C" opacity=".25" rx="1"/><rect x="192" y="103" width="18" height="12" fill="#C9A84C" opacity=".25" rx="1"/><rect x="145" y="68" width="14" height="10" fill="#C9A84C" opacity=".3" rx="1"/><rect x="191" y="68" width="14" height="10" fill="#C9A84C" opacity=".3" rx="1"/><rect x="153" y="40" width="12" height="9" fill="#C9A84C" opacity=".35" rx="1"/><rect x="185" y="40" width="12" height="9" fill="#C9A84C" opacity=".35" rx="1"/></svg>`;}
-function s7(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0d1a1a"/><path d="M0 136 Q42 113 82 123 Q122 133 162 108 Q202 83 242 103 Q282 123 360 111 L360 168 L0 168Z" fill="#1a3520" opacity=".8"/><rect x="78" y="78" width="204" height="5" fill="#2a4a3a"/><rect x="92" y="83" width="5" height="55" fill="#1a2a2a"/><rect x="277" y="83" width="5" height="55" fill="#1a2a2a"/><rect x="78" y="36" width="204" height="46" fill="#1a2820"/><rect x="95" y="42" width="48" height="36" fill="#C9A84C" opacity=".12" rx="1"/><rect x="217" y="42" width="48" height="36" fill="#C9A84C" opacity=".12" rx="1"/><line x1="78" y1="78" x2="282" y2="78" stroke="#C9A84C" stroke-width="1" opacity=".38"/></svg>`;}
-function s8(){return s7();}
-function s9(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0a0a12"/><line x1="0" y1="42" x2="360" y2="42" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="0" y1="84" x2="360" y2="84" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="0" y1="126" x2="360" y2="126" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="90" y1="0" x2="90" y2="168" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="180" y1="0" x2="180" y2="168" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="270" y1="0" x2="270" y2="168" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><rect x="90" y="42" width="180" height="126" stroke="#4A9B6F" stroke-width="1.5" fill="none" opacity=".5" stroke-dasharray="6,3"/><rect x="110" y="60" width="140" height="64" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.04)" stroke-dasharray="4,2"/><text x="180" y="55" text-anchor="middle" font-family="monospace" font-size="7" fill="#C9A84C" opacity=".5">FUTURE BUILD</text><text x="180" y="97" text-anchor="middle" font-family="serif" font-size="20" fill="#4A9B6F" opacity=".28">?</text><text x="180" y="156" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B6F" opacity=".42">ANNE STREET</text></svg>`;}
-function s10(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#001828"/><rect width="360" height="88" fill="#001018"/><circle cx="55" cy="16" r="1" fill="white" opacity=".5"/><circle cx="130" cy="28" r=".8" fill="#E8C97A" opacity=".6"/><ellipse cx="38" cy="86" rx="24" ry="40" fill="#0a2a0a" opacity=".9"/><ellipse cx="322" cy="80" rx="26" ry="34" fill="#0a2a0a" opacity=".9"/><rect x="0" y="116" width="360" height="52" fill="#003a5a" opacity=".9"/><path d="M0 124 Q90 119 180 124 Q270 129 360 123" stroke="#4A9B9B" stroke-width=".7" fill="none" opacity=".4"/><rect x="140" y="113" width="80" height="3" fill="#5a4a2a" opacity=".8"/><rect x="135" y="70" width="90" height="48" fill="#1a2a2a"/><rect x="143" y="76" width="18" height="12" fill="#4A9B9B" opacity=".25" rx="1"/><rect x="179" y="76" width="18" height="12" fill="#4A9B9B" opacity=".25" rx="1"/></svg>`;}
-function s11(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#001520"/><rect width="360" height="93" fill="#001018"/><rect x="0" y="113" width="360" height="55" fill="#001a3a" opacity=".95"/><path d="M0 122 Q42 117 82 122 Q122 127 162 120 Q202 113 242 120 Q282 127 360 122" stroke="#3a7a7a" stroke-width="1" fill="none" opacity=".5"/><path d="M0 97 Q62 74 122 88 Q182 102 242 76 Q282 59 360 72 L360 113 L0 113Z" fill="#0a1a0a"/><rect x="72" y="86" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/><text x="102" y="80" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B9B" opacity=".7">SJDS</text><rect x="222" y="89" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/><text x="252" y="83" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B9B" opacity=".7">PLAYA YANKEE</text></svg>`;}
+function getTier(v){
+  if(!v||v<=0)return'tbd';
+  if(v<150000)return'bronze';
+  if(v<300000)return'silver';
+  if(v<500000)return'gold';
+  if(v<750000)return'platinum';
+  if(v<1000000)return'black';
+  return'obsidian';
+}
+var TLABELS={bronze:'Bronze <$150K',silver:'Silver $150-300K',gold:'Gold $300-500K',platinum:'Platinum $500-750K',black:'Black $750K-$1M',obsidian:'Obsidian $1M+',tbd:'TBD'};
 
-const PROPS=[
-  {id:'p01',num:'TRH·001',tags:'active bellaire',name:'315 Seneca',nick:'"The Tara"',addr:'Bellaire, MI · Intermediate River',type:'Active STR',rl:'Mythic · Anchor',art:'ab-river',beds:3,baths:2,sqft:1800,ev:314000,
-   rev:{t:'str',hdr:'2024 P&L',rows:[{l:'Airbnb Net',v:16148,c:'inc'},{l:'VRBO (Est.)',v:16148,c:'inc'},{l:'Platform Fees',v:-5812,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'}],proj:'Target $45–60K NOI at optimisation'},
-   exp:{pi:15140,tax:2400,ins:1362,maint:2400,mgmt:0,pp:254750,lb:249000,note:'Riverfront · Docks · Hillside gardens'},svg:s1},
-  {id:'p02',num:'TRH·002',tags:'active',name:'535 Ethel',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',art:'ab-gr',beds:3,baths:1,sqft:1200,ev:289400,
-   rev:{t:'ltr',rent:1500,pi:354.72,tax:200,mgmt:.05},
-   exp:{pi:4257,tax:1200,ins:1200,maint:1200,mgmt:900,pp:92000,lb:68000,note:'23% LTV · Primary leverage for Phase 2'},svg:s2},
-  {id:'p03',num:'TRH·003',tags:'active',name:'1032 Watson',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',art:'ab-gr',beds:4,baths:2,sqft:1600,ev:238000,
-   rev:{t:'ltr',rent:1900,pi:603.97,tax:200,mgmt:.05},
-   exp:{pi:7248,tax:1200,ins:1200,maint:1200,mgmt:1140,pp:149000,lb:119200,note:'50% LTV · Combined GR equity $340K+'},svg:s3},
-  {id:'p04',num:'TRH·004',tags:'active bellaire future',name:'320 Park',addr:'Bellaire, MI',type:'LTR + Lot Split',rl:'$25K Raise Open',art:'ab-park',beds:3,baths:1,sqft:1400,ev:275000,
-   rev:{t:'ltr',rent:1600,pi:603.97,tax:200,mgmt:.05},
-   exp:{pi:7248,tax:1400,ins:1200,maint:800,mgmt:960,pp:149000,lb:119000,note:'Lot split creates 101 Anne St · $45–85K value'},svg:s4},
-  {id:'p05',num:'TRH·005',tags:'active bellaire',name:'104 Court',addr:'Bellaire, MI · Residence + ADU',type:'Residence + ADU',rl:'ADU In Renovation',art:'ab-court',beds:3,baths:2,sqft:1600,ev:244200,
-   rev:{t:'fut',rows:[{l:'ADU Revenue (target)',v:40000,c:'inc'},{l:'Platform Fees',v:-7200,c:'exp'}],proj:'Zero debt = pure cashflow · $30–50K/yr'},
-   exp:{pi:0,tax:1600,ins:1200,maint:15000,mgmt:0,pp:101000,lb:0,note:'Cash purchase · No mortgage · Best cap rate'},svg:s5},
-  {id:'p06',num:'TRH·006',tags:'bellaire future',name:'313 Seneca',addr:'Bellaire, MI · Tower Home',type:'Future STR',rl:'Legendary · Tower',art:'ab-tower',beds:3,baths:3,sqft:2200,ev:125000,
-   rev:{t:'fut',rows:[{l:'Projected Revenue',v:62500,c:'inc'},{l:'Est. Expenses',v:-20000,c:'exp'}],proj:'$45–80K/yr · Premium ADR destination'},
-   exp:{pi:0,tax:800,ins:800,maint:0,mgmt:0,pp:85000,lb:80000,note:'5-year balloon note · Build at balloon due'},svg:s6},
-  {id:'p07',num:'TRH·007',tags:'bellaire future',name:'Riverside Home A',addr:'316 Seneca · Bellaire, MI',type:'Future STR',rl:'Epic · Hillside Pier',art:'ab-hills',beds:2,baths:2,sqft:1440,ev:0,
-   rev:{t:'fut',rows:[{l:'Projected Revenue',v:75000,c:'inc'},{l:'Est. Expenses',v:-22000,c:'exp'}],proj:'$55–95K/yr · Combined A+B: $110–190K/yr'},
-   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'36ft wide · Shed roof · Hillside piers · Hot tub'},svg:s7},
-  {id:'p08',num:'TRH·008',tags:'bellaire future',name:'Riverside Home B',addr:'314 Seneca · Bellaire, MI',type:'Future STR',rl:'Epic · Mirrored Unit',art:'ab-hills',beds:2,baths:2,sqft:1440,ev:0,
-   rev:{t:'fut',rows:[{l:'Projected Revenue',v:75000,c:'inc'},{l:'Est. Expenses',v:-22000,c:'exp'}],proj:'Mirror of Home A · Same ADR target'},
-   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'Black metal + wood · Separate private deck path'},svg:s8},
-  {id:'p09',num:'TRH·009',tags:'bellaire future',name:'101 Anne Street',addr:'Lot Split · Bellaire, MI',type:'Future · Lot Split',rl:'Value Creation',art:'ab-blue',beds:0,baths:0,sqft:0,ev:65000,
-   rev:{t:'fut',rows:[{l:'Est. Lot Value',v:65000,c:'inc'},{l:'Split Cost',v:-5000,c:'exp'}],proj:'~16× return on split cost'},
-   exp:{pi:0,tax:0,ins:0,maint:5000,mgmt:0,pp:0,lb:0,note:'Rear of 320 Park · Survey first'},svg:s9},
-  {id:'p10',num:'TRH·010',tags:'intl future',name:'Orchid Bay D58',addr:'Belize · Caribbean',type:'Future STR',rl:'International',art:'ab-intl',beds:2,baths:2,sqft:0,ev:0,
-   rev:{t:'fut',rows:[{l:'Caribbean STR Target',v:50000,c:'inc'}],proj:'USD-pegged · Zero currency risk'},
-   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'Orchid Bay master-planned community'},svg:s10},
-  {id:'p11',num:'TRH·011',tags:'intl future',name:'Nicaragua Holdings',addr:'San Juan del Sur + Playa Yankee',type:'2 Parcels · Future',rl:'International · Pacific',art:'ab-intl',beds:0,baths:0,sqft:0,ev:0,
-   rev:{t:'fut',rows:[{l:'Long-Term Hold',v:0,c:'proj'}],proj:'Pacific Coast · High-growth STR corridor'},
-   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'SJDS + Playa Yankee · Appreciation play'},svg:s11},
-];
+function calcLTR(d,t){
+  var r=(d.rent-250)+(t*250);
+  var ann=r*12,pi=d.pi*12,tx=d.tax*12,mg=ann*d.mgmt;
+  var noi=ann-pi-tx-mg;
+  return{r:r,ann:ann,pi:pi,tx:tx,mg:mg,noi:noi,pct:(noi/ann*100).toFixed(1)};
+}
+function fm(n){var a=Math.abs(Math.round(n));return(n<0?'-':'')+'$'+a.toLocaleString();}
+function hi(n){var s='';for(var i=0;i<n;i++)s+='<svg width="11" height="11" viewBox="0 0 20 20"><polygon points="10,2 18,9 16,9 16,17 12,17 12,13 8,13 8,17 4,17 4,9 2,9" fill="#2ECC71"/></svg>';return s;}
 
-function calcLTR(d,t){const r=(d.rent-250)+(t*250);const ann=r*12,pi=d.pi*12,tx=d.tax*12,mg=ann*d.mgmt;const noi=ann-pi-tx-mg;return{r,ann,pi,tx,mg,noi,pct:(noi/ann*100).toFixed(1)};}
-function fm(n){const a=Math.abs(Math.round(n));return(n<0?'–':'')+'$'+a.toLocaleString();}
-function hi(n){let s='';for(let i=0;i<n;i++)s+=`<svg width="11" height="11" viewBox="0 0 20 20" style="display:block"><polygon points="10,2 18,9 16,9 16,17 12,17 12,13 8,13 8,17 4,17 4,9 2,9" fill="#2ECC71"/></svg>`;return s;}
+function calcDSCR(p){
+  var r=p.rev,e=p.exp,noi=0;
+  if(r.t==='ltr'){noi=calcLTR(r,2).noi;}
+  else if(r.t==='str'){
+    var inc=0,exp2=0;
+    for(var i=0;i<r.rows.length;i++){if(r.rows[i].c==='inc')inc+=r.rows[i].v;else exp2+=r.rows[i].v;}
+    noi=inc+exp2-e.pi;
+  } else return null;
+  if(!e.pi||e.pi<=0)return null;
+  return(noi/e.pi).toFixed(2);
+}
 
-function tap(id){const sc=document.getElementById('sc-'+id);const cur=parseInt(sc.dataset.panel||'0');const nxt=(cur+1)%3;sc.dataset.panel=nxt;sc.classList.remove('p1','p2');if(nxt===1)sc.classList.add('p1');else if(nxt===2)sc.classList.add('p2');sc.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===nxt));sc.querySelector('.dotlbl').textContent=nxt===0?'Revenue →':nxt===1?'Expense →':'Front →';}
+function loadImp(pid){try{var d=localStorage.getItem('trh_imp_'+pid);return d?JSON.parse(d):[];}catch(e2){return[];}}
+function saveImpData(pid,items){try{localStorage.setItem('trh_imp_'+pid,JSON.stringify(items));}catch(e2){}}
 
-function frontPL(p,tier=2){
-  const r=p.rev;
-  if(r.t==='ltr'){const c=calcLTR(r,tier);
-    return`<div class="hrow"><span class="hlbl">Rent Tier</span><div class="htiers">${[1,2,3,4].map(t=>`<button class="tbtn${t===tier?' active':''}" onclick="setT(event,'${p.id}',${t})">${hi(t)}</button>`).join('')}</div></div><div class="fpl" id="fpl-${p.id}"><div class="fr inc"><span class="fl">Monthly Rent</span><span class="fv pos">$${c.r.toLocaleString()}<span class="fp">/mo</span></span></div><div class="fr inc"><span class="fl">Annual Gross</span><span class="fv pos">${fm(c.ann)}</span></div><div class="fr exp"><span class="fl">Total Expenses</span><span class="fv neg">${fm(-(c.pi+c.tx+c.mg))}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Annual NOI</span><span class="fv gld">${fm(c.noi)}<span class="fp">${c.pct}%</span></span></div></div>`;}
-  if(r.t==='str'){const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);const noi=inc+exp;const pct=inc>0?(noi/inc*100).toFixed(1):'—';
-    return`<div class="fpl"><div class="fr inc"><span class="fl">Est. Annual Gross</span><span class="fv pos">${fm(inc)}</span></div><div class="fr exp"><span class="fl">Platform + Ops</span><span class="fv neg">${fm(exp)}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Est. NOI</span><span class="fv gld">${fm(noi)}<span class="fp">${pct}%</span></span></div></div>`;}
-  return`<div class="fpl">${r.rows.slice(0,3).map(row=>`<div class="fr ${row.c==='inc'?'inc':row.c==='exp'?'exp':'noi'}"><span class="fl">${row.l}</span><span class="fv ${row.v>0?'pos':row.v<0?'neg':'gld'}">${row.v?fm(row.v):'—'}</span></div>`).join('')}${r.proj?`<div class="fr noi"><span class="fl" style="font-size:7px;color:var(--gold)">${r.proj}</span></div>`:''}</div>`;}
-
-function calcDSCR(p){const r=p.rev,e=p.exp;let noi=0;if(r.t==='ltr'){const c=calcLTR(r,2);noi=c.noi;}else if(r.t==='str'){const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);noi=inc+exp-e.pi;}else return null;if(!e.pi||e.pi<=0)return null;return(noi/e.pi).toFixed(2);}
-
-function revFace(p){const r=p.rev;let rows='';
-  if(r.t==='ltr'){const c=calcLTR(r,2);
-    rows=`<div class="rftp"><span class="rftpl">Tier</span><div class="htiers">${[1,2,3,4].map(t=>`<button class="tbtn${t===2?' active':''}" onclick="setRT(event,'${p.id}',${t})">${hi(t)}</button>`).join('')}</div></div><div id="rfl-${p.id}"><div class="rfr inc"><span class="rfl">Monthly Rent</span><span class="rfv pos">$${c.r.toLocaleString()}<span class="rfp">/mo</span></span></div><div class="rfr inc"><span class="rfl">Annual Gross</span><span class="rfv pos">${fm(c.ann)}</span></div><div class="rfr exp"><span class="rfl">Mortgage P&I</span><span class="rfv neg">${fm(-c.pi)}</span></div><div class="rfr exp"><span class="rfl">Tax + Insurance</span><span class="rfv neg">${fm(-c.tx)}</span></div><div class="rfr exp"><span class="rfl">Mgmt ${(r.mgmt*100).toFixed(0)}%</span><span class="rfv neg">${fm(-c.mg)}</span></div><div class="rfr tot"><span class="rfl" style="color:var(--gold)">Annual NOI</span><span class="rfv gld">${fm(c.noi)}<span class="rfp">${c.pct}%</span></span></div><div class="rfr proj"><span class="rfl">Tier 4 Potential</span><span class="rfv blu">${fm(calcLTR(r,4).noi)}<span class="rfp">${calcLTR(r,4).pct}%</span></span></div></div>`;}
-  else{const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);const noi=inc+exp;const pct=inc>0?(noi/inc*100).toFixed(1):'—';
-    rows=r.rows.map(row=>`<div class="rfr ${row.c==='inc'?'inc':row.c==='exp'?'exp':'tot'}"><span class="rfl">${row.l}</span><span class="rfv ${row.v>0?'pos':row.v<0?'neg':'gld'}">${row.v?fm(row.v):'—'}</span></div>`).join('');
-    if(inc>0&&exp<0)rows+=`<div class="rfr tot"><span class="rfl" style="color:var(--gold)">NOI</span><span class="rfv gld">${fm(noi)}<span class="rfp">${pct}%</span></span></div>`;
-    if(r.proj)rows+=`<div class="rfr proj"><span class="rfl" style="font-size:7px">${r.proj}</span></div>`;}
-  const dscr=calcDSCR(p);
-  let dscrRow='';
-  if(dscr){const dv=parseFloat(dscr);const rc=dv>=1.25?'inc':dv>=1?'tot':'exp';const vc=dv>=1.25?'pos':dv>=1?'gld':'neg';dscrRow=`<div class="rfr ${rc}"><span class="rfl">DSCR <span style="opacity:.5;font-size:6px">1.25+ = lender ready</span></span><span class="rfv ${vc}">${dscr}x</span></div>`;}
-  return`<div class="rfhd"><div><div class="rft">${p.name}</div><div class="rfs">Revenue Summary</div></div><div class="rfi">REV<br>SIDE</div></div><div class="rfd"></div><div class="rfrows">${rows}${dscrRow}</div><div class="rfft"><span class="rfftl">Tap again for expenses</span><span class="rfftv">${p.type}</span></div>`;}
-
-function impLogHTML(pid){
-  const items=loadImp(pid);
-  const rows=items.length?items.map((it,i)=>`
-    <div class="impitem ${it.type}" id="impitem-${pid}-${i}">
-      <span class="impitem-date">${it.date||'—'}</span>
-      <span class="impitem-desc">${it.desc||'—'}</span>
-      <span class="impitem-amt">${it.amt?fm(-Math.abs(it.amt))+(it.type==='forecast'?' est.':''):'—'}</span>
-      <button class="impitem-del" onclick="delImp(event,'${pid}',${i})" title="Delete">×</button>
-    </div>`).join(''):`<div class="impempty">No entries yet</div>`;
-  return`<div class="implog">
-    <div class="implhdr">
-      <span class="impltitle">Improvements + Forecast</span>
-      <button class="impladdbtn" onclick="openImpAdd(event,'${pid}')">+ Add</button>
-    </div>
-    <div class="implist" id="implist-${pid}">${rows}</div>
-    <div class="impadd" id="impadd-${pid}">
-      <input class="ia-date" placeholder="2025" maxlength="7">
-      <input class="ia-desc" placeholder="Description">
-      <input class="ia-amt" placeholder="$0" type="number">
-      <select class="ia-type"><option value="done">Done</option><option value="forecast">Forecast</option></select>
-      <button class="ia-save" onclick="saveImp(event,'${pid}')">Save</button>
-      <button class="ia-cancel" onclick="closeImpAdd(event,'${pid}')">✕</button>
-    </div>
-  </div>`;}
-
-function loadImp(pid){try{const d=localStorage.getItem('trh_imp_'+pid);return d?JSON.parse(d):[]}catch(e){return[];}}
-function saveImpData(pid,items){try{localStorage.setItem('trh_imp_'+pid,JSON.stringify(items));}catch(e){}}
-function openImpAdd(e,pid){e.stopPropagation();document.getElementById('impadd-'+pid).classList.add('open');}
-function closeImpAdd(e,pid){e.stopPropagation();const el=document.getElementById('impadd-'+pid);el.classList.remove('open');el.querySelectorAll('input').forEach(i=>i.value='');}
+function buildImpLog(pid){
+  var items=loadImp(pid);
+  var rows='';
+  if(items.length){
+    for(var i=0;i<items.length;i++){
+      var it=items[i];
+      rows+='<div class="ii '+it.type+'" id="ii-'+pid+'-'+i+'">'
+        +'<span class="iid">'+(it.date||'--')+'</span>'
+        +'<span class="iis">'+(it.desc||'--')+'</span>'
+        +'<span class="iia">'+(it.amt?fm(-Math.abs(it.amt))+(it.type==='fore'?' est.':''):'--')+'</span>'
+        +'<button class="iidel" onclick="delImp(event,''+pid+'','+i+')">x</button>'
+        +'</div>';
+    }
+  } else {
+    rows='<div class="impmt">No entries yet</div>';
+  }
+  return '<div class="imp">'
+    +'<div class="imph"><span class="impt">Improvements + Forecast</span>'
+    +'<button class="impab" onclick="openImpAdd(event,''+pid+'')">+ Add</button></div>'
+    +'<div class="impl" id="impl-'+pid+'">'+rows+'</div>'
+    +'<div class="impaf" id="impaf-'+pid+'">'
+    +'<input class="iad" placeholder="2025" maxlength="7">'
+    +'<input class="ias" placeholder="Description">'
+    +'<input class="iaa" placeholder="$0" type="number">'
+    +'<select class="iat"><option value="done">Done</option><option value="fore">Forecast</option></select>'
+    +'<button class="iasv" onclick="saveImp(event,''+pid+'')">Save</button>'
+    +'<button class="iacn" onclick="closeImpAdd(event,''+pid+'')">X</button>'
+    +'</div></div>';
+}
+function openImpAdd(e,pid){e.stopPropagation();document.getElementById('impaf-'+pid).classList.add('op');}
+function closeImpAdd(e,pid){e.stopPropagation();var el=document.getElementById('impaf-'+pid);el.classList.remove('op');el.querySelectorAll('input').forEach(function(i){i.value='';});}
 function saveImp(e,pid){
   e.stopPropagation();
-  const el=document.getElementById('impadd-'+pid);
-  const date=el.querySelector('.ia-date').value.trim()||'—';
-  const desc=el.querySelector('.ia-desc').value.trim();
-  const amt=parseFloat(el.querySelector('.ia-amt').value)||0;
-  const type=el.querySelector('.ia-type').value;
+  var el=document.getElementById('impaf-'+pid);
+  var date=el.querySelector('.iad').value.trim()||'--';
+  var desc=el.querySelector('.ias').value.trim();
+  var amt=parseFloat(el.querySelector('.iaa').value)||0;
+  var type=el.querySelector('.iat').value;
   if(!desc)return;
-  const items=loadImp(pid);
-  items.unshift({date,desc,amt,type});
+  var items=loadImp(pid);
+  items.unshift({date:date,desc:desc,amt:amt,type:type});
   saveImpData(pid,items);
   closeImpAdd(e,pid);
   refreshExpFace(pid);
 }
 function delImp(e,pid,idx){
   e.stopPropagation();
-  const items=loadImp(pid);items.splice(idx,1);
-  saveImpData(pid,items);refreshExpFace(pid);
+  var items=loadImp(pid);
+  items.splice(idx,1);
+  saveImpData(pid,items);
+  refreshExpFace(pid);
 }
 function refreshExpFace(pid){
-  const p=PROPS.find(x=>x.id===pid);if(!p)return;
-  const face=document.querySelector(`#sc-${pid} .ef`);
-  if(face)face.innerHTML=expFace(p);
+  var p=null;
+  for(var i=0;i<PROPS.length;i++){if(PROPS[i].id===pid){p=PROPS[i];break;}}
+  if(!p)return;
+  var face=document.querySelector('#sc-'+pid+' .eface');
+  if(face)face.innerHTML=buildExpFace(p);
 }
 
-function expFace(p){const e=p.exp;const tot=e.pi+e.tax+e.ins+e.maint+e.mgmt;const equity=p.ev>0?p.ev-e.lb:0;const eqPct=p.ev>0?Math.round((equity/p.ev)*100):0;const ltv=p.ev>0?Math.round((e.lb/p.ev)*100):0;const apr=p.ev&&e.pp?p.ev-e.pp:0;const aprPct=e.pp>0?((apr/e.pp)*100).toFixed(0):0;
-  let rows='';
-  if(e.pi>0)rows+=`<div class="efr exp"><span class="efl">Mortgage P&I</span><span class="efv neg">${fm(-e.pi)}<span class="efp">/yr</span></span></div>`;
-  if(e.tax>0)rows+=`<div class="efr exp"><span class="efl">Property Tax</span><span class="efv neg">${fm(-e.tax)}<span class="efp">/yr</span></span></div>`;
-  if(e.ins>0)rows+=`<div class="efr exp"><span class="efl">Insurance</span><span class="efv neg">${fm(-e.ins)}<span class="efp">/yr</span></span></div>`;
-  if(e.maint>0)rows+=`<div class="efr exp"><span class="efl">Maintenance</span><span class="efv neg">${fm(-e.maint)}<span class="efp">/yr</span></span></div>`;
-  if(e.mgmt>0)rows+=`<div class="efr exp"><span class="efl">Management</span><span class="efv neg">${fm(-e.mgmt)}<span class="efp">/yr</span></span></div>`;
-  if(tot>0)rows+=`<div class="efr tot"><span class="efl" style="color:var(--gold)">Total Annual Exp</span><span class="efv gld">${fm(-tot)}</span></div>`;
-  if(equity>0)rows+=`<div class="efr eq"><span class="efl">Est. Equity</span><span class="efv blu">${fm(equity)}<span class="efp">${eqPct}%</span></span></div>`;
-  if(apr>0)rows+=`<div class="efr apr"><span class="efl">Appreciation</span><span class="efv pos">${fm(apr)}<span class="efp">+${aprPct}%</span></span></div>`;
-  const barW=Math.min(100,Math.max(0,eqPct));
-  return`<div class="efhd"><div><div class="eft">${p.name}</div><div class="efs">Expense + Equity</div></div><div class="efi">EXP<br>SIDE</div></div><div class="efd"></div><div class="efrows">${rows}</div>${p.ev>0?`<div class="eqbar"><div class="eqtrack"><div class="eqfill" style="width:${barW}%"></div></div><div class="eqlbls"><span class="eqll">Debt ${ltv}%</span><span class="eqll">Equity ${eqPct}%</span></div></div>`:''}${impLogHTML(p.id)}`;}
+function buildRevFace(p){
+  var r=p.rev;
+  var rows='';
+  if(r.t==='ltr'){
+    var c=calcLTR(r,2);
+    rows='<div class="rftp"><span class="rftpl">Tier</span>'
+      +'<div class="htiers">'
+      +'<button class="tbtn" onclick="setRT(event,''+p.id+'',1)">'+hi(1)+'</button>'
+      +'<button class="tbtn act" onclick="setRT(event,''+p.id+'',2)">'+hi(2)+'</button>'
+      +'<button class="tbtn" onclick="setRT(event,''+p.id+'',3)">'+hi(3)+'</button>'
+      +'<button class="tbtn" onclick="setRT(event,''+p.id+'',4)">'+hi(4)+'</button>'
+      +'</div></div>'
+      +'<div id="rfl-'+p.id+'">'
+      +'<div class="ro inc"><span class="rl">Monthly Rent</span><span class="rv pos">$'+c.r.toLocaleString()+'<span class="rp">/mo</span></span></div>'
+      +'<div class="ro inc"><span class="rl">Annual Gross</span><span class="rv pos">'+fm(c.ann)+'</span></div>'
+      +'<div class="ro exp"><span class="rl">Mortgage P+I</span><span class="rv neg">'+fm(-c.pi)+'</span></div>'
+      +'<div class="ro exp"><span class="rl">Tax + Insurance</span><span class="rv neg">'+fm(-c.tx)+'</span></div>'
+      +'<div class="ro exp"><span class="rl">Mgmt '+(r.mgmt*100).toFixed(0)+'%</span><span class="rv neg">'+fm(-c.mg)+'</span></div>'
+      +'<div class="ro noi"><span class="rl" style="color:var(--gold)">Annual NOI</span><span class="rv gld">'+fm(c.noi)+'<span class="rp">'+c.pct+'%</span></span></div>'
+      +'<div class="ro" style="background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px"><span class="rl">Tier 4 Potential</span><span class="rv blu">'+fm(calcLTR(r,4).noi)+'<span class="rp">'+calcLTR(r,4).pct+'%</span></span></div>'
+      +'</div>';
+  } else {
+    var inc=0,expv=0;
+    for(var i=0;i<r.rows.length;i++){if(r.rows[i].c==='inc')inc+=r.rows[i].v;else expv+=r.rows[i].v;}
+    var noi=inc+expv;
+    var pct=inc>0?(noi/inc*100).toFixed(1):'--';
+    for(var j=0;j<r.rows.length;j++){
+      var rw=r.rows[j];
+      var rc=rw.c==='inc'?'inc':rw.c==='exp'?'exp':'noi';
+      rows+='<div class="ro '+rc+'"><span class="rl">'+rw.l+'</span><span class="rv '+(rw.v>0?'pos':rw.v<0?'neg':'gld')+'">'+(rw.v?fm(rw.v):'--')+'</span></div>';
+    }
+    if(inc>0&&expv<0)rows+='<div class="ro noi"><span class="rl" style="color:var(--gold)">NOI</span><span class="rv gld">'+fm(noi)+'<span class="rp">'+pct+'%</span></span></div>';
+    if(r.proj)rows+='<div class="ro" style="background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px"><span class="rl" style="font-size:7px">'+r.proj+'</span></div>';
+  }
+  var dscr=calcDSCR(p);
+  if(dscr){
+    var dv=parseFloat(dscr);
+    var dc=dv>=1.25?'inc':dv>=1?'noi':'exp';
+    var dvc=dv>=1.25?'pos':dv>=1?'gld':'neg';
+    rows+='<div class="ro '+dc+'"><span class="rl">DSCR <span style="opacity:.5;font-size:7px">1.25+ lender ready</span></span><span class="rv '+dvc+'">'+dscr+'x</span></div>';
+  }
+  return '<div class="rfhd"><div><div class="rft">'+p.name+'</div><div class="rfs">Revenue Summary</div></div>'
+    +'<div class="rfi">REV<br>SIDE</div></div>'
+    +'<div class="rfd"></div>'
+    +'<div class="rfrs">'+rows+'</div>'
+    +'<div class="rfft"><span class="rfftl">Tap for expenses</span><span class="rfftv">'+p.type+'</span></div>';
+}
 
-function bCard(p){const tier=getTier(p.ev);const bs=p.beds>0?p.beds+'BD':'—';const bts=p.baths>0?p.baths+'BA':'—';const sf=p.sqft>0?p.sqft.toLocaleString()+'sf':'—';const vs=p.ev>0?'$'+(p.ev/1000).toFixed(0)+'K':'—';
-  return`<div class="cs" id="sc-${p.id}" data-tags="${p.tags}" data-tier="${tier}" data-panel="0" onclick="tap('${p.id}')"><div class="cw"><div class="card" id="cd-${p.id}">
-  <div class="face ff">
-    <div class="tbadge">${TL[tier]}</div>
-    <div class="az ${p.art}" id="art-${p.id}" ondragover="dov(event,'${p.id}')" ondragleave="dlv('${p.id}')" ondrop="drp(event,'${p.id}')">
-      ${p.svg()}<div class="ag"></div><img class="pp" id="ph-${p.id}" src="" alt="">
-      <div class="rbadge">${p.rl}</div>
-      <button class="pbtn" onclick="upc(event,'${p.id}')">📷 Photo</button>
-      <input type="file" id="fi-${p.id}" accept="image/*" style="display:none" onchange="hf(event,'${p.id}')">
-    </div>
-    <div class="pid"><div class="pnum">${p.num}</div><div class="pname">${p.name}${p.nick?` <span class="pnick">${p.nick}</span>`:''}</div><div class="padr">${p.addr}</div></div>
-    <div class="vits"><div class="vit"><div class="vitl">Beds</div><div class="vitv">${bs}</div></div><div class="vit"><div class="vitl">Baths</div><div class="vitv">${bts}</div></div><div class="vit"><div class="vitl">Sq Ft</div><div class="vitv">${sf}</div></div><div class="vit"><div class="vitl">Est. Value</div><div class="vitv">${vs}</div></div></div>
-    <div class="cline"></div>
-    ${frontPL(p)}
-    <div class="taphint"><div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div><div class="dotlbl">Revenue →</div></div>
-  </div>
-  <div class="face frev rf">${revFace(p)}</div>
-  <div class="face fexp ef">${expFace(p)}</div>
-</div></div></div>`;}
+function buildExpFace(p){
+  var e=p.exp;
+  var tot=e.pi+e.tax+e.ins+e.maint+e.mgmt;
+  var equity=p.ev>0?p.ev-e.lb:0;
+  var eqPct=p.ev>0?Math.round((equity/p.ev)*100):0;
+  var ltv=p.ev>0?Math.round((e.lb/p.ev)*100):0;
+  var apr=p.ev&&e.pp?p.ev-e.pp:0;
+  var aprPct=e.pp>0?((apr/e.pp)*100).toFixed(0):0;
+  var rows='';
+  if(e.pi>0)rows+='<div class="ro exp"><span class="rl">Mortgage P+I</span><span class="rv neg">'+fm(-e.pi)+'<span class="rp">/yr</span></span></div>';
+  if(e.tax>0)rows+='<div class="ro exp"><span class="rl">Property Tax</span><span class="rv neg">'+fm(-e.tax)+'<span class="rp">/yr</span></span></div>';
+  if(e.ins>0)rows+='<div class="ro exp"><span class="rl">Insurance</span><span class="rv neg">'+fm(-e.ins)+'<span class="rp">/yr</span></span></div>';
+  if(e.maint>0)rows+='<div class="ro exp"><span class="rl">Maintenance</span><span class="rv neg">'+fm(-e.maint)+'<span class="rp">/yr</span></span></div>';
+  if(e.mgmt>0)rows+='<div class="ro exp"><span class="rl">Management</span><span class="rv neg">'+fm(-e.mgmt)+'<span class="rp">/yr</span></span></div>';
+  if(tot>0)rows+='<div class="ro noi"><span class="rl" style="color:var(--gold)">Total Annual Exp</span><span class="rv gld">'+fm(-tot)+'</span></div>';
+  if(equity>0)rows+='<div class="ro" style="background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px"><span class="rl">Est. Equity</span><span class="rv blu">'+fm(equity)+'<span class="rp">'+eqPct+'%</span></span></div>';
+  if(apr>0)rows+='<div class="ro inc"><span class="rl">Appreciation</span><span class="rv pos">'+fm(apr)+'<span class="rp">+'+aprPct+'%</span></span></div>';
+  var barW=Math.min(100,Math.max(0,eqPct));
+  var eqBar=p.ev>0?'<div class="eqb"><div class="eqt"><div class="eqf" style="width:'+barW+'%"></div></div><div class="eqls"><span class="eql">Debt '+ltv+'%</span><span class="eql">Equity '+eqPct+'%</span></div></div>':'';
+  return '<div class="efhd"><div><div class="eft">'+p.name+'</div><div class="efs">Expense + Equity</div></div>'
+    +'<div class="efi">EXP<br>SIDE</div></div>'
+    +'<div class="efd"></div>'
+    +'<div class="efrs">'+rows+'</div>'
+    +eqBar
+    +buildImpLog(p.id);
+}
 
-function bSumm(){return'';}  // summary moved to collapsible panel above cards
+function buildFrontPL(p,tier){
+  tier=tier||2;
+  var r=p.rev;
+  if(r.t==='ltr'){
+    var c=calcLTR(r,tier);
+    return '<div class="hrow"><span class="hlbl">Rent Tier</span>'
+      +'<div class="htiers">'
+      +'<button class="tbtn'+(tier===1?' act':'')+'" onclick="setTier(event,''+p.id+'',1)">'+hi(1)+'</button>'
+      +'<button class="tbtn'+(tier===2?' act':'')+'" onclick="setTier(event,''+p.id+'',2)">'+hi(2)+'</button>'
+      +'<button class="tbtn'+(tier===3?' act':'')+'" onclick="setTier(event,''+p.id+'',3)">'+hi(3)+'</button>'
+      +'<button class="tbtn'+(tier===4?' act':'')+'" onclick="setTier(event,''+p.id+'',4)">'+hi(4)+'</button>'
+      +'</div></div>'
+      +'<div class="fpl" id="fpl-'+p.id+'">'
+      +'<div class="ro inc"><span class="rl">Monthly Rent</span><span class="rv pos">$'+c.r.toLocaleString()+'<span class="rp">/mo</span></span></div>'
+      +'<div class="ro inc"><span class="rl">Annual Gross</span><span class="rv pos">'+fm(c.ann)+'</span></div>'
+      +'<div class="ro exp"><span class="rl">Total Expenses</span><span class="rv neg">'+fm(-(c.pi+c.tx+c.mg))+'</span></div>'
+      +'<div class="ro noi"><span class="rl" style="color:var(--gold)">Annual NOI</span><span class="rv gld">'+fm(c.noi)+'<span class="rp">'+c.pct+'%</span></span></div>'
+      +'</div>';
+  }
+  if(r.t==='str'){
+    var inc=0,expv=0;
+    for(var i=0;i<r.rows.length;i++){if(r.rows[i].c==='inc')inc+=r.rows[i].v;else expv+=r.rows[i].v;}
+    var noi=inc+expv;var pct=inc>0?(noi/inc*100).toFixed(1):'--';
+    return '<div class="fpl">'
+      +'<div class="ro inc"><span class="rl">Est. Annual Gross</span><span class="rv pos">'+fm(inc)+'</span></div>'
+      +'<div class="ro exp"><span class="rl">Platform + Ops</span><span class="rv neg">'+fm(expv)+'</span></div>'
+      +'<div class="ro noi"><span class="rl" style="color:var(--gold)">Est. NOI</span><span class="rv gld">'+fm(noi)+'<span class="rp">'+pct+'%</span></span></div>'
+      +'</div>';
+  }
+  var rows='';
+  for(var j=0;j<Math.min(r.rows.length,3);j++){
+    var rw=r.rows[j];
+    var rc=rw.c==='inc'?'inc':rw.c==='exp'?'exp':'noi';
+    rows+='<div class="ro '+rc+'"><span class="rl">'+rw.l+'</span><span class="rv '+(rw.v>0?'pos':rw.v<0?'neg':'gld')+'">'+(rw.v?fm(rw.v):'--')+'</span></div>';
+  }
+  if(r.proj)rows+='<div class="ro noi"><span class="rl" style="color:var(--gold);font-size:8px">'+r.proj+'</span></div>';
+  return '<div class="fpl">'+rows+'</div>';
+}
 
-function buildAll(){const t=document.getElementById('track');t.innerHTML=bSumm()+PROPS.map(bCard).join('');}
+function buildCard(p){
+  var tier=getTier(p.ev);
+  var bs=p.beds>0?p.beds+'BD':'--';
+  var bts=p.baths>0?p.baths+'BA':'--';
+  var sf=p.sqft>0?p.sqft.toLocaleString()+'sf':'--';
+  var vs=p.ev>0?'$'+(p.ev/1000).toFixed(0)+'K':'--';
+  var html='<div class="cs" id="sc-'+p.id+'" data-tags="'+p.tags+'" data-tier="'+tier+'" data-panel="0" onclick="tapCard(''+p.id+'')">'
+    +'<div class="cw2"><div class="card" id="cd-'+p.id+'">'
+    +'<div class="face ff2">'
+    +'<div class="tbg">'+TLABELS[tier]+'</div>'
+    +'<div class="az" id="az-'+p.id+'" ondragover="dov(event,''+p.id+'')" ondrop="drp(event,''+p.id+'')">'
+    +p.svg
+    +'<div class="ag"></div>'
+    +'<img class="pp" id="ph-'+p.id+'" src="" alt="">'
+    +'<div class="rb">'+p.rl+'</div>'
+    +'<button class="pbtn" onclick="upc(event,''+p.id+'')">Photo</button>'
+    +'<input type="file" id="fi-'+p.id+'" accept="image/*" style="display:none" onchange="hf(event,''+p.id+'')">'
+    +'</div>'
+    +'<div class="pid"><div class="pnum">'+p.num+'</div>'
+    +'<div class="pname">'+p.name+(p.nick?' <span class="pnick">'+p.nick+'</span>':'')+'</div>'
+    +'<div class="padr">'+p.addr+'</div></div>'
+    +'<div class="vits">'
+    +'<div class="vit"><div class="vitl">Beds</div><div class="vitv">'+bs+'</div></div>'
+    +'<div class="vit"><div class="vitl">Baths</div><div class="vitv">'+bts+'</div></div>'
+    +'<div class="vit"><div class="vitl">Sq Ft</div><div class="vitv">'+sf+'</div></div>'
+    +'<div class="vit"><div class="vitl">Est. Value</div><div class="vitv">'+vs+'</div></div>'
+    +'</div>'
+    +'<div class="cln"></div>'
+    +buildFrontPL(p)
+    +'<div class="dts"><div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>'
+    +'<div class="dtl">Revenue &rarr;</div></div>'
+    +'</div>'
+    +'<div class="face fr2 rface">'+buildRevFace(p)+'</div>'
+    +'<div class="face fe eface">'+buildExpFace(p)+'</div>'
+    +'</div></div></div>';
+  return html;
+}
 
-function toggleSumm(){document.getElementById('summWrap').classList.toggle('open');}
-function filt(tag,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');const track=document.getElementById('track');let first=null;document.querySelectorAll('.cs').forEach(sc=>{const show=tag==='all'||sc.dataset.tags.includes(tag);sc.style.display=show?'':'none';if(show&&!first)first=sc;});document.querySelectorAll('.ss-scene').forEach(s=>s.style.display='');if(first){const track=document.getElementById('track');const offset=first.offsetLeft-64;track.scrollTo({left:offset,behavior:'smooth'});}}
+function buildAll(){
+  var t=document.getElementById('track');
+  var html='';
+  for(var i=0;i<PROPS.length;i++) html+=buildCard(PROPS[i]);
+  t.innerHTML=html;
+}
 
-function sc(dir){const track=document.getElementById('track');const cs=getComputedStyle(document.documentElement);const w=parseInt(cs.getPropertyValue('--cw'))||340;track.scrollBy({left:dir*(w+22),behavior:'smooth'});}
+function tapCard(id){
+  var sc=document.getElementById('sc-'+id);
+  var cur=parseInt(sc.dataset.panel||'0');
+  var nxt=(cur+1)%3;
+  sc.dataset.panel=nxt;
+  sc.classList.remove('p1','p2');
+  if(nxt===1)sc.classList.add('p1');
+  else if(nxt===2)sc.classList.add('p2');
+  var dots=sc.querySelectorAll('.dot');
+  for(var i=0;i<dots.length;i++)dots[i].classList.toggle('on',i===nxt);
+  var lbl=sc.querySelector('.dtl');
+  if(lbl)lbl.innerHTML=nxt===0?'Revenue &rarr;':nxt===1?'Expense &rarr;':'Front &rarr;';
+}
 
-function setT(e,id,t){e.stopPropagation();const sc=document.getElementById('sc-'+id);sc.querySelectorAll('.htiers .tbtn').forEach((b,i)=>b.classList.toggle('active',i+1===t));const p=PROPS.find(x=>x.id===id);const el=document.getElementById('fpl-'+id);if(!el)return;const c=calcLTR(p.rev,t);el.innerHTML=`<div class="fr inc"><span class="fl">Monthly Rent</span><span class="fv pos">$${c.r.toLocaleString()}<span class="fp">/mo</span></span></div><div class="fr inc"><span class="fl">Annual Gross</span><span class="fv pos">${fm(c.ann)}</span></div><div class="fr exp"><span class="fl">Total Expenses</span><span class="fv neg">${fm(-(c.pi+c.tx+c.mg))}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Annual NOI</span><span class="fv gld">${fm(c.noi)}<span class="fp">${c.pct}%</span></span></div>`;}
-function setRT(e,id,t){e.stopPropagation();const sc=document.getElementById('sc-'+id);sc.querySelectorAll('.rf .htiers .tbtn').forEach((b,i)=>b.classList.toggle('active',i+1===t));const p=PROPS.find(x=>x.id===id);const c=calcLTR(p.rev,t);const el=document.getElementById('rfl-'+id);if(!el)return;el.innerHTML=`<div class="rfr inc"><span class="rfl">Monthly Rent</span><span class="rfv pos">$${c.r.toLocaleString()}<span class="rfp">/mo</span></span></div><div class="rfr inc"><span class="rfl">Annual Gross</span><span class="rfv pos">${fm(c.ann)}</span></div><div class="rfr exp"><span class="rfl">Mortgage P&I</span><span class="rfv neg">${fm(-c.pi)}</span></div><div class="rfr exp"><span class="rfl">Tax + Insurance</span><span class="rfv neg">${fm(-c.tx)}</span></div><div class="rfr exp"><span class="rfl">Mgmt ${(p.rev.mgmt*100).toFixed(0)}%</span><span class="rfv neg">${fm(-c.mg)}</span></div><div class="rfr tot"><span class="rfl" style="color:var(--gold)">Annual NOI</span><span class="rfv gld">${fm(c.noi)}<span class="rfp">${c.pct}%</span></span></div><div class="rfr proj"><span class="rfl">Tier 4 Potential</span><span class="rfv blu">${fm(calcLTR(p.rev,4).noi)}<span class="rfp">${calcLTR(p.rev,4).pct}%</span></span></div>`;}
+function doFilt(tag,btn){
+  var tabs=document.querySelectorAll('.tab');
+  for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('act');
+  btn.classList.add('act');
+  var cards=document.querySelectorAll('.cs');
+  var first=null;
+  for(var i=0;i<cards.length;i++){
+    var show=tag==='all'||cards[i].dataset.tags.indexOf(tag)>=0;
+    cards[i].style.display=show?'':'none';
+    if(show&&!first)first=cards[i];
+  }
+  if(first){var track=document.getElementById('track');track.scrollTo({left:first.offsetLeft-60,behavior:'smooth'});}
+}
+
+function scrollCards(dir){
+  var track=document.getElementById('track');
+  var w=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cw'))||460;
+  track.scrollBy({left:dir*(w+24),behavior:'smooth'});
+}
+
+function setTier(e,id,t){
+  e.stopPropagation();
+  var sc=document.getElementById('sc-'+id);
+  var btns=sc.querySelectorAll('.hrow .tbtn');
+  for(var i=0;i<btns.length;i++)btns[i].classList.toggle('act',i+1===t);
+  var p=null;for(var i=0;i<PROPS.length;i++){if(PROPS[i].id===id){p=PROPS[i];break;}}
+  var el=document.getElementById('fpl-'+id);
+  if(!el||!p)return;
+  var c=calcLTR(p.rev,t);
+  el.innerHTML='<div class="ro inc"><span class="rl">Monthly Rent</span><span class="rv pos">$'+c.r.toLocaleString()+'<span class="rp">/mo</span></span></div>'
+    +'<div class="ro inc"><span class="rl">Annual Gross</span><span class="rv pos">'+fm(c.ann)+'</span></div>'
+    +'<div class="ro exp"><span class="rl">Total Expenses</span><span class="rv neg">'+fm(-(c.pi+c.tx+c.mg))+'</span></div>'
+    +'<div class="ro noi"><span class="rl" style="color:var(--gold)">Annual NOI</span><span class="rv gld">'+fm(c.noi)+'<span class="rp">'+c.pct+'%</span></span></div>';
+}
+function setRT(e,id,t){
+  e.stopPropagation();
+  var sc=document.getElementById('sc-'+id);
+  var btns=sc.querySelectorAll('.rface .htiers .tbtn');
+  for(var i=0;i<btns.length;i++)btns[i].classList.toggle('act',i+1===t);
+  var p=null;for(var i=0;i<PROPS.length;i++){if(PROPS[i].id===id){p=PROPS[i];break;}}
+  var el=document.getElementById('rfl-'+id);
+  if(!el||!p)return;
+  var c=calcLTR(p.rev,t);
+  el.innerHTML='<div class="ro inc"><span class="rl">Monthly Rent</span><span class="rv pos">$'+c.r.toLocaleString()+'<span class="rp">/mo</span></span></div>'
+    +'<div class="ro inc"><span class="rl">Annual Gross</span><span class="rv pos">'+fm(c.ann)+'</span></div>'
+    +'<div class="ro exp"><span class="rl">Mortgage P+I</span><span class="rv neg">'+fm(-c.pi)+'</span></div>'
+    +'<div class="ro exp"><span class="rl">Tax + Insurance</span><span class="rv neg">'+fm(-c.tx)+'</span></div>'
+    +'<div class="ro exp"><span class="rl">Mgmt '+(p.rev.mgmt*100).toFixed(0)+'%</span><span class="rv neg">'+fm(-c.mg)+'</span></div>'
+    +'<div class="ro noi"><span class="rl" style="color:var(--gold)">Annual NOI</span><span class="rv gld">'+fm(c.noi)+'<span class="rp">'+c.pct+'%</span></span></div>'
+    +'<div class="ro" style="background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px"><span class="rl">Tier 4 Potential</span><span class="rv blu">'+fm(calcLTR(p.rev,4).noi)+'<span class="rp">'+calcLTR(p.rev,4).pct+'%</span></span></div>';
+}
 
 function upc(e,id){e.stopPropagation();document.getElementById('fi-'+id).click();}
-function hf(e,id){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>sp(id,ev.target.result);r.readAsDataURL(f);}
+function hf(e,id){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){savePhoto(id,ev.target.result);};r.readAsDataURL(f);}
 function dov(e,id){e.preventDefault();e.stopPropagation();}
-function dlv(id){}
-function drp(e,id){e.preventDefault();e.stopPropagation();const f=e.dataTransfer.files[0];if(!f||!f.type.startsWith('image/'))return;const r=new FileReader();r.onload=ev=>sp(id,ev.target.result);r.readAsDataURL(f);}
-function sp(id,data){const art=document.getElementById('art-'+id);const img=document.getElementById('ph-'+id);if(!art||!img)return;img.src=data;art.classList.add('hp');try{localStorage.setItem('trh_ph_'+id,data);}catch(e){}}
-function loadPhotos(){PROPS.forEach(p=>{try{const d=localStorage.getItem('trh_ph_'+p.id);if(d)sp(p.id,d);}catch(e){}});}
+function drp(e,id){e.preventDefault();e.stopPropagation();var f=e.dataTransfer.files[0];if(!f||!f.type.startsWith('image/'))return;var r=new FileReader();r.onload=function(ev){savePhoto(id,ev.target.result);};r.readAsDataURL(f);}
+function savePhoto(id,data){
+  var az=document.getElementById('az-'+id);
+  var img=document.getElementById('ph-'+id);
+  if(!az||!img)return;
+  img.src=data;az.classList.add('hp');
+  try{localStorage.setItem('trh_ph_'+id,data);}catch(e2){}
+}
+function loadPhotos(){
+  for(var i=0;i<PROPS.length;i++){
+    try{var d=localStorage.getItem('trh_ph_'+PROPS[i].id);if(d)savePhoto(PROPS[i].id,d);}catch(e2){}
+  }
+}
 
-(()=>{const r=sessionStorage.getItem('role');if(r){ADMIN=(r==='admin');go(r);}})();
+var SVG={
+river:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#0a1a2e"/><circle cx="55" cy="18" r="1.2" fill="#E8C97A" opacity=".8"/><circle cx="140" cy="10" r="1" fill="white" opacity=".5"/><circle cx="220" cy="24" r="1.2" fill="#E8C97A" opacity=".6"/><circle cx="310" cy="7" r="1" fill="white" opacity=".4"/><path d="M0 100 Q90 70 180 86 Q270 100 360 73 L360 195 L0 195Z" fill="#1a3a2a"/><path d="M0 120 Q75 96 150 111 Q225 126 300 96 Q335 81 360 91 L360 195 L0 195Z" fill="#2a5a3a"/><rect x="0" y="145" width="360" height="50" fill="#0d2a3a" opacity=".9"/><path d="M20 150 Q90 146 180 150 Q270 154 340 148" stroke="#C9A84C" stroke-width=".8" fill="none" opacity=".3"/><rect x="142" y="130" width="76" height="3" fill="#050505" opacity=".9"/><rect x="150" y="122" width="3" height="12" fill="#050505" opacity=".9"/><rect x="217" y="124" width="3" height="10" fill="#050505" opacity=".9"/><rect x="120" y="76" width="80" height="48" fill="#0d1a0d" opacity=".9"/><polygon points="115,76 206,76 161,50" fill="#0d0d10" opacity=".95"/><rect x="128" y="86" width="18" height="14" fill="#C9A84C" opacity=".28" rx="1"/><rect x="165" y="86" width="18" height="14" fill="#C9A84C" opacity=".28" rx="1"/><text x="180" y="42" text-anchor="middle" font-family="serif" font-size="12" fill="#C9A84C" opacity=".9" font-style="italic">The Tara</text><line x1="132" y1="47" x2="228" y2="47" stroke="#C9A84C" stroke-width=".5" opacity=".4"/></svg>',
+gr:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#1a180a"/><path d="M0 130 Q90 110 180 120 Q270 130 360 110 L360 195 L0 195Z" fill="#2a2410" opacity=".7"/><rect x="118" y="72" width="124" height="78" fill="#221e0a"/><polygon points="113,72 247,72 180,42" fill="#1a1805"/><rect x="128" y="82" width="24" height="19" fill="#C9A84C" opacity=".22" rx="1"/><rect x="214" y="82" width="24" height="19" fill="#C9A84C" opacity=".22" rx="1"/><rect x="169" y="88" width="22" height="35" fill="#0a0a05"/><ellipse cx="72" cy="108" rx="32" ry="40" fill="#1a2a0a" opacity=".8"/></svg>',
+park:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#180d0a"/><path d="M0 130 Q90 110 180 120 Q270 130 360 110 L360 195 L0 195Z" fill="#2a1a12" opacity=".7"/><rect x="113" y="68" width="134" height="78" fill="#221212"/><polygon points="108,68 252,68 180,38" fill="#1a0d0d"/><rect x="118" y="78" width="26" height="20" fill="#C9A84C" opacity=".2" rx="1"/><rect x="218" y="78" width="26" height="20" fill="#C9A84C" opacity=".2" rx="1"/><rect x="169" y="72" width="22" height="33" fill="#0a0505"/><line x1="180" y1="130" x2="180" y2="195" stroke="#C9A84C" stroke-width="1" opacity=".2" stroke-dasharray="4,4"/><text x="230" y="175" text-anchor="middle" font-family="monospace" font-size="7" fill="#C9A84C" opacity=".5">101 ANNE</text><text x="128" y="175" text-anchor="middle" font-family="monospace" font-size="7" fill="#C9A84C" opacity=".5">320 PARK</text></svg>',
+court:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#0a180a"/><path d="M0 145 Q90 122 180 135 Q270 145 360 122 L360 195 L0 195Z" fill="#1a3015" opacity=".7"/><rect x="95" y="74" width="108" height="76" fill="#1a2a1a"/><polygon points="90,74 208,74 149,44" fill="#141e14"/><rect x="103" y="86" width="22" height="17" fill="#C9A84C" opacity=".2" rx="1"/><rect x="130" y="86" width="22" height="17" fill="#C9A84C" opacity=".2" rx="1"/><rect x="159" y="86" width="22" height="17" fill="#C9A84C" opacity=".2" rx="1"/><rect x="138" y="118" width="22" height="32" fill="#0a0a0a"/><rect x="222" y="100" width="72" height="50" fill="#152015"/><text x="258" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".55">ADU IN RENO</text></svg>',
+tower:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#080812"/><circle cx="65" cy="20" r="1.2" fill="#E8C97A" opacity=".7"/><circle cx="215" cy="27" r="1.2" fill="#E8C97A" opacity=".6"/><path d="M0 160 Q42 135 68 145 L68 195 L0 195Z" fill="#0a1a0a"/><path d="M292 135 Q322 118 352 128 L352 195 L292 195Z" fill="#0a1a0a"/><rect x="130" y="108" width="100" height="65" fill="#1a1a2a"/><rect x="137" y="68" width="86" height="44" fill="#1a1a30"/><rect x="145" y="36" width="70" height="36" fill="#1a1a38"/><rect x="141" y="30" width="78" height="8" fill="#2a2a4a"/><rect x="140" y="116" width="18" height="13" fill="#C9A84C" opacity=".25" rx="1"/><rect x="192" y="116" width="18" height="13" fill="#C9A84C" opacity=".25" rx="1"/><rect x="145" y="78" width="14" height="11" fill="#C9A84C" opacity=".3" rx="1"/><rect x="191" y="78" width="14" height="11" fill="#C9A84C" opacity=".3" rx="1"/><rect x="153" y="44" width="12" height="10" fill="#C9A84C" opacity=".35" rx="1"/><rect x="185" y="44" width="12" height="10" fill="#C9A84C" opacity=".35" rx="1"/></svg>',
+hills:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#0d1a1a"/><path d="M0 158 Q42 132 82 142 Q122 155 162 126 Q202 96 242 118 Q282 142 360 128 L360 195 L0 195Z" fill="#1a3520" opacity=".8"/><rect x="78" y="90" width="204" height="5" fill="#2a4a3a"/><rect x="92" y="95" width="5" height="60" fill="#1a2a2a"/><rect x="277" y="95" width="5" height="60" fill="#1a2a2a"/><rect x="78" y="42" width="204" height="52" fill="#1a2820"/><rect x="95" y="50" width="52" height="40" fill="#C9A84C" opacity=".12" rx="1"/><rect x="217" y="50" width="52" height="40" fill="#C9A84C" opacity=".12" rx="1"/><line x1="78" y1="90" x2="282" y2="90" stroke="#C9A84C" stroke-width="1.2" opacity=".38"/></svg>',
+lot:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#0a0a12"/><line x1="0" y1="48" x2="360" y2="48" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="0" y1="97" x2="360" y2="97" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="0" y1="146" x2="360" y2="146" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="90" y1="0" x2="90" y2="195" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="180" y1="0" x2="180" y2="195" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="270" y1="0" x2="270" y2="195" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><rect x="90" y="48" width="180" height="146" stroke="#4A9B6F" stroke-width="1.5" fill="none" opacity=".5" stroke-dasharray="6,3"/><rect x="110" y="68" width="140" height="74" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.04)" stroke-dasharray="4,2"/><text x="180" y="62" text-anchor="middle" font-family="monospace" font-size="8" fill="#C9A84C" opacity=".5">FUTURE BUILD</text><text x="180" y="112" text-anchor="middle" font-family="serif" font-size="26" fill="#4A9B6F" opacity=".25">?</text><text x="180" y="175" text-anchor="middle" font-family="monospace" font-size="7" fill="#4A9B6F" opacity=".42">ANNE STREET</text></svg>',
+intl:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#001828"/><rect width="360" height="100" fill="#001018"/><circle cx="55" cy="16" r="1" fill="white" opacity=".5"/><circle cx="130" cy="28" r="1" fill="#E8C97A" opacity=".6"/><ellipse cx="38" cy="98" rx="26" ry="44" fill="#0a2a0a" opacity=".9"/><ellipse cx="322" cy="92" rx="28" ry="38" fill="#0a2a0a" opacity=".9"/><rect x="0" y="132" width="360" height="63" fill="#003a5a" opacity=".9"/><path d="M0 140 Q90 135 180 140 Q270 145 360 139" stroke="#4A9B9B" stroke-width=".8" fill="none" opacity=".4"/><rect x="140" y="128" width="80" height="4" fill="#5a4a2a" opacity=".8"/><rect x="135" y="80" width="90" height="52" fill="#1a2a2a"/><rect x="143" y="88" width="20" height="14" fill="#4A9B9B" opacity=".25" rx="1"/><rect x="179" y="88" width="20" height="14" fill="#4A9B9B" opacity=".25" rx="1"/></svg>',
+nic:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="360" height="195" fill="#001520"/><rect width="360" height="107" fill="#001018"/><rect x="0" y="130" width="360" height="65" fill="#001a3a" opacity=".95"/><path d="M0 140 Q42 135 82 140 Q122 145 162 138 Q202 130 242 138 Q282 145 360 140" stroke="#3a7a7a" stroke-width="1" fill="none" opacity=".5"/><path d="M0 112 Q62 88 122 102 Q182 118 242 90 Q282 72 360 86 L360 130 L0 130Z" fill="#0a1a0a"/><rect x="72" y="98" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/><text x="102" y="92" text-anchor="middle" font-family="monospace" font-size="7" fill="#4A9B9B" opacity=".7">SJDS</text><rect x="222" y="102" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/><text x="252" y="96" text-anchor="middle" font-family="monospace" font-size="7" fill="#4A9B9B" opacity=".7">PLAYA YANKEE</text></svg>'
+};
+
+var PROPS=[
+  {id:'p01',num:'TRH-001',tags:'active bellaire',name:'315 Seneca',nick:'"The Tara"',addr:'Bellaire, MI - Intermediate River',type:'Active STR',rl:'Mythic - Anchor',svg:SVG.river,beds:3,baths:2,sqft:1800,ev:314000,
+   rev:{t:'str',rows:[{l:'Airbnb Net',v:16148,c:'inc'},{l:'VRBO (Est.)',v:16148,c:'inc'},{l:'Platform Fees',v:-5812,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'}],proj:'Target $45-60K NOI at optimisation'},
+   exp:{pi:15140,tax:2400,ins:1362,maint:2400,mgmt:0,pp:254750,lb:249000}},
+  {id:'p02',num:'TRH-002',tags:'active',name:'535 Ethel',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR - GR Cashflow',svg:SVG.gr,beds:3,baths:1,sqft:1200,ev:289400,
+   rev:{t:'ltr',rent:1500,pi:354.72,tax:200,mgmt:.05},
+   exp:{pi:4257,tax:1200,ins:1200,maint:1200,mgmt:900,pp:92000,lb:68000}},
+  {id:'p03',num:'TRH-003',tags:'active',name:'1032 Watson',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR - GR Cashflow',svg:SVG.gr,beds:4,baths:2,sqft:1600,ev:238000,
+   rev:{t:'ltr',rent:1900,pi:603.97,tax:200,mgmt:.05},
+   exp:{pi:7248,tax:1200,ins:1200,maint:1200,mgmt:1140,pp:149000,lb:119200}},
+  {id:'p04',num:'TRH-004',tags:'active bellaire future',name:'320 Park',addr:'Bellaire, MI',type:'LTR + Lot Split',rl:'$25K Raise Open',svg:SVG.park,beds:3,baths:1,sqft:1400,ev:275000,
+   rev:{t:'ltr',rent:1600,pi:603.97,tax:200,mgmt:.05},
+   exp:{pi:7248,tax:1400,ins:1200,maint:800,mgmt:960,pp:149000,lb:119000}},
+  {id:'p05',num:'TRH-005',tags:'active bellaire',name:'104 Court',addr:'Bellaire, MI - Residence + ADU',type:'Residence + ADU',rl:'ADU In Renovation',svg:SVG.court,beds:3,baths:2,sqft:1600,ev:244200,
+   rev:{t:'fut',rows:[{l:'ADU Revenue (target)',v:40000,c:'inc'},{l:'Platform Fees',v:-7200,c:'exp'}],proj:'Zero debt = pure cashflow - $30-50K/yr'},
+   exp:{pi:0,tax:1600,ins:1200,maint:15000,mgmt:0,pp:101000,lb:0}},
+  {id:'p06',num:'TRH-006',tags:'bellaire future',name:'313 Seneca',addr:'Bellaire, MI - Tower Home',type:'Future STR',rl:'Legendary - Tower',svg:SVG.tower,beds:3,baths:3,sqft:2200,ev:125000,
+   rev:{t:'fut',rows:[{l:'Projected Revenue',v:62500,c:'inc'},{l:'Est. Expenses',v:-20000,c:'exp'}],proj:'$45-80K/yr - Premium ADR destination'},
+   exp:{pi:0,tax:800,ins:800,maint:0,mgmt:0,pp:85000,lb:80000}},
+  {id:'p07',num:'TRH-007',tags:'bellaire future',name:'Riverside Home A',addr:'316 Seneca - Bellaire, MI',type:'Future STR',rl:'Epic - Hillside Pier',svg:SVG.hills,beds:2,baths:2,sqft:1440,ev:0,
+   rev:{t:'fut',rows:[{l:'Projected Revenue',v:75000,c:'inc'},{l:'Est. Expenses',v:-22000,c:'exp'}],proj:'$55-95K/yr - Combined A+B: $110-190K/yr'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0}},
+  {id:'p08',num:'TRH-008',tags:'bellaire future',name:'Riverside Home B',addr:'314 Seneca - Bellaire, MI',type:'Future STR',rl:'Epic - Mirrored Unit',svg:SVG.hills,beds:2,baths:2,sqft:1440,ev:0,
+   rev:{t:'fut',rows:[{l:'Projected Revenue',v:75000,c:'inc'},{l:'Est. Expenses',v:-22000,c:'exp'}],proj:'Mirror of Home A - Same ADR target'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0}},
+  {id:'p09',num:'TRH-009',tags:'bellaire future',name:'101 Anne Street',addr:'Lot Split - Bellaire, MI',type:'Future - Lot Split',rl:'Value Creation',svg:SVG.lot,beds:0,baths:0,sqft:0,ev:65000,
+   rev:{t:'fut',rows:[{l:'Est. Lot Value',v:65000,c:'inc'},{l:'Split Cost',v:-5000,c:'exp'}],proj:'~16x return on split cost'},
+   exp:{pi:0,tax:0,ins:0,maint:5000,mgmt:0,pp:0,lb:0}},
+  {id:'p10',num:'TRH-010',tags:'intl future',name:'Orchid Bay D58',addr:'Belize - Caribbean',type:'Future STR',rl:'International',svg:SVG.intl,beds:2,baths:2,sqft:0,ev:0,
+   rev:{t:'fut',rows:[{l:'Caribbean STR Target',v:50000,c:'inc'}],proj:'USD-pegged - Zero currency risk'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0}},
+  {id:'p11',num:'TRH-011',tags:'intl future',name:'Nicaragua Holdings',addr:'San Juan del Sur + Playa Yankee',type:'2 Parcels - Future',rl:'International - Pacific',svg:SVG.nic,beds:0,baths:0,sqft:0,ev:0,
+   rev:{t:'fut',rows:[{l:'Long-Term Hold',v:0,c:'proj'}],proj:'Pacific Coast - High-growth STR corridor'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0}},
+];
+
+(function checkSession(){
+  var r=sessionStorage.getItem('role');
+  if(r){ADMIN=(r==='admin');doGo(r);}
+})();
 </script>
 </body>
 </html>
