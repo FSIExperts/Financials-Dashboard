@@ -6,338 +6,246 @@
 <title>Tara River Homes — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --gold:#C9A84C; --gold-lt:#E8C97A; --gold-dk:#8B6914;
-  --black:#0A0A0A; --char:#1A1A1A;
-  --cream:#F5EDD9; --cream2:#DDD0B0; --silver:#A8A8A8;
-  --green:#2ECC71; --red:#e07070;
-  --ch: 600px; /* card height — single source of truth */
+:root{
+  --gold:#C9A84C;--gold-lt:#E8C97A;--gold-dk:#8B6914;
+  --black:#0A0A0A;--char:#161616;--char2:#1E1E1E;
+  --cream:#F5EDD9;--cream2:#DDD0B0;--silver:#888;
+  --green:#2ECC71;--red:#E07070;--blue:#4A8B9B;
+  --tier-bronze:#CD7F32;--tier-silver:#C0C0C0;--tier-gold:#C9A84C;
+  --tier-platinum:#E5E4E2;--tier-black:#777;--tier-obsidian:#9B6FD4;
+  --cw:340px;--ch:630px;--gap:22px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
-body{
-  background:var(--black);
-  background-image:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.04) 0%,transparent 60%),
-    radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.03) 0%,transparent 50%);
-  min-height:100vh; font-family:'Cormorant Garamond',serif;
-  color:var(--cream); overflow-x:hidden;
-}
+body{background:var(--black);background-image:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.03) 0%,transparent 50%);min-height:100vh;font-family:'Cormorant Garamond',serif;color:var(--cream);overflow-x:hidden;}
 
-/* ── LOGIN ── */
-#loginScreen{
-  position:fixed;inset:0;background:var(--black);
-  display:flex;align-items:center;justify-content:center;z-index:9999;
-}
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:var(--black);display:flex;align-items:center;justify-content:center;z-index:9999;}
 .lbox{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(330px,90vw);}
-.llogo{
-  font-family:'Playfair Display',serif;font-size:52px;font-weight:900;line-height:1;
-  background:linear-gradient(160deg,var(--gold-lt),var(--gold),var(--gold-dk));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  letter-spacing:-3px;margin-bottom:4px;
-}
+.llogo{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;background:linear-gradient(160deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;margin-bottom:4px;}
 .lname{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cream);}
 .lsub{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:16px;}
-.lbox input{
-  width:100%;padding:13px 16px;background:var(--char);
-  border:1px solid rgba(201,168,76,.3);color:var(--cream);
-  font-family:'Courier Prime',monospace;font-size:18px;letter-spacing:8px;
-  text-align:center;outline:none;border-radius:2px;transition:border-color .2s;
-}
+.lbox input{width:100%;padding:13px 16px;background:var(--char);border:1px solid rgba(201,168,76,.3);color:var(--cream);font-family:'Courier Prime',monospace;font-size:18px;letter-spacing:8px;text-align:center;outline:none;border-radius:2px;transition:border-color .2s;}
 .lbox input:focus{border-color:var(--gold);}
 .lbox input::placeholder{letter-spacing:3px;font-size:11px;opacity:.4;}
-.lbox button{
-  width:100%;padding:13px;background:var(--gold);color:var(--black);
-  border:none;cursor:pointer;font-family:'Courier Prime',monospace;
-  font-size:10px;letter-spacing:4px;text-transform:uppercase;
-  border-radius:2px;transition:background .2s;
-}
+.lbox button{width:100%;padding:13px;background:var(--gold);color:var(--black);border:none;cursor:pointer;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;border-radius:2px;transition:background .2s;}
 .lbox button:hover{background:var(--gold-lt);}
 .lerr{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);min-height:16px;}
 
-/* ── ADMIN BANNER ── */
-#adminBanner{
-  display:none;align-items:center;justify-content:space-between;
-  background:linear-gradient(90deg,rgba(201,168,76,.1),transparent);
-  border-bottom:1px solid rgba(201,168,76,.22);
-  padding:7px 32px;
-}
+/* ADMIN BANNER */
+#adminBanner{display:none;align-items:center;justify-content:space-between;background:linear-gradient(90deg,rgba(201,168,76,.1),transparent);border-bottom:1px solid rgba(201,168,76,.2);padding:7px 32px;}
 #adminBanner.on{display:flex;}
 .abmsg{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.75;}
-.lout-btn{
-  background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);
-  padding:4px 12px;cursor:pointer;font-family:'Courier Prime',monospace;
-  font-size:7px;letter-spacing:2px;text-transform:uppercase;transition:all .2s;
-}
-.lout-btn:hover{background:var(--gold);color:var(--black);}
+.lout{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:4px 12px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;transition:all .2s;}
+.lout:hover{background:var(--gold);color:var(--black);}
 
-/* ── HEADER ── */
-header{text-align:center;padding:48px 20px 30px;}
-header::before{
-  content:'';display:block;width:1px;height:48px;
-  background:linear-gradient(to bottom,transparent,var(--gold));
-  margin:0 auto 16px;
-}
+/* HEADER */
+header{text-align:center;padding:44px 20px 24px;}
+header::before{content:'';display:block;width:1px;height:44px;background:linear-gradient(to bottom,transparent,var(--gold));margin:0 auto 14px;}
 .btag{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:10px;}
-h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(30px,5vw,62px);font-weight:900;line-height:1;
-  background:linear-gradient(135deg,var(--gold-lt) 0%,var(--gold) 40%,var(--gold-dk) 80%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  letter-spacing:-1px;margin-bottom:6px;
-}
-.sub{font-style:italic;font-size:15px;color:var(--cream2);opacity:.65;margin-bottom:28px;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,62px);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-lt) 0%,var(--gold) 40%,var(--gold-dk) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;margin-bottom:6px;}
+.hsub{font-style:italic;font-size:15px;color:var(--cream2);opacity:.65;margin-bottom:24px;}
 
-/* ── TABS ── */
-.tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:32px;padding:0 16px;}
-.tab{
-  font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;
-  padding:7px 15px;border:1px solid rgba(201,168,76,.3);background:transparent;
-  color:var(--gold);cursor:pointer;transition:all .2s;
-}
+/* TABS */
+.tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding:0 16px;}
+.tab{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;padding:7px 15px;border:1px solid rgba(201,168,76,.3);background:transparent;color:var(--gold);cursor:pointer;transition:all .2s;}
 .tab:hover,.tab.active{background:var(--gold);color:var(--black);border-color:var(--gold);}
-.inst{text-align:center;font-style:italic;font-size:11px;color:var(--silver);opacity:.4;margin-bottom:22px;}
+.phint{text-align:center;font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);opacity:.35;margin-bottom:18px;}
 
-/* ── GRID ── */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(315px,1fr));
-  /* Explicit row height — the critical fix for the grid row drop bug */
-  grid-auto-rows:var(--ch);
-  align-items:start;
-  gap:28px;max-width:1400px;margin:0 auto;padding:0 28px 80px;
-}
+/* SCROLL TRACK */
+.stw{position:relative;padding-bottom:36px;}
+.stw::before,.stw::after{content:'';position:absolute;top:0;bottom:36px;width:60px;z-index:10;pointer-events:none;}
+.stw::before{left:0;background:linear-gradient(to right,var(--black),transparent);}
+.stw::after{right:0;background:linear-gradient(to left,var(--black),transparent);}
+.st{display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:18px 64px;scrollbar-width:none;}
+.st::-webkit-scrollbar{display:none;}
+.sarrow{position:absolute;top:calc(50% - 18px);transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(22,22,22,.92);border:1px solid rgba(201,168,76,.35);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:20;backdrop-filter:blur(6px);}
+.sarrow:hover{background:var(--gold);color:var(--black);}
+.sarrow.sl{left:10px;}
+.sarrow.sr{right:10px;}
 
-/* ─────────────────────────────────────────────────────────
-  FLIP CARD — THE ROOT-CAUSE FIX EXPLAINED:
+/* CARD SCENE / WRAP / CARD — flip bug fix */
+.cs{perspective:1400px;perspective-origin:50% 50%;flex-shrink:0;width:var(--cw);height:var(--ch);scroll-snap-align:start;transform:none !important;cursor:pointer;}
+.cs.hidden{display:none;}
+.cs.p1 .card{transform:translateZ(0) rotateY(180deg);}
+.cs.p2 .card{transform:translateZ(0) rotateY(-180deg);}
+.cw{width:100%;height:var(--ch);position:relative;isolation:isolate;}
+.card{width:100%;height:var(--ch);position:absolute;top:0;left:0;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,.2,.2,1);will-change:transform;transform:translateZ(0) rotateY(0deg);}
+.face{position:absolute;inset:0;width:100%;height:var(--ch);backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden;transform:translateZ(1px);}
+.frev{transform:translateZ(1px) rotateY(180deg);}
+.fexp{transform:translateZ(1px) rotateY(-180deg);}
 
-  The "row drop" bug happens because perspective + preserve-3d
-  on the same element causes the browser to re-run layout
-  on the element AND its grid row during the CSS animation.
-  Separating them into distinct ancestors stops this:
+/* VALUE TIER — border color via CSS var */
+[data-tier="bronze"]{--tc:var(--tier-bronze);}
+[data-tier="silver"]{--tc:var(--tier-silver);}
+[data-tier="gold"]{--tc:var(--tier-gold);}
+[data-tier="platinum"]{--tc:var(--tier-platinum);}
+[data-tier="black"]{--tc:var(--tier-black);}
+[data-tier="obsidian"]{--tc:var(--tier-obsidian);}
+[data-tier="tbd"]{--tc:var(--silver);}
 
-  .card-scene  — holds perspective (no transform of its own)
-  .card-wrap   — plain sizing container (no 3D at all)
-  .card        — the actual rotator (preserve-3d + transition)
-  .cf / .cb    — faces (translateZ primes their own GPU layer)
-───────────────────────────────────────────────────────── */
-.card-scene{
-  perspective:1400px;
-  perspective-origin:50% 50%;
-  height:var(--ch);        /* matches grid-auto-rows — row NEVER collapses */
-  transform:none !important; /* scene itself must NOT transform */
-}
-.card-scene.hidden{display:none;}
-.card-scene.flipped .card{transform:translateZ(0) rotateY(180deg);}
+/* FRONT FACE */
+.ff{background:var(--char);border:1px solid rgba(201,168,76,.1);border-top:3px solid var(--tc,var(--gold));display:flex;flex-direction:column;position:relative;}
+.ff::before,.ff::after{content:'';position:absolute;width:20px;height:20px;border-color:var(--tc,var(--gold));border-style:solid;opacity:.45;z-index:10;pointer-events:none;}
+.ff::before{top:12px;left:12px;border-width:1px 0 0 1px;}
+.ff::after{bottom:12px;right:12px;border-width:0 1px 1px 0;}
+.tbadge{position:absolute;top:10px;right:12px;z-index:20;font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border:1px solid var(--tc,var(--gold));color:var(--tc,var(--gold));background:rgba(10,10,10,.82);backdrop-filter:blur(4px);}
 
-.card-wrap{
-  width:100%;height:var(--ch);position:relative;
-  cursor:pointer;isolation:isolate;
-}
+/* ART ZONE */
+.az{height:168px;flex-shrink:0;position:relative;overflow:hidden;background:#0a0a0a;}
+.az .asvg{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+.az img.pp{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;display:none;}
+.az.hp .asvg{display:none;}
+.az.hp img.pp{display:block;}
+.ag{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.75) 100%);}
+.rbadge{position:absolute;bottom:10px;left:12px;z-index:5;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--tc,var(--gold));border-left:2px solid var(--tc,var(--gold));padding-left:5px;background:rgba(10,10,10,.55);backdrop-filter:blur(4px);}
+.pbtn{display:none;position:absolute;bottom:10px;right:12px;z-index:6;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;background:rgba(10,10,10,.85);border:1px solid var(--gold);color:var(--gold);cursor:pointer;transition:all .2s;}
+.pbtn:hover{background:var(--gold);color:var(--black);}
+body.admin .pbtn{display:block;}
 
-.card{
-  width:100%;height:var(--ch); /* explicit px, never % */
-  position:absolute;top:0;left:0;
-  transform-style:preserve-3d;
-  transition:transform 0.6s cubic-bezier(.4,.2,.2,1);
-  will-change:transform;
-  transform:translateZ(0) rotateY(0deg); /* GPU layer from frame 1 */
-}
+/* PROP IDENTITY */
+.pid{padding:9px 15px 3px;flex-shrink:0;}
+.pnum{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;color:var(--tc,var(--gold));opacity:.42;margin-bottom:1px;}
+.pname{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);line-height:1.1;}
+.pnick{font-style:italic;font-size:12px;opacity:.6;}
+.padr{font-style:italic;font-size:10px;color:var(--silver);margin-top:1px;}
 
-.cf,.cb{
-  position:absolute;inset:0;
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  border-radius:12px;overflow:hidden;
-  transform:translateZ(1px); /* own compositing layer = no layout bleed */
-}
-.cb{transform:translateZ(1px) rotateY(180deg);}
+/* VITALS STRIP */
+.vits{display:flex;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);margin:5px 0 0;flex-shrink:0;}
+.vit{flex:1;padding:5px 6px;border-right:1px solid rgba(255,255,255,.04);text-align:center;}
+.vit:last-child{border-right:none;}
+.vitl{font-family:'Courier Prime',monospace;font-size:6px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver);opacity:.55;margin-bottom:1px;}
+.vitv{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--tc,var(--gold));}
 
-/* ── RARITY ── */
-.rm{--rc:#E8C97A;} .rl{--rc:#C9A84C;} .re{--rc:#9B6FD4;}
-.rr{--rc:#5B8ED4;} .rltr{--rc:#2ECC71;} .rf{--rc:#4A9B6F;} .ri{--rc:#4A8B9B;}
+.cline{height:1px;margin:0 15px;background:linear-gradient(to right,var(--tc,var(--gold)),transparent);opacity:.18;flex-shrink:0;}
 
-/* ── FRONT ── */
-.cf{background:var(--char);border:1px solid rgba(201,168,76,.18);display:flex;flex-direction:column;}
-.cf::before,.cf::after{
-  content:'';position:absolute;width:22px;height:22px;
-  border-color:var(--rc,var(--gold));border-style:solid;opacity:.48;z-index:10;pointer-events:none;
-}
-.cf::before{top:10px;left:10px;border-width:1px 0 0 1px;}
-.cf::after{bottom:10px;right:10px;border-width:0 1px 1px 0;}
-.rbar{height:3px;flex-shrink:0;background:linear-gradient(to right,var(--rc,var(--gold)),transparent);}
-
-/* Art zone */
-.art{height:162px;position:relative;overflow:hidden;flex-shrink:0;background:#0d0d0d;}
-.art.dragover{outline:2px dashed var(--gold);outline-offset:-4px;}
-.art.hphoto .asvg{display:none;}
-.art img.pphoto{
-  width:100%;height:100%;object-fit:cover;
-  display:none;position:absolute;inset:0;z-index:1;
-}
-.art.hphoto img.pphoto{display:block;}
-.pgrad{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.7) 100%);}
-.asvg{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
-.tbadge{
-  position:absolute;top:9px;right:11px;z-index:5;
-  font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;
-  padding:3px 7px;background:rgba(10,10,10,.82);backdrop-filter:blur(4px);
-  border:1px solid var(--rc,var(--gold));color:var(--rc,var(--gold));
-}
-.rbadge{
-  position:absolute;bottom:9px;left:11px;z-index:5;
-  font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--rc,var(--gold));border-left:2px solid var(--rc,var(--gold));padding-left:5px;
-  background:rgba(10,10,10,.55);backdrop-filter:blur(4px);
-}
-.photo-btn{
-  display:none;position:absolute;bottom:9px;right:11px;z-index:6;
-  font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;
-  padding:3px 9px;background:rgba(10,10,10,.85);border:1px solid var(--gold);
-  color:var(--gold);cursor:pointer;transition:all .2s;
-}
-.photo-btn:hover{background:var(--gold);color:var(--black);}
-body.admin .photo-btn{display:block;}
-
-/* Card ID strip */
-.cid-strip{padding:9px 16px 5px;flex-shrink:0;}
-.cnum{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;color:var(--rc,var(--gold));opacity:.42;margin-bottom:1px;}
-.cname{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);line-height:1.1;}
-.caddr{font-style:italic;font-size:10.5px;color:var(--silver);}
-.cline{height:1px;margin:5px 16px 7px;flex-shrink:0;background:linear-gradient(to right,var(--rc,var(--gold)),transparent);opacity:.2;}
-
-/* ── LTR P&L ── */
-.plltr{flex:1;padding:0 14px 8px;display:flex;flex-direction:column;overflow:hidden;}
-.hrow{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+/* FRONT P&L */
+.fpl{flex:1;padding:4px 13px 5px;display:flex;flex-direction:column;gap:2px;overflow:hidden;}
+.fr{display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:2px;}
+.fr.inc{background:rgba(46,204,113,.07);border-left:2px solid var(--green);}
+.fr.exp{background:rgba(255,255,255,.02);border-left:2px solid rgba(255,255,255,.06);}
+.fr.noi{background:rgba(201,168,76,.09);border-left:2px solid var(--gold);margin-top:1px;}
+.fl{font-family:'Courier Prime',monospace;font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
+.fv{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;}
+.fv.pos{color:var(--green);}.fv.neg{color:var(--red);}.fv.gld{color:var(--gold);}
+.fp{font-family:'Courier Prime',monospace;font-size:7.5px;color:var(--silver);opacity:.6;margin-left:3px;}
+.hrow{display:flex;align-items:center;gap:6px;padding:4px 13px 2px;flex-shrink:0;}
 .hlbl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.7;flex-shrink:0;}
 .htiers{display:flex;gap:3px;}
-.tbtn{
-  background:none;border:1px solid transparent;cursor:pointer;
-  padding:2px 3px;border-radius:2px;opacity:.28;transition:all .16s;
-  display:flex;gap:1px;align-items:flex-end;
-}
-.tbtn:hover{opacity:.65;border-color:rgba(46,204,113,.3);}
-.tbtn.active{opacity:1;border-color:rgba(46,204,113,.4);background:rgba(46,204,113,.07);}
-.plrows{display:flex;flex-direction:column;gap:2px;flex:1;}
-.plr{display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:2px;}
-.plr.inc{background:rgba(46,204,113,.07);border-left:2px solid var(--green);}
-.plr.exp{background:rgba(255,255,255,.022);border-left:2px solid rgba(255,255,255,.07);}
-.plr.noi{background:rgba(201,168,76,.1);border-left:2px solid var(--gold);margin-top:2px;}
-.pllbl{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.plv{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;display:flex;align-items:baseline;gap:3px;}
-.plv.pos{color:var(--green);} .plv.neg{color:var(--red);} .plv.gld{color:var(--gold);}
-.ppct{font-family:'Courier Prime',monospace;font-size:8px;color:var(--silver);opacity:.65;}
+.tbtn{background:none;border:1px solid transparent;cursor:pointer;padding:2px 3px;border-radius:2px;opacity:.28;transition:all .15s;display:flex;gap:1px;align-items:flex-end;}
+.tbtn:hover{opacity:.6;}.tbtn.active{opacity:1;border-color:rgba(46,204,113,.4);background:rgba(46,204,113,.07);}
 
-/* ── STR P&L ── */
-.plstr{flex:1;padding:0 14px 8px;display:flex;flex-direction:column;gap:2px;}
-.plstr-hdr{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--rc,var(--gold));opacity:.6;margin-bottom:4px;}
+/* TAP HINT / DOTS */
+.taphint{flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:5px 15px 9px;}
+.dots{display:flex;gap:5px;}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(201,168,76,.18);transition:background .3s;}
+.dot.on{background:var(--gold);}
+.dotlbl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.28;}
 
-/* ── FUTURE P&L ── */
-.plfut{flex:1;padding:0 14px 8px;display:flex;flex-direction:column;gap:3px;}
-.futr{display:flex;justify-content:space-between;align-items:baseline;padding:3.5px 6px;background:rgba(201,168,76,.04);border-left:2px solid rgba(201,168,76,.14);}
-.futl{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.futv{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--rc,var(--gold));}
-.fhint{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.28;text-align:right;padding:2px 16px 0;flex-shrink:0;}
+/* REVENUE FACE */
+.rf{background:var(--char);border:1px solid rgba(46,204,113,.14);border-top:3px solid var(--green);display:flex;flex-direction:column;padding:13px 15px 11px;}
+.rfhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
+.rft{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--cream);}
+.rfs{font-style:italic;font-size:10px;color:var(--silver);}
+.rfi{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;color:var(--green);opacity:.45;text-align:right;}
+.rfd{height:1px;margin-bottom:9px;background:linear-gradient(to right,var(--green),transparent);opacity:.2;}
+.rfrows{display:flex;flex-direction:column;gap:2.5px;flex:1;overflow:hidden;}
+.rfr{display:flex;justify-content:space-between;align-items:center;padding:3.5px 7px;border-radius:2px;}
+.rfr.inc{background:rgba(46,204,113,.07);border-left:2px solid var(--green);}
+.rfr.exp{background:rgba(255,255,255,.02);border-left:2px solid rgba(255,255,255,.06);}
+.rfr.tot{background:rgba(201,168,76,.1);border-left:2px solid var(--gold);margin-top:3px;}
+.rfr.proj{background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px;}
+.rfl{font-family:'Courier Prime',monospace;font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
+.rfv{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;}
+.rfv.pos{color:var(--green);}.rfv.neg{color:var(--red);}.rfv.gld{color:var(--gold);}.rfv.blu{color:var(--blue);}
+.rfp{font-family:'Courier Prime',monospace;font-size:7.5px;color:var(--silver);opacity:.6;margin-left:3px;}
+.rftp{display:flex;align-items:center;gap:7px;padding:3px 7px;margin-bottom:3px;background:rgba(46,204,113,.04);border-radius:2px;}
+.rftpl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.7;}
+.rfft{margin-top:auto;padding-top:7px;border-top:1px solid rgba(46,204,113,.1);display:flex;justify-content:space-between;align-items:center;}
+.rfftl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:.45;}
+.rfftv{font-family:'Playfair Display',serif;font-size:10px;color:var(--silver);}
 
-/* ── BACK ── */
-.cb.card-back-inner{background:var(--char);border:1px solid rgba(201,168,76,.18);display:flex;flex-direction:column;padding:14px 16px 12px;position:relative;}
-.cb.card-back-inner::before,.cb.card-back-inner::after{
-  content:'';position:absolute;width:22px;height:22px;
-  border-color:var(--rc,var(--gold));border-style:solid;opacity:.48;z-index:10;pointer-events:none;
-}
-.cb.card-back-inner::before{top:10px;left:10px;border-width:1px 0 0 1px;}
-.cb.card-back-inner::after{bottom:10px;right:10px;border-width:0 1px 1px 0;}
-.bhdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.btitle{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--cream);line-height:1.2;}
-.baddr{font-style:italic;font-size:10px;color:var(--silver);}
-.blogо{font-family:'Playfair Display',serif;font-size:8px;color:var(--gold);opacity:.33;text-align:right;line-height:1.6;flex-shrink:0;padding-left:8px;}
-.bdiv{height:1px;margin-bottom:7px;background:linear-gradient(to right,var(--rc,var(--gold)),transparent);opacity:.2;}
-.bstats{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:7px;}
-.bs{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.08);padding:4px 6px;border-radius:2px;}
-.bsl{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:2px;text-transform:uppercase;color:var(--rc,var(--gold));opacity:.6;margin-bottom:1px;}
-.bsv{font-family:'Playfair Display',serif;font-size:11.5px;font-weight:700;color:var(--cream);}
-.strat{background:rgba(201,168,76,.05);border-left:2px solid var(--rc,var(--gold));padding:6px 8px;flex:1;overflow:hidden;margin-bottom:7px;}
-.stratl{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:2px;text-transform:uppercase;color:var(--rc,var(--gold));opacity:.6;margin-bottom:2px;}
-.stratt{font-size:10px;line-height:1.55;color:var(--cream2);}
-.bfoot{display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid rgba(201,168,76,.1);}
-.bid{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;color:var(--gold);opacity:.26;}
-.ptag{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:2px;text-transform:uppercase;padding:2px 6px;border:1px solid var(--rc,var(--gold));color:var(--rc,var(--gold));}
+/* EXPENSE FACE */
+.ef{background:var(--char);border:1px solid rgba(224,112,112,.14);border-top:3px solid var(--red);display:flex;flex-direction:column;padding:13px 15px 11px;}
+.efhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
+.eft{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--cream);}
+.efs{font-style:italic;font-size:10px;color:var(--silver);}
+.efi{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:2px;color:var(--red);opacity:.45;text-align:right;}
+.efd{height:1px;margin-bottom:9px;background:linear-gradient(to right,var(--red),transparent);opacity:.2;}
+.efrows{display:flex;flex-direction:column;gap:2.5px;flex:1;overflow:hidden;}
+.efr{display:flex;justify-content:space-between;align-items:center;padding:3.5px 7px;border-radius:2px;}
+.efr.exp{background:rgba(224,112,112,.06);border-left:2px solid rgba(224,112,112,.4);}
+.efr.tot{background:rgba(201,168,76,.1);border-left:2px solid var(--gold);margin-top:3px;}
+.efr.eq{background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px;}
+.efr.apr{background:rgba(46,204,113,.07);border-left:2px solid var(--green);margin-top:2px;}
+.efl{font-family:'Courier Prime',monospace;font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
+.efv{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;}
+.efv.neg{color:var(--red);}.efv.gld{color:var(--gold);}.efv.pos{color:var(--green);}.efv.blu{color:var(--blue);}
+.efp{font-family:'Courier Prime',monospace;font-size:7.5px;color:var(--silver);opacity:.6;margin-left:3px;}
+.eqbar{margin:5px 0;}
+.eqtrack{height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.eqfill{height:100%;background:linear-gradient(to right,var(--red) 0%,var(--gold) 50%,var(--green) 100%);border-radius:3px;}
+.eqlbls{display:flex;justify-content:space-between;margin-top:2px;}
+.eqll{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.5;}
+.efft{margin-top:auto;padding-top:7px;border-top:1px solid rgba(224,112,112,.1);}
+.efftl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.4;line-height:1.5;}
 
-/* ── SUMMARY PANEL ── */
-.summ{
-  grid-column:1/-1;height:auto !important; /* override grid-auto-rows */
-  background:var(--char);border:1px solid rgba(201,168,76,.26);border-radius:12px;
-  padding:28px 32px;position:relative;overflow:hidden;
-}
-.summ::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--gold),var(--gold-lt),var(--gold));}
-.sumtitle{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px;}
-.sumgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:14px;}
-.ss{border-left:2px solid rgba(201,168,76,.24);padding-left:10px;}
-.ssl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.58;margin-bottom:2px;}
-.ssv{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cream);line-height:1;}
-.sss{font-style:italic;font-size:10px;color:var(--silver);}
+/* SUMMARY */
+.ss-scene{flex-shrink:0;width:min(calc(100vw - 128px),720px);height:var(--ch);scroll-snap-align:start;}
+.ss-inner{width:100%;height:100%;background:var(--char);border:1px solid rgba(201,168,76,.22);border-top:3px solid var(--gold);border-radius:14px;padding:26px 28px;display:flex;flex-direction:column;overflow:hidden;}
+.sstitle{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px;}
+.ssgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;flex:1;}
+.sg{border-left:2px solid rgba(201,168,76,.2);padding-left:9px;}
+.sgl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:2px;}
+.sgv{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cream);line-height:1;}
+.sgs{font-style:italic;font-size:10px;color:var(--silver);}
+.tleg{margin-top:14px;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);}
+.tlegtitle{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.45;margin-bottom:7px;}
+.tlegi{display:flex;gap:9px;flex-wrap:wrap;}
+.tlegitem{display:flex;align-items:center;gap:4px;}
+.tlegsw{width:9px;height:9px;border-radius:2px;}
+.tlegl{font-family:'Courier Prime',monospace;font-size:6.5px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.55;}
 
-/* ── ART BGs ── */
-.ariver{background:linear-gradient(180deg,#0a1a2e,#1a3a5c 40%,#1a3a2a 70%,#0d2018);}
-.ahills{background:linear-gradient(135deg,#0d1a1a,#1a3a3a 40%,#2a5a40 70%,#1a2a1a);}
-.atower{background:linear-gradient(170deg,#0a0a1a,#1a1a3a 40%,#2a2a5a 70%,#111);}
-.agr{background:linear-gradient(135deg,#1a180a,#3a3018 40%,#4a3818 70%,#2a2010);}
-.apark{background:linear-gradient(135deg,#1a0d0a,#3a1a10 40%,#4a2015 70%,#2a1008);}
-.acourt{background:linear-gradient(135deg,#0a180a,#1a3015 40%,#2a4a20 70%,#152010);}
-.aintl{background:linear-gradient(135deg,#001a28,#003a58 30%,#005a48 60%,#001a38);}
-.ablue{background:linear-gradient(135deg,#0a0a12,#12121e 40%,#0e0e18);}
+footer{border-top:1px solid rgba(201,168,76,.1);padding:13px 28px;margin-top:6px;}
+.fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.flogo{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--gold);opacity:.4;}
+.fcopy{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;}
 
-/* ── FOOTER ── */
-footer{border-top:1px solid rgba(201,168,76,.1);padding:16px 28px;margin-top:16px;}
-.fi{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.flogo{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--gold);opacity:.45;}
-.fcopy{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.32;}
+.ab-river{background:linear-gradient(180deg,#0a1a2e,#1a3a5c 40%,#1a3a2a 70%,#0d2018);}
+.ab-hills{background:linear-gradient(135deg,#0d1a1a,#1a3a3a 40%,#2a5a40 70%,#1a2a1a);}
+.ab-tower{background:linear-gradient(170deg,#0a0a1a,#1a1a3a 40%,#2a2a5a 70%,#111);}
+.ab-gr{background:linear-gradient(135deg,#1a180a,#3a3018 40%,#4a3818 70%,#2a2010);}
+.ab-park{background:linear-gradient(135deg,#1a0d0a,#3a1a10 40%,#4a2015 70%,#2a1008);}
+.ab-court{background:linear-gradient(135deg,#0a180a,#1a3015 40%,#2a4a20 70%,#152010);}
+.ab-intl{background:linear-gradient(135deg,#001a28,#003a58 30%,#005a48 60%,#001a38);}
+.ab-blue{background:linear-gradient(135deg,#0a0a12,#12121e 40%,#0e0e18);}
 
-/* ── MOBILE ── */
-@media(max-width:640px){
-  :root{--ch:580px;}
-  .grid{padding:0 10px 60px;gap:18px;}
-  .bstats{grid-template-columns:1fr;}
-  .sumgrid{grid-template-columns:1fr 1fr;}
-  #adminBanner{padding:6px 12px;}
-}
-@media(max-width:380px){
-  :root{--ch:600px;}
-  .grid{grid-template-columns:1fr;}
-}
+@media(min-width:800px){:root{--cw:370px;}}
+@media(min-width:1200px){:root{--cw:395px;}}
+@media(max-width:480px){:root{--cw:calc(100vw - 48px);--ch:610px;}.st{padding:14px 24px;}.ss-scene{width:calc(100vw - 48px);}}
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="lbox">
     <div class="llogo">TRH</div>
     <div class="lname">Tara River Homes</div>
     <div class="lsub">Portfolio Access</div>
-    <input type="password" id="pi" placeholder="access code"
-           autocomplete="off" spellcheck="false"
-           onkeydown="if(event.key==='Enter')auth()">
+    <input type="password" id="pi" placeholder="access code" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')auth()">
     <button onclick="auth()">Enter Portfolio</button>
     <div id="aerr" class="lerr"></div>
   </div>
 </div>
-
-<!-- SITE -->
 <div id="site" style="display:none">
-
 <div id="adminBanner">
-  <span class="abmsg">⬡ Admin Mode — Drag photos onto card images to upload · Persists on your device</span>
-  <button class="lout-btn" onclick="bye()">Log Out</button>
+  <span class="abmsg">⬡ Admin Mode · Drag photos onto card images to upload · Saved to your device</span>
+  <button class="lout" onclick="bye()">Log Out</button>
 </div>
-<div id="invBanner" style="display:none;justify-content:flex-end;border-bottom:1px solid rgba(201,168,76,.14);padding:7px 28px;">
-  <button class="lout-btn" onclick="bye()">Log Out</button>
-</div>
-
 <header>
   <div class="btag">Portfolio Deck · Established 2015</div>
   <h1>Tara River Homes</h1>
-  <div class="sub">Bellaire, Michigan · Intermediate River · Seneca Corridor</div>
+  <div class="hsub">Bellaire, Michigan · Intermediate River · Seneca Corridor</div>
 </header>
-
 <div class="tabs">
   <button class="tab active" onclick="filt('all',this)">All</button>
   <button class="tab" onclick="filt('active',this)">Active Income</button>
@@ -345,515 +253,148 @@ footer{border-top:1px solid rgba(201,168,76,.1);padding:16px 28px;margin-top:16p
   <button class="tab" onclick="filt('future',this)">Future Builds</button>
   <button class="tab" onclick="filt('intl',this)">International</button>
 </div>
-<p class="inst">Tap any card to flip · Admin: drag a photo onto the card image to update it</p>
-
-<div class="grid" id="grid"></div>
-
-<footer>
-  <div class="fi">
-    <span class="flogo">Tara River Homes</span>
-    <span class="fcopy">Private &amp; Confidential · Not for Distribution</span>
-  </div>
-</footer>
-
+<div class="phint">Tap card · Front → Revenue → Expense → repeat · Swipe or use arrows</div>
+<div class="stw">
+  <button class="sarrow sl" onclick="sc(-1)">&#8249;</button>
+  <div class="st" id="track"></div>
+  <button class="sarrow sr" onclick="sc(1)">&#8250;</button>
 </div>
-
+<footer><div class="fi"><span class="flogo">Tara River Homes</span><span class="fcopy">Private &amp; Confidential · Not for Distribution</span></div></footer>
+</div>
 <script>
-/* ══════════════════════════════════════════
-   AUTH — change passwords here
-══════════════════════════════════════════ */
-const APWD = 'bellaire2025';   // admin (you)
-const IPWD = 'tarariver';     // investors / family
-
-let ADMIN = false;
-
-function auth(){
-  const v = document.getElementById('pi').value.trim().toLowerCase();
-  if(v===APWD){ADMIN=true;go('admin');}
-  else if(v===IPWD){ADMIN=false;go('investor');}
-  else{
-    document.getElementById('aerr').textContent='Incorrect code';
-    document.getElementById('pi').value='';
-    document.getElementById('pi').focus();
-  }
-}
-function go(role){
-  sessionStorage.setItem('role',role);
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('site').style.display='block';
-  if(role==='admin'){
-    document.body.classList.add('admin');
-    document.getElementById('adminBanner').classList.add('on');
-  } else {
-    document.getElementById('invBanner').style.display='flex';
-  }
-  buildAll(); loadPhotos();
-}
+const APWD='bellaire2025',IPWD='tarariver';
+let ADMIN=false;
+function auth(){const v=document.getElementById('pi').value.trim().toLowerCase();if(v===APWD){ADMIN=true;go('admin');}else if(v===IPWD){ADMIN=false;go('investor');}else{document.getElementById('aerr').textContent='Incorrect code';document.getElementById('pi').value='';}}
+function go(role){sessionStorage.setItem('role',role);document.getElementById('loginScreen').style.display='none';document.getElementById('site').style.display='block';if(role==='admin'){document.body.classList.add('admin');document.getElementById('adminBanner').classList.add('on');}buildAll();loadPhotos();}
 function bye(){sessionStorage.removeItem('role');location.reload();}
 (()=>{const r=sessionStorage.getItem('role');if(r){ADMIN=(r==='admin');go(r);}})();
 
-/* ══════════════════════════════════════════
-   PROPERTY DATA
-══════════════════════════════════════════ */
-const PROPS = [
-  {id:'p01',num:'TRH · 001',rc:'rm',tags:'active bellaire',
-   name:'315 Seneca',nick:'"The Tara"',addr:'Bellaire, MI · Intermediate River',
-   type:'Active STR',rl:'✦ Mythic · Anchor Property',art:'ariver',plt:'str',
-   str:{hdr:'2024 P&L · Airbnb Actual + VRBO Est.',rows:[
-     {l:'Airbnb Net',v:16148,c:'inc'},{l:'VRBO (Est.)',v:16148,c:'inc'},
-     {l:'Mortgage P&I',v:-15140,c:'exp'},{l:'Tax + Ins',v:-3762,c:'exp'},
-     {l:'Platform Fees',v:-5812,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'},
-   ]},
-   bk:{ti:'315 Seneca · "The Tara"',ad:'Bellaire, MI · Active STR · Airbnb + VRBO',
-     st:[['Purchase','$254,750'],['Est. Value','$314,000'],['Loan Bal','$249,000'],['LTV','79%'],['Mo. P&I','$1,261.65'],['Parcel','05-46-124-044-00']],
-     tx:'Anchor STR for the Seneca Corridor. Riverfront access, docks, hillside gardens, stair system to river. Adjacent to 313 Seneca (future tower). Riverside lots A & B below. Target $45–60K NOI at full pricing optimisation. Corridor potential: $250K–$420K gross at full buildout.',ph:'Phase 1 · Active'},
-   svg:svgRiver},
+function getTier(v){if(!v||v<=0)return'tbd';if(v<150000)return'bronze';if(v<300000)return'silver';if(v<500000)return'gold';if(v<750000)return'platinum';if(v<1000000)return'black';return'obsidian';}
+const TL={bronze:'Bronze · <$150K',silver:'Silver · $150–300K',gold:'Gold · $300–500K',platinum:'Platinum · $500–750K',black:'Black · $750K–$1M',obsidian:'Obsidian · $1M+',tbd:'TBD'};
+const TC={bronze:'#CD7F32',silver:'#C0C0C0',gold:'#C9A84C',platinum:'#E5E4E2',black:'#777',obsidian:'#9B6FD4',tbd:'#666'};
 
-  {id:'p02',num:'TRH · 002',rc:'rltr',tags:'active',
-   name:'535 Ethel',addr:'Long-Term Rental · Grand Rapids, MI',
-   type:'Active LTR',rl:'✦ LTR · GR Cashflow',art:'agr',plt:'ltr',
-   ltr:{rent:1500,pi:354.72,tx:200,mgmt:.05},
-   bk:{ti:'535 Ethel',ad:'Grand Rapids, MI · LTR · Oct 2015',
-     st:[['Purchase','$92,000'],['Est. Value','$289,400'],['Loan Bal','$68,000'],['Equity','~$221,400'],['Rate','4.75% / 30yr'],['LTV','23%']],
-     tx:'Lowest-LTV asset in portfolio. $221K equity available for HELOC or portfolio loan to fund Bellaire construction. Stable GR tenant base, long tenancy. Hold: maintain LTR income, lever equity into Phase 2 Riverside Homes. Every $250 rent increase = +$3K/yr to NOI.',ph:'Active · Hold & Lever'},
-   svg:svgGR1},
-
-  {id:'p03',num:'TRH · 003',rc:'rltr',tags:'active',
-   name:'1032 Watson',addr:'Long-Term Rental · Grand Rapids, MI',
-   type:'Active LTR',rl:'✦ LTR · GR Cashflow',art:'agr',plt:'ltr',
-   ltr:{rent:1900,pi:603.97,tx:200,mgmt:.05},
-   bk:{ti:'1032 Watson',ad:'Grand Rapids, MI · LTR · Jun 2020',
-     st:[['Purchase','$149,000'],['Est. Value','$238,000'],['Loan Bal','$119,200'],['Equity','~$118,800'],['Rate','4.5% / 30yr'],['LTV','50%']],
-     tx:'Highest monthly rent in LTR portfolio. $118K equity + Ethel\'s $221K = $340K+ combined GR leverage. Both properties stabilise DSCR for Bellaire construction loans. Hold and lever through Phase 2 and 3 builds.',ph:'Active · Hold & Lever'},
-   svg:svgGR2},
-
-  {id:'p04',num:'TRH · 004',rc:'rltr',tags:'active bellaire future',
-   name:'320 Park',addr:'Long-Term Rental · Bellaire, MI',
-   type:'LTR + Lot Split',rl:'✦ LTR · $25K Raise Open',art:'apark',plt:'ltr',
-   ltr:{rent:1600,pi:603.97,tx:200,mgmt:.05},
-   bk:{ti:'320 Park · Lot Split Strategy',ad:'Bellaire, MI · LTR → Lot Split + Future Build',
-     st:[['Purchase','$149,000'],['Est. Value','$275,000'],['Loan Bal','~$119,000'],['Equity','~$156,000'],['Mo. P&I','$603.97'],['Raise','$25,000']],
-     tx:'$25K raise: retire high-interest debt, new furnace, survey + lot split to create 101 Anne Street parcel. Split costs ~$5K but creates $45–85K new buildable equity — ~16× return on cost. Investor receives equity stake in 101 Anne. Option: flip 320 or build farmhouse STR.',ph:'Active · Raise Open'},
-   svg:svgPark},
-
-  {id:'p05',num:'TRH · 005',rc:'rr',tags:'active bellaire',
-   name:'104 Court',addr:'Primary Residence + ADU · Bellaire, MI',
-   type:'Residence + ADU',rl:'✦ Rare · ADU In Reno',art:'acourt',plt:'fut',
-   fut:[{l:'Est. Value',v:'$244,200'},{l:'Purchase',v:'$101,000'},{l:'Mortgage',v:'None · Cash'},{l:'ADU Status',v:'In Renovation'},{l:'ADU Revenue',v:'$30–50K/yr'},{l:'Cap Rate',v:'Best in Portfolio'}],
-   bk:{ti:'104 Court + ADU',ad:'Bellaire, MI · Primary Residence + Future STR',
-     st:[['Purchase','$101,000'],['Est. Value','$244,200'],['Mortgage','None · Cash'],['LTV','0%'],['ADU Phase','Reno'],['Cap Rate','Best in Portfolio']],
-     tx:'Primary residence with ADU under renovation for STR. Zero debt makes ADU income pure cashflow. Year-round occupancy potential due to village location. Branded "Village Suite" within Tara River Homes. Lowest operating cost in portfolio due to owner proximity. Target: $30–50K gross/yr.',ph:'Phase 1 · Renovation'},
-   svg:svgCourt},
-
-  {id:'p06',num:'TRH · 006',rc:'rl',tags:'bellaire future',
-   name:'313 Seneca',addr:'Tower Home · Bellaire, MI',
-   type:'Future STR',rl:'✦ Legendary · Tower Home',art:'atower',plt:'fut',
-   fut:[{l:'Purchase',v:'$85,000'},{l:'Current Value',v:'$125,000'},{l:'Loan Bal',v:'$80,000'},{l:'Note Type',v:'5-Yr Balloon'},{l:'Est. Revenue',v:'$45–80K/yr'},{l:'Parcel',v:'05-46-150-043-00'}],
-   bk:{ti:'313 Seneca · Tower Home',ad:'Bellaire, MI · Adjacent to 315 · Future STR',
-     st:[['Purchase','$85,000'],['Value','$125,000'],['Loan Bal','$80,000'],['Note','5-Yr Balloon'],['Parcel','05-46-150-043-00'],['Zoning','R2 · Village']],
-     tx:'Signature showpiece for the Tara River Homes brand. 3-story Scandinavian modern tower. Build triggered when balloon note comes due. Adjacent to 315 — resort integration potential. Commands premium ADR as a unique architectural destination.',ph:'Phase 3 · Note Balloon'},
-   svg:svgTower},
-
-  {id:'p07',num:'TRH · 007',rc:'re',tags:'bellaire future',
-   name:'Riverside Home A',addr:'Riverfront Lot 316 · Bellaire, MI',
-   type:'Future STR',rl:'✦ Epic · Hillside Pier Build',art:'ahills',plt:'fut',
-   fut:[{l:'Build Type',v:'2BR / 2BA'},{l:'Width × Deck',v:"36' × 16'"},{l:'Est. Revenue',v:'$55–95K/yr'},{l:'Style',v:'Scandinavian Modern'},{l:'Hot Tub',v:'Under-Deck Spa'},{l:'Parcel',v:'05-46-124-040-00'}],
-   bk:{ti:'Riverside Home A — 316 Seneca',ad:'Bellaire Riverfront Lot · Future STR Build',
-     st:[['Style','Scandinavian Mod'],['Roof','Shed · High River'],['Great Rm','10\'→17\' Vault'],['Bedrooms','9\' Mirrored'],['Entry','Side Stair'],['Parcel','05-46-124-040-00']],
-     tx:'Elevated on hillside piers. Full glass river façade with two large multi-panel sliders. Corner fireplace. Under-deck hot tub spa + LED lighting. Paired with mirrored Home B. Combined A+B potential: $110–190K gross/yr.',ph:'Phase 2 · Future Build'},
-   svg:svgHills},
-
-  {id:'p08',num:'TRH · 008',rc:'re',tags:'bellaire future',
-   name:'Riverside Home B',addr:'Riverfront Lot 314 · Bellaire, MI',
-   type:'Future STR',rl:'✦ Epic · Mirrored Unit',art:'ahills',plt:'fut',
-   fut:[{l:'Build Type',v:'2BR / 2BA'},{l:'Config',v:'Mirror of Home A'},{l:'Est. Revenue',v:'$55–95K/yr'},{l:'Foundation',v:'Hillside Piers'},{l:'Sliders',v:'2 Large Multi-Panel'},{l:'Parcel',v:'05-46-124-039-01'}],
-   bk:{ti:'Riverside Home B — 314 Seneca',ad:'Bellaire Riverfront Lot · Future STR Build',
-     st:[['Fireplace','Corner · Side Wall'],['Ceiling','10\'→17\' Vault'],['Master BA','Identical Mirror'],['Exterior','Black Metal + Wood'],['Parcel','05-46-124-039-01'],['Target ADR','$350–500/nt']],
-     tx:'Symmetrical pair with Home A for cohesive resort aesthetic. Privacy screening between units. Shared stair system from 315 Seneca; separate private deck paths. Identical specs and ADR target. Combined with Home A: $110–190K gross/yr.',ph:'Phase 2 · Future Build'},
-   svg:svgHills2},
-
-  {id:'p09',num:'TRH · 009',rc:'rf',tags:'bellaire future',
-   name:'101 Anne Street',addr:'Lot Split from 320 Park · Bellaire, MI',
-   type:'Future · Lot Split',rl:'✦ Future · Value Creation',art:'ablue',plt:'fut',
-   fut:[{l:'Source',v:'320 Park (Rear)'},{l:'Split Cost',v:'~$5,000'},{l:'Est. Lot Value',v:'$45–85K'},{l:'Equity Created',v:'~16× cost'},{l:'Build Style',v:'Modern Farmhouse'},{l:'Street',v:'Anne Street'}],
-   bk:{ti:'101 Anne Street',ad:'Bellaire, MI · Lot Split · Future Build',
-     st:[['Parcel Source','320 Park (rear)'],['Street','Anne Street'],['Split Cost','~$5,000'],['Est. Value','$45K–$85K'],['Style','Modern Farmhouse'],['Raise','Part of $25K']],
-     tx:'Create a new buildable parcel from existing equity at minimal cost. 2BR modern farmhouse on 3\' posts, white siding, black trim — neighbourhood appropriate. Options: sell lot, build STR, build LTR, or package with investor as part of 320 Park capital raise.',ph:'Pending · Survey First'},
-   svg:svgBlue},
-
-  {id:'p10',num:'TRH · 010',rc:'ri',tags:'intl future',
-   name:'Orchid Bay D58',addr:'Belize · Caribbean STR',
-   type:'Future STR',rl:'✦ International · Caribbean',art:'aintl',plt:'fut',
-   fut:[{l:'Location',v:'Belize'},{l:'Development',v:'Orchid Bay'},{l:'Lot',v:'D58'},{l:'Currency',v:'USD Pegged'},{l:'Use',v:'Short-Term Rental'},{l:'Phase',v:'Future Build'}],
-   bk:{ti:'Orchid Bay D58 · Belize',ad:'Master-Planned Community · Future STR',
-     st:[['Country','Belize'],['Development','Orchid Bay'],['Lot','D58'],['Currency','USD Pegged'],['Use','STR'],['Phase','Future Build']],
-     tx:'International portfolio diversification. Caribbean STR market growing with luxury eco-tourism. Master-planned community provides built-in amenities and management. Belize dollar is USD-pegged — no currency risk. Strong ADR potential in premium Caribbean market.',ph:'Phase 4 · International'},
-   svg:svgBelize},
-
-  {id:'p11',num:'TRH · 011',rc:'ri',tags:'intl future',
-   name:'Nicaragua Holdings',addr:'San Juan del Sur + Playa Yankee',
-   type:'2 Parcels · Future',rl:'✦ International · Pacific',art:'aintl',plt:'fut',
-   fut:[{l:'Parcel 1',v:'San Juan del Sur'},{l:'Parcel 2',v:'Playa Yankee'},{l:'Region',v:'Pacific Coast'},{l:'Tourism',v:'High Growth'},{l:'Type',v:'Coastal Land'},{l:'Strategy',v:'Long-Term Hold'}],
-   bk:{ti:'Nicaragua · 2 Parcels',ad:'San Juan del Sur · Playa Yankee · Pacific',
-     st:[['Parcel 1','SJDS'],['Parcel 2','Playa Yankee'],['Region','Pacific Coast'],['Tourism','High Growth'],['Type','Coastal Land'],['Phase','Long-Term Hold']],
-     tx:'Two Pacific coastal parcels in Central America\'s fastest-growing surf and eco-tourism corridor. San Juan del Sur is a recognised luxury coastal destination. Playa Yankee offers pristine beach access. Long-term speculative hold with strong STR potential. Low cost basis + appreciation play.',ph:'Phase 4 · Long-Term'},
-   svg:svgNic},
+const PROPS=[
+  {id:'p01',num:'TRH·001',tags:'active bellaire',name:'315 Seneca',nick:'"The Tara"',addr:'Bellaire, MI · Intermediate River',type:'Active STR',rl:'Mythic · Anchor',art:'ab-river',beds:3,baths:2,sqft:1800,ev:314000,
+   rev:{t:'str',hdr:'2024 P&L',rows:[{l:'Airbnb Net',v:16148,c:'inc'},{l:'VRBO (Est.)',v:16148,c:'inc'},{l:'Platform Fees',v:-5812,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'}],proj:'Target $45–60K NOI at optimisation'},
+   exp:{pi:15140,tax:2400,ins:1362,maint:2400,mgmt:0,pp:254750,lb:249000,note:'Riverfront · Docks · Hillside gardens'},svg:s1},
+  {id:'p02',num:'TRH·002',tags:'active',name:'535 Ethel',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',art:'ab-gr',beds:3,baths:1,sqft:1200,ev:289400,
+   rev:{t:'ltr',rent:1500,pi:354.72,tax:200,mgmt:.05},
+   exp:{pi:4257,tax:1200,ins:1200,maint:1200,mgmt:900,pp:92000,lb:68000,note:'23% LTV · Primary leverage for Phase 2'},svg:s2},
+  {id:'p03',num:'TRH·003',tags:'active',name:'1032 Watson',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',art:'ab-gr',beds:4,baths:2,sqft:1600,ev:238000,
+   rev:{t:'ltr',rent:1900,pi:603.97,tax:200,mgmt:.05},
+   exp:{pi:7248,tax:1200,ins:1200,maint:1200,mgmt:1140,pp:149000,lb:119200,note:'50% LTV · Combined GR equity $340K+'},svg:s3},
+  {id:'p04',num:'TRH·004',tags:'active bellaire future',name:'320 Park',addr:'Bellaire, MI',type:'LTR + Lot Split',rl:'$25K Raise Open',art:'ab-park',beds:3,baths:1,sqft:1400,ev:275000,
+   rev:{t:'ltr',rent:1600,pi:603.97,tax:200,mgmt:.05},
+   exp:{pi:7248,tax:1400,ins:1200,maint:800,mgmt:960,pp:149000,lb:119000,note:'Lot split creates 101 Anne St · $45–85K value'},svg:s4},
+  {id:'p05',num:'TRH·005',tags:'active bellaire',name:'104 Court',addr:'Bellaire, MI · Residence + ADU',type:'Residence + ADU',rl:'ADU In Renovation',art:'ab-court',beds:3,baths:2,sqft:1600,ev:244200,
+   rev:{t:'fut',rows:[{l:'ADU Revenue (target)',v:40000,c:'inc'},{l:'Platform Fees',v:-7200,c:'exp'}],proj:'Zero debt = pure cashflow · $30–50K/yr'},
+   exp:{pi:0,tax:1600,ins:1200,maint:15000,mgmt:0,pp:101000,lb:0,note:'Cash purchase · No mortgage · Best cap rate'},svg:s5},
+  {id:'p06',num:'TRH·006',tags:'bellaire future',name:'313 Seneca',addr:'Bellaire, MI · Tower Home',type:'Future STR',rl:'Legendary · Tower',art:'ab-tower',beds:3,baths:3,sqft:2200,ev:125000,
+   rev:{t:'fut',rows:[{l:'Projected Revenue',v:62500,c:'inc'},{l:'Est. Expenses',v:-20000,c:'exp'}],proj:'$45–80K/yr · Premium ADR destination'},
+   exp:{pi:0,tax:800,ins:800,maint:0,mgmt:0,pp:85000,lb:80000,note:'5-year balloon note · Build at balloon due'},svg:s6},
+  {id:'p07',num:'TRH·007',tags:'bellaire future',name:'Riverside Home A',addr:'316 Seneca · Bellaire, MI',type:'Future STR',rl:'Epic · Hillside Pier',art:'ab-hills',beds:2,baths:2,sqft:1440,ev:0,
+   rev:{t:'fut',rows:[{l:'Projected Revenue',v:75000,c:'inc'},{l:'Est. Expenses',v:-22000,c:'exp'}],proj:'$55–95K/yr · Combined A+B: $110–190K/yr'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'36ft wide · Shed roof · Hillside piers · Hot tub'},svg:s7},
+  {id:'p08',num:'TRH·008',tags:'bellaire future',name:'Riverside Home B',addr:'314 Seneca · Bellaire, MI',type:'Future STR',rl:'Epic · Mirrored Unit',art:'ab-hills',beds:2,baths:2,sqft:1440,ev:0,
+   rev:{t:'fut',rows:[{l:'Projected Revenue',v:75000,c:'inc'},{l:'Est. Expenses',v:-22000,c:'exp'}],proj:'Mirror of Home A · Same ADR target'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'Black metal + wood · Separate private deck path'},svg:s8},
+  {id:'p09',num:'TRH·009',tags:'bellaire future',name:'101 Anne Street',addr:'Lot Split · Bellaire, MI',type:'Future · Lot Split',rl:'Value Creation',art:'ab-blue',beds:0,baths:0,sqft:0,ev:65000,
+   rev:{t:'fut',rows:[{l:'Est. Lot Value',v:65000,c:'inc'},{l:'Split Cost',v:-5000,c:'exp'}],proj:'~16× return on split cost'},
+   exp:{pi:0,tax:0,ins:0,maint:5000,mgmt:0,pp:0,lb:0,note:'Rear of 320 Park · Survey first'},svg:s9},
+  {id:'p10',num:'TRH·010',tags:'intl future',name:'Orchid Bay D58',addr:'Belize · Caribbean',type:'Future STR',rl:'International',art:'ab-intl',beds:2,baths:2,sqft:0,ev:0,
+   rev:{t:'fut',rows:[{l:'Caribbean STR Target',v:50000,c:'inc'}],proj:'USD-pegged · Zero currency risk'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'Orchid Bay master-planned community'},svg:s10},
+  {id:'p11',num:'TRH·011',tags:'intl future',name:'Nicaragua Holdings',addr:'San Juan del Sur + Playa Yankee',type:'2 Parcels · Future',rl:'International · Pacific',art:'ab-intl',beds:0,baths:0,sqft:0,ev:0,
+   rev:{t:'fut',rows:[{l:'Long-Term Hold',v:0,c:'proj'}],proj:'Pacific Coast · High-growth STR corridor'},
+   exp:{pi:0,tax:0,ins:0,maint:0,mgmt:0,pp:0,lb:0,note:'SJDS + Playa Yankee · Appreciation play'},svg:s11},
 ];
 
-/* ══════════════════════════════════════════
-   LTR P&L ENGINE
-   Tiers: 1 = rent-250, 2 = current rent, 3 = rent+250, 4 = rent+500
-══════════════════════════════════════════ */
-function calcLTR(d,tier){
-  const r = (d.rent-250)+(tier*250);
-  const ann = r*12, pi=d.pi*12, tx=d.tx*12, mg=ann*d.mgmt;
-  const noi = ann-pi-tx-mg;
-  return{r,ann,pi,tx,mg,noi,pct:(noi/ann*100).toFixed(1)};
-}
+function calcLTR(d,t){const r=(d.rent-250)+(t*250);const ann=r*12,pi=d.pi*12,tx=d.tax*12,mg=ann*d.mgmt;const noi=ann-pi-tx-mg;return{r,ann,pi,tx,mg,noi,pct:(noi/ann*100).toFixed(1)};}
 function fm(n){const a=Math.abs(Math.round(n));return(n<0?'–':'')+'$'+a.toLocaleString();}
-function ltrRows(prop,tier){
-  const c=calcLTR(prop.ltr,tier);
-  const extra = tier>2?`<span class="ppct">+${fm((tier-2)*250*12)}/yr vs current</span>`
-               :tier===2?`<span class="ppct">current rate</span>`
-               :`<span class="ppct">${fm((tier-2)*250*12)}/yr vs current</span>`;
-  return `
-    <div class="plr inc"><span class="pllbl">Monthly Rent</span><span class="plv pos">$${c.r.toLocaleString()}<span class="ppct">/mo</span></span></div>
-    <div class="plr inc"><span class="pllbl">Annual Gross</span><span class="plv pos">${fm(c.ann)} ${extra}</span></div>
-    <div class="plr exp"><span class="pllbl">Mortgage P&I</span><span class="plv neg">${fm(-c.pi)}<span class="ppct">/yr</span></span></div>
-    <div class="plr exp"><span class="pllbl">Tax + Insurance</span><span class="plv neg">${fm(-c.tx)}<span class="ppct">/yr</span></span></div>
-    <div class="plr exp"><span class="pllbl">Mgmt ${(prop.ltr.mgmt*100).toFixed(0)}% · Tenant pays utils</span><span class="plv neg">${fm(-c.mg)}<span class="ppct">/yr</span></span></div>
-    <div class="plr noi"><span class="pllbl" style="color:var(--gold)">Annual NOI</span><span class="plv gld">${fm(c.noi)}<span class="ppct">${c.pct}% margin</span></span></div>`;
-}
-function houseBtn(id,t,active){
-  let icons='';
-  for(let i=0;i<t;i++) icons+=`<svg width="12" height="12" viewBox="0 0 20 20" style="display:block"><polygon points="10,2 18,9 16,9 16,17 12,17 12,13 8,13 8,17 4,17 4,9 2,9" fill="#2ECC71"/></svg>`;
-  return `<button class="tbtn${active?' active':''}" onclick="setT(event,'${id}',${t})" title="Tier ${t}">${icons}</button>`;
-}
+function hi(n){let s='';for(let i=0;i<n;i++)s+=`<svg width="11" height="11" viewBox="0 0 20 20" style="display:block"><polygon points="10,2 18,9 16,9 16,17 12,17 12,13 8,13 8,17 4,17 4,9 2,9" fill="#2ECC71"/></svg>`;return s;}
 
-/* ══════════════════════════════════════════
-   BUILD CARDS
-══════════════════════════════════════════ */
-function frontPL(p){
-  if(p.plt==='ltr'){
-    return `<div class="plltr">
-      <div class="hrow"><span class="hlbl">Rent Tier</span>
-        <div class="htiers">${[1,2,3,4].map(t=>houseBtn(p.id,t,t===2)).join('')}</div>
-      </div>
-      <div class="plrows" id="plr-${p.id}">${ltrRows(p,2)}</div>
-    </div>`;
-  }
-  if(p.plt==='str'){
-    const rows=p.str.rows;
-    const inc=rows.filter(r=>r.c==='inc').reduce((s,r)=>s+r.v,0);
-    const exp=rows.filter(r=>r.c==='exp').reduce((s,r)=>s+r.v,0);
-    const noi=inc+exp; const pct=(noi/inc*100).toFixed(1);
-    return `<div class="plstr">
-      <div class="plstr-hdr">${p.str.hdr}</div>
-      ${rows.map(r=>`<div class="plr ${r.c}"><span class="pllbl">${r.l}</span><span class="plv ${r.v>0?'pos':'neg'}">${fm(r.v)}</span></div>`).join('')}
-      <div class="plr noi"><span class="pllbl" style="color:var(--gold)">Est. Annual NOI</span><span class="plv gld">${fm(noi)}<span class="ppct">${pct}% margin</span></span></div>
-    </div>`;
-  }
-  return `<div class="plfut">${p.fut.map(r=>`<div class="futr"><span class="futl">${r.l}</span><span class="futv">${r.v}</span></div>`).join('')}</div>`;
-}
+function tap(id){const sc=document.getElementById('sc-'+id);const cur=parseInt(sc.dataset.panel||'0');const nxt=(cur+1)%3;sc.dataset.panel=nxt;sc.classList.remove('p1','p2');if(nxt===1)sc.classList.add('p1');else if(nxt===2)sc.classList.add('p2');sc.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===nxt));sc.querySelector('.dotlbl').textContent=nxt===0?'Revenue →':nxt===1?'Expense →':'Front →';}
 
-function buildCard(p){
-  const b=p.bk;
-  return `
-<div class="card-scene ${p.rc}" data-tags="${p.tags}" id="sc-${p.id}">
-<div class="card-wrap" onclick="flip('${p.id}')">
-<div class="card" id="cd-${p.id}">
+function frontPL(p,tier=2){
+  const r=p.rev;
+  if(r.t==='ltr'){const c=calcLTR(r,tier);
+    return`<div class="hrow"><span class="hlbl">Rent Tier</span><div class="htiers">${[1,2,3,4].map(t=>`<button class="tbtn${t===tier?' active':''}" onclick="setT(event,'${p.id}',${t})">${hi(t)}</button>`).join('')}</div></div><div class="fpl" id="fpl-${p.id}"><div class="fr inc"><span class="fl">Monthly Rent</span><span class="fv pos">$${c.r.toLocaleString()}<span class="fp">/mo</span></span></div><div class="fr inc"><span class="fl">Annual Gross</span><span class="fv pos">${fm(c.ann)}</span></div><div class="fr exp"><span class="fl">Total Expenses</span><span class="fv neg">${fm(-(c.pi+c.tx+c.mg))}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Annual NOI</span><span class="fv gld">${fm(c.noi)}<span class="fp">${c.pct}%</span></span></div></div>`;}
+  if(r.t==='str'){const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);const noi=inc+exp;const pct=inc>0?(noi/inc*100).toFixed(1):'—';
+    return`<div class="fpl"><div class="fr inc"><span class="fl">Est. Annual Gross</span><span class="fv pos">${fm(inc)}</span></div><div class="fr exp"><span class="fl">Platform + Ops</span><span class="fv neg">${fm(exp)}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Est. NOI</span><span class="fv gld">${fm(noi)}<span class="fp">${pct}%</span></span></div></div>`;}
+  return`<div class="fpl">${r.rows.slice(0,3).map(row=>`<div class="fr ${row.c==='inc'?'inc':row.c==='exp'?'exp':'noi'}"><span class="fl">${row.l}</span><span class="fv ${row.v>0?'pos':row.v<0?'neg':'gld'}">${row.v?fm(row.v):'—'}</span></div>`).join('')}${r.proj?`<div class="fr noi"><span class="fl" style="font-size:7px;color:var(--gold)">${r.proj}</span></div>`:''}</div>`;}
 
-  <!-- FRONT -->
-  <div class="cf">
-    <div class="rbar"></div>
-    <div class="art ${p.art}" id="art-${p.id}"
-         ondragover="dov(event,'${p.id}')" ondragleave="dlv('${p.id}')" ondrop="drp(event,'${p.id}')">
-      ${p.svg()}
-      <div class="pgrad"></div>
-      <img class="pphoto" id="ph-${p.id}" src="" alt="">
-      <div class="tbadge">${p.type}</div>
+function revFace(p){const r=p.rev;let rows='';
+  if(r.t==='ltr'){const c=calcLTR(r,2);
+    rows=`<div class="rftp"><span class="rftpl">Tier</span><div class="htiers">${[1,2,3,4].map(t=>`<button class="tbtn${t===2?' active':''}" onclick="setRT(event,'${p.id}',${t})">${hi(t)}</button>`).join('')}</div></div><div id="rfl-${p.id}"><div class="rfr inc"><span class="rfl">Monthly Rent</span><span class="rfv pos">$${c.r.toLocaleString()}<span class="rfp">/mo</span></span></div><div class="rfr inc"><span class="rfl">Annual Gross</span><span class="rfv pos">${fm(c.ann)}</span></div><div class="rfr exp"><span class="rfl">Mortgage P&I</span><span class="rfv neg">${fm(-c.pi)}</span></div><div class="rfr exp"><span class="rfl">Tax + Insurance</span><span class="rfv neg">${fm(-c.tx)}</span></div><div class="rfr exp"><span class="rfl">Mgmt ${(r.mgmt*100).toFixed(0)}%</span><span class="rfv neg">${fm(-c.mg)}</span></div><div class="rfr tot"><span class="rfl" style="color:var(--gold)">Annual NOI</span><span class="rfv gld">${fm(c.noi)}<span class="rfp">${c.pct}%</span></span></div><div class="rfr proj"><span class="rfl">Tier 4 Potential</span><span class="rfv blu">${fm(calcLTR(r,4).noi)}<span class="rfp">${calcLTR(r,4).pct}%</span></span></div></div>`;}
+  else{const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);const noi=inc+exp;const pct=inc>0?(noi/inc*100).toFixed(1):'—';
+    rows=r.rows.map(row=>`<div class="rfr ${row.c==='inc'?'inc':row.c==='exp'?'exp':'tot'}"><span class="rfl">${row.l}</span><span class="rfv ${row.v>0?'pos':row.v<0?'neg':'gld'}">${row.v?fm(row.v):'—'}</span></div>`).join('');
+    if(inc>0&&exp<0)rows+=`<div class="rfr tot"><span class="rfl" style="color:var(--gold)">NOI</span><span class="rfv gld">${fm(noi)}<span class="rfp">${pct}%</span></span></div>`;
+    if(r.proj)rows+=`<div class="rfr proj"><span class="rfl" style="font-size:7px">${r.proj}</span></div>`;}
+  return`<div class="rfhd"><div><div class="rft">${p.name}</div><div class="rfs">Revenue Summary</div></div><div class="rfi">REV<br>SIDE</div></div><div class="rfd"></div><div class="rfrows">${rows}</div><div class="rfft"><span class="rfftl">Tap again for expenses</span><span class="rfftv">${p.type}</span></div>`;}
+
+function expFace(p){const e=p.exp;const tot=e.pi+e.tax+e.ins+e.maint+e.mgmt;const equity=p.ev>0?p.ev-e.lb:0;const eqPct=p.ev>0?Math.round((equity/p.ev)*100):0;const ltv=p.ev>0?Math.round((e.lb/p.ev)*100):0;const apr=p.ev&&e.pp?p.ev-e.pp:0;const aprPct=e.pp>0?((apr/e.pp)*100).toFixed(0):0;
+  let rows='';
+  if(e.pi>0)rows+=`<div class="efr exp"><span class="efl">Mortgage P&I</span><span class="efv neg">${fm(-e.pi)}<span class="efp">/yr</span></span></div>`;
+  if(e.tax>0)rows+=`<div class="efr exp"><span class="efl">Property Tax</span><span class="efv neg">${fm(-e.tax)}<span class="efp">/yr</span></span></div>`;
+  if(e.ins>0)rows+=`<div class="efr exp"><span class="efl">Insurance</span><span class="efv neg">${fm(-e.ins)}<span class="efp">/yr</span></span></div>`;
+  if(e.maint>0)rows+=`<div class="efr exp"><span class="efl">Maintenance</span><span class="efv neg">${fm(-e.maint)}<span class="efp">/yr</span></span></div>`;
+  if(e.mgmt>0)rows+=`<div class="efr exp"><span class="efl">Management</span><span class="efv neg">${fm(-e.mgmt)}<span class="efp">/yr</span></span></div>`;
+  if(tot>0)rows+=`<div class="efr tot"><span class="efl" style="color:var(--gold)">Total Annual Exp</span><span class="efv gld">${fm(-tot)}</span></div>`;
+  if(equity>0)rows+=`<div class="efr eq"><span class="efl">Est. Equity</span><span class="efv blu">${fm(equity)}<span class="efp">${eqPct}%</span></span></div>`;
+  if(apr>0)rows+=`<div class="efr apr"><span class="efl">Appreciation</span><span class="efv pos">${fm(apr)}<span class="efp">+${aprPct}%</span></span></div>`;
+  const barW=Math.min(100,Math.max(0,eqPct));
+  return`<div class="efhd"><div><div class="eft">${p.name}</div><div class="efs">Expense + Equity</div></div><div class="efi">EXP<br>SIDE</div></div><div class="efd"></div><div class="efrows">${rows}</div>${p.ev>0?`<div class="eqbar"><div class="eqtrack"><div class="eqfill" style="width:${barW}%"></div></div><div class="eqlbls"><span class="eqll">Debt ${ltv}%</span><span class="eqll">Equity ${eqPct}%</span></div></div>`:''}${e.note?`<div class="efft"><span class="efftl">${e.note}</span></div>`:''}`;}
+
+function bCard(p){const tier=getTier(p.ev);const bs=p.beds>0?p.beds+'BD':'—';const bts=p.baths>0?p.baths+'BA':'—';const sf=p.sqft>0?p.sqft.toLocaleString()+'sf':'—';const vs=p.ev>0?'$'+(p.ev/1000).toFixed(0)+'K':'—';
+  return`<div class="cs" id="sc-${p.id}" data-tags="${p.tags}" data-tier="${tier}" data-panel="0" onclick="tap('${p.id}')"><div class="cw"><div class="card" id="cd-${p.id}">
+  <div class="face ff">
+    <div class="tbadge">${TL[tier]}</div>
+    <div class="az ${p.art}" id="art-${p.id}" ondragover="dov(event,'${p.id}')" ondragleave="dlv('${p.id}')" ondrop="drp(event,'${p.id}')">
+      ${p.svg()}<div class="ag"></div><img class="pp" id="ph-${p.id}" src="" alt="">
       <div class="rbadge">${p.rl}</div>
-      <button class="photo-btn" onclick="upclick(event,'${p.id}')">📷 Photo</button>
-      <input type="file" id="fi-${p.id}" accept="image/*" style="display:none"
-             onchange="handleFile(event,'${p.id}')">
+      <button class="pbtn" onclick="upc(event,'${p.id}')">📷 Photo</button>
+      <input type="file" id="fi-${p.id}" accept="image/*" style="display:none" onchange="hf(event,'${p.id}')">
     </div>
-    <div class="cid-strip">
-      <div class="cnum">${p.num}</div>
-      <div class="cname">${p.name}${p.nick?` <em style="font-size:13px;opacity:.65">${p.nick}</em>`:''}</div>
-      <div class="caddr">${p.addr}</div>
-    </div>
+    <div class="pid"><div class="pnum">${p.num}</div><div class="pname">${p.name}${p.nick?` <span class="pnick">${p.nick}</span>`:''}</div><div class="padr">${p.addr}</div></div>
+    <div class="vits"><div class="vit"><div class="vitl">Beds</div><div class="vitv">${bs}</div></div><div class="vit"><div class="vitl">Baths</div><div class="vitv">${bts}</div></div><div class="vit"><div class="vitl">Sq Ft</div><div class="vitv">${sf}</div></div><div class="vit"><div class="vitl">Est. Value</div><div class="vitv">${vs}</div></div></div>
     <div class="cline"></div>
     ${frontPL(p)}
-    <div class="fhint">Tap for full detail →</div>
+    <div class="taphint"><div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div><div class="dotlbl">Revenue →</div></div>
   </div>
+  <div class="face frev rf">${revFace(p)}</div>
+  <div class="face fexp ef">${expFace(p)}</div>
+</div></div></div>`;}
 
-  <!-- BACK -->
-  <div class="cb card-back-inner">
-    <div class="bhdr">
-      <div><div class="btitle">${b.ti}</div><div class="baddr">${b.ad}</div></div>
-      <div class="blogо">TARA<br>RIVER<br>HOMES</div>
-    </div>
-    <div class="bdiv"></div>
-    <div class="bstats">${b.st.map(([l,v])=>`<div class="bs"><div class="bsl">${l}</div><div class="bsv">${v}</div></div>`).join('')}</div>
-    <div class="strat"><div class="stratl">Strategic Role</div><div class="stratt">${b.tx}</div></div>
-    <div class="bfoot"><div class="bid">${p.id.toUpperCase()} · ${p.rc.slice(1).toUpperCase()}</div><div class="ptag">${b.ph}</div></div>
-  </div>
+function bSumm(){return`<div class="ss-scene"><div class="ss-inner"><div class="sstitle">Portfolio Overview</div><div class="ssgrid"><div class="sg"><div class="sgl">Properties</div><div class="sgv">13</div><div class="sgs">Active + Future</div></div><div class="sg"><div class="sgl">Portfolio Value</div><div class="sgv">$1.8M+</div><div class="sgs">Est. current</div></div><div class="sg"><div class="sgl">LTR NOI</div><div class="sgv">$22.9K</div><div class="sgs">Annual · 3 rentals</div></div><div class="sg"><div class="sgl">The Tara STR</div><div class="sgv">$32.3K</div><div class="sgs">Est. gross 2024</div></div><div class="sg"><div class="sgl">Full Build NOI</div><div class="sgv">$250K+</div><div class="sgs">Seneca corridor</div></div><div class="sg"><div class="sgl">GR Equity</div><div class="sgv">$340K+</div><div class="sgs">Bellaire leverage</div></div><div class="sg"><div class="sgl">Raise Open</div><div class="sgv">$25K</div><div class="sgs">320 Park</div></div><div class="sg"><div class="sgl">International</div><div class="sgv">3</div><div class="sgs">Belize + Nicaragua</div></div></div><div class="tleg"><div class="tlegtitle">Value Tier System</div><div class="tlegi">${Object.entries(TC).filter(([k])=>k!=='tbd').map(([k,c])=>`<div class="tlegitem"><div class="tlegsw" style="background:${c}"></div><div class="tlegl">${TL[k].split('·')[0].trim()}</div></div>`).join('')}</div></div></div></div>`;}
 
-</div></div></div>`;
-}
+function buildAll(){const t=document.getElementById('track');t.innerHTML=bSumm()+PROPS.map(bCard).join('');}
 
-function buildSumm(){
-  return `<div class="summ">
-    <div class="sumtitle">Portfolio Overview</div>
-    <div class="sumgrid">
-      <div class="ss"><div class="ssl">Total Properties</div><div class="ssv">13</div><div class="sss">Active + Future</div></div>
-      <div class="ss"><div class="ssl">LTR Annual NOI</div><div class="ssv">$22.9K</div><div class="sss">3 active rentals</div></div>
-      <div class="ss"><div class="ssl">315 Seneca STR</div><div class="ssv">$32.3K</div><div class="sss">Est. gross 2024</div></div>
-      <div class="ss"><div class="ssl">STR Pipeline</div><div class="ssv">5 Units</div><div class="sss">In development</div></div>
-      <div class="ss"><div class="ssl">Full Build NOI</div><div class="ssv">$250K+</div><div class="sss">Seneca corridor</div></div>
-      <div class="ss"><div class="ssl">Portfolio Value</div><div class="ssv">$1.8M+</div><div class="sss">Current holdings</div></div>
-      <div class="ss"><div class="ssl">Raise Open</div><div class="ssv">$25K</div><div class="sss">320 Park · Equity</div></div>
-      <div class="ss"><div class="ssl">International</div><div class="ssv">3</div><div class="sss">Belize + Nicaragua ×2</div></div>
-    </div>
-  </div>`;
-}
+function filt(tag,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');const track=document.getElementById('track');let first=null;document.querySelectorAll('.cs').forEach(sc=>{const show=tag==='all'||sc.dataset.tags.includes(tag);sc.style.display=show?'':'none';if(show&&!first)first=sc;});document.querySelectorAll('.ss-scene').forEach(s=>s.style.display='');if(first){const track=document.getElementById('track');const offset=first.offsetLeft-64;track.scrollTo({left:offset,behavior:'smooth'});}}
 
-function buildAll(){
-  document.getElementById('grid').innerHTML = buildSumm() + PROPS.map(buildCard).join('');
-}
+function sc(dir){const track=document.getElementById('track');const cs=getComputedStyle(document.documentElement);const w=parseInt(cs.getPropertyValue('--cw'))||340;track.scrollBy({left:dir*(w+22),behavior:'smooth'});}
 
-/* ══════════════════════════════════════════
-   INTERACTIONS
-══════════════════════════════════════════ */
-function flip(id){ document.getElementById('sc-'+id).classList.toggle('flipped'); }
+function setT(e,id,t){e.stopPropagation();const sc=document.getElementById('sc-'+id);sc.querySelectorAll('.htiers .tbtn').forEach((b,i)=>b.classList.toggle('active',i+1===t));const p=PROPS.find(x=>x.id===id);const el=document.getElementById('fpl-'+id);if(!el)return;const c=calcLTR(p.rev,t);el.innerHTML=`<div class="fr inc"><span class="fl">Monthly Rent</span><span class="fv pos">$${c.r.toLocaleString()}<span class="fp">/mo</span></span></div><div class="fr inc"><span class="fl">Annual Gross</span><span class="fv pos">${fm(c.ann)}</span></div><div class="fr exp"><span class="fl">Total Expenses</span><span class="fv neg">${fm(-(c.pi+c.tx+c.mg))}</span></div><div class="fr noi"><span class="fl" style="color:var(--gold)">Annual NOI</span><span class="fv gld">${fm(c.noi)}<span class="fp">${c.pct}%</span></span></div>`;}
+function setRT(e,id,t){e.stopPropagation();const sc=document.getElementById('sc-'+id);sc.querySelectorAll('.rf .htiers .tbtn').forEach((b,i)=>b.classList.toggle('active',i+1===t));const p=PROPS.find(x=>x.id===id);const c=calcLTR(p.rev,t);const el=document.getElementById('rfl-'+id);if(!el)return;el.innerHTML=`<div class="rfr inc"><span class="rfl">Monthly Rent</span><span class="rfv pos">$${c.r.toLocaleString()}<span class="rfp">/mo</span></span></div><div class="rfr inc"><span class="rfl">Annual Gross</span><span class="rfv pos">${fm(c.ann)}</span></div><div class="rfr exp"><span class="rfl">Mortgage P&I</span><span class="rfv neg">${fm(-c.pi)}</span></div><div class="rfr exp"><span class="rfl">Tax + Insurance</span><span class="rfv neg">${fm(-c.tx)}</span></div><div class="rfr exp"><span class="rfl">Mgmt ${(p.rev.mgmt*100).toFixed(0)}%</span><span class="rfv neg">${fm(-c.mg)}</span></div><div class="rfr tot"><span class="rfl" style="color:var(--gold)">Annual NOI</span><span class="rfv gld">${fm(c.noi)}<span class="rfp">${c.pct}%</span></span></div><div class="rfr proj"><span class="rfl">Tier 4 Potential</span><span class="rfv blu">${fm(calcLTR(p.rev,4).noi)}<span class="rfp">${calcLTR(p.rev,4).pct}%</span></span></div>`;}
 
-function setT(e,id,t){
-  e.stopPropagation();
-  document.getElementById('sc-'+id).querySelectorAll('.tbtn').forEach((b,i)=>b.classList.toggle('active',i+1===t));
-  const p=PROPS.find(x=>x.id===id);
-  document.getElementById('plr-'+id).innerHTML=ltrRows(p,t);
-}
+function upc(e,id){e.stopPropagation();document.getElementById('fi-'+id).click();}
+function hf(e,id){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>sp(id,ev.target.result);r.readAsDataURL(f);}
+function dov(e,id){e.preventDefault();e.stopPropagation();}
+function dlv(id){}
+function drp(e,id){e.preventDefault();e.stopPropagation();const f=e.dataTransfer.files[0];if(!f||!f.type.startsWith('image/'))return;const r=new FileReader();r.onload=ev=>sp(id,ev.target.result);r.readAsDataURL(f);}
+function sp(id,data){const art=document.getElementById('art-'+id);const img=document.getElementById('ph-'+id);if(!art||!img)return;img.src=data;art.classList.add('hp');try{localStorage.setItem('trh_ph_'+id,data);}catch(e){}}
+function loadPhotos(){PROPS.forEach(p=>{try{const d=localStorage.getItem('trh_ph_'+p.id);if(d)sp(p.id,d);}catch(e){}});}
 
-function filt(tag,btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.card-scene').forEach(s=>{
-    s.classList.toggle('hidden', tag!=='all' && !s.dataset.tags.includes(tag));
-  });
-  document.querySelectorAll('.summ').forEach(s=>s.style.display='');
-}
-
-/* ══════════════════════════════════════════
-   PHOTO SYSTEM
-   Photos persist via localStorage on admin's device.
-   Investors always see whatever admin saved last.
-   (GitHub Pages has no server — this is the right approach.)
-══════════════════════════════════════════ */
-function upclick(e,id){e.stopPropagation();document.getElementById('fi-'+id).click();}
-
-function handleFile(e,id){
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=ev=>{savePhoto(id,ev.target.result);};
-  r.readAsDataURL(f);
-}
-// Drag & drop
-function dov(e,id){e.preventDefault();e.stopPropagation();document.getElementById('art-'+id).classList.add('dragover');}
-function dlv(id){document.getElementById('art-'+id).classList.remove('dragover');}
-function drp(e,id){
-  e.preventDefault();e.stopPropagation();
-  document.getElementById('art-'+id).classList.remove('dragover');
-  const f=e.dataTransfer.files[0]; if(!f||!f.type.startsWith('image/')) return;
-  const r=new FileReader();
-  r.onload=ev=>savePhoto(id,ev.target.result);
-  r.readAsDataURL(f);
-}
-function savePhoto(id,data){
-  const art=document.getElementById('art-'+id);
-  const img=document.getElementById('ph-'+id);
-  if(!art||!img) return;
-  img.src=data; art.classList.add('hphoto');
-  try{localStorage.setItem('trh_ph_'+id,data);}catch(e){}
-}
-function loadPhotos(){
-  PROPS.forEach(p=>{
-    try{const d=localStorage.getItem('trh_ph_'+p.id);if(d)savePhoto(p.id,d);}catch(e){}
-  });
-}
-
-/* ══════════════════════════════════════════
-   SVG ART
-══════════════════════════════════════════ */
-function svgRiver(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#0a1a2e"/>
-  <circle cx="50" cy="17" r="1" fill="#E8C97A" opacity=".7"/>
-  <circle cx="130" cy="10" r=".8" fill="white" opacity=".5"/>
-  <circle cx="210" cy="23" r="1" fill="#E8C97A" opacity=".6"/>
-  <circle cx="290" cy="7" r=".8" fill="white" opacity=".4"/>
-  <path d="M0 90 Q85 60 170 76 Q255 90 340 63 L340 162 L0 162Z" fill="#1a3a2a"/>
-  <path d="M0 110 Q70 86 140 101 Q210 116 280 88 Q315 73 340 83 L340 162 L0 162Z" fill="#2a5a3a"/>
-  <rect x="0" y="128" width="340" height="34" fill="#0d2a3a" opacity=".9"/>
-  <path d="M20 134 Q85 130 170 134 Q255 138 320 132" stroke="#C9A84C" stroke-width=".7" fill="none" opacity=".3"/>
-  <rect x="128" y="116" width="84" height="3" fill="#0a0a0a" opacity=".8"/>
-  <rect x="140" y="110" width="3" height="11" fill="#0a0a0a" opacity=".8"/>
-  <rect x="205" y="112" width="3" height="9" fill="#0a0a0a" opacity=".8"/>
-  <rect x="108" y="70" width="78" height="44" fill="#0d1a0d" opacity=".85"/>
-  <polygon points="103,70 191,70 147,47" fill="#0d0d10" opacity=".9"/>
-  <rect x="116" y="79" width="17" height="13" fill="#C9A84C" opacity=".28" rx="1"/>
-  <rect x="153" y="79" width="17" height="13" fill="#C9A84C" opacity=".28" rx="1"/>
-  <text x="170" y="38" text-anchor="middle" font-family="serif" font-size="11" fill="#C9A84C" opacity=".85" font-style="italic">The Tara</text>
-  <line x1="122" y1="43" x2="218" y2="43" stroke="#C9A84C" stroke-width=".5" opacity=".4"/>
-</svg>`;}
-
-function svgGR1(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#1a180a"/>
-  <path d="M0 118 Q85 98 170 108 Q255 118 340 98 L340 162 L0 162Z" fill="#2a2410" opacity=".7"/>
-  <rect x="108" y="66" width="124" height="72" fill="#221e0a"/>
-  <polygon points="103,66 237,66 170,38" fill="#1a1805"/>
-  <rect x="118" y="76" width="22" height="17" fill="#C9A84C" opacity=".22" rx="1"/>
-  <rect x="204" y="76" width="22" height="17" fill="#C9A84C" opacity=".22" rx="1"/>
-  <rect x="159" y="81" width="22" height="32" fill="#0a0a05"/>
-  <ellipse cx="62" cy="96" rx="30" ry="36" fill="#1a2a0a" opacity=".8"/>
-  <rect x="0" y="146" width="340" height="16" fill="#100e04"/>
-</svg>`;}
-
-function svgGR2(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#181510"/>
-  <path d="M0 120 Q85 102 170 110 Q255 120 340 100 L340 162 L0 162Z" fill="#2a2218" opacity=".7"/>
-  <rect x="98" y="62" width="144" height="80" fill="#1e1a10"/>
-  <polygon points="91,62 248,62 170,34" fill="#161205"/>
-  <rect x="110" y="72" width="27" height="18" fill="#C9A84C" opacity=".22" rx="1"/>
-  <rect x="111" y="73" width="1" height="14" fill="#C9A84C" opacity=".4"/>
-  <rect x="207" y="72" width="27" height="18" fill="#C9A84C" opacity=".22" rx="1"/>
-  <rect x="162" y="100" width="16" height="26" fill="#0a0808" rx="1"/>
-  <rect x="228" y="88" width="58" height="44" fill="#161210"/>
-  <rect x="0" y="148" width="340" height="14" fill="#0e0c07"/>
-</svg>`;}
-
-function svgPark(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#180d0a"/>
-  <path d="M0 118 Q85 98 170 108 Q255 118 340 98 L340 162 L0 162Z" fill="#2a1a12" opacity=".7"/>
-  <rect x="103" y="60" width="134" height="72" fill="#221212"/>
-  <polygon points="98,60 242,60 170,33" fill="#1a0d0d"/>
-  <rect x="103" y="110" width="134" height="8" fill="#1a0a0a"/>
-  <rect x="108" y="98" width="5" height="20" fill="#1a0a0a"/>
-  <rect x="188" y="98" width="5" height="20" fill="#1a0a0a"/>
-  <rect x="112" y="69" width="24" height="18" fill="#C9A84C" opacity=".2" rx="1"/>
-  <rect x="208" y="69" width="24" height="18" fill="#C9A84C" opacity=".2" rx="1"/>
-  <rect x="159" y="65" width="22" height="30" fill="#0a0505"/>
-  <line x1="170" y1="118" x2="170" y2="162" stroke="#C9A84C" stroke-width="1" opacity=".25" stroke-dasharray="4,4"/>
-  <text x="226" y="150" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".5">101 ANNE</text>
-  <text x="113" y="150" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".5">320 PARK</text>
-</svg>`;}
-
-function svgCourt(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#0a180a"/>
-  <path d="M0 126 Q85 106 170 116 Q255 126 340 106 L340 162 L0 162Z" fill="#1a3015" opacity=".7"/>
-  <rect x="85" y="66" width="108" height="70" fill="#1a2a1a"/>
-  <polygon points="80,66 198,66 139,40" fill="#141e14"/>
-  <rect x="93" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/>
-  <rect x="120" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/>
-  <rect x="149" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/>
-  <rect x="128" y="106" width="22" height="30" fill="#0a0a0a"/>
-  <rect x="212" y="90" width="72" height="46" fill="#152015"/>
-  <rect x="208" y="86" width="80" height="6" fill="#1f301f"/>
-  <rect x="217" y="98" width="20" height="15" fill="#C9A84C" opacity=".25" rx="1"/>
-  <rect x="252" y="98" width="20" height="15" fill="#C9A84C" opacity=".25" rx="1"/>
-  <text x="248" y="124" text-anchor="middle" font-family="monospace" font-size="5.5" fill="#C9A84C" opacity=".55">ADU · IN RENO</text>
-  <rect x="0" y="146" width="340" height="16" fill="#0a120a"/>
-</svg>`;}
-
-function svgTower(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#080812"/>
-  <circle cx="60" cy="19" r="1" fill="#E8C97A" opacity=".7"/>
-  <circle cx="200" cy="25" r="1" fill="#E8C97A" opacity=".6"/>
-  <circle cx="285" cy="24" r="11" fill="#C9A84C" opacity=".07"/>
-  <path d="M0 138 Q40 116 66 126 L66 162 L0 162Z" fill="#0a1a0a"/>
-  <path d="M280 116 Q310 101 340 110 L340 162 L280 162Z" fill="#0a1a0a"/>
-  <rect x="120" y="96" width="100" height="58" fill="#1a1a2a"/>
-  <rect x="127" y="60" width="86" height="40" fill="#1a1a30"/>
-  <rect x="135" y="32" width="70" height="32" fill="#1a1a38"/>
-  <rect x="131" y="28" width="78" height="6" fill="#2a2a4a"/>
-  <rect x="130" y="103" width="18" height="12" fill="#C9A84C" opacity=".25" rx="1"/>
-  <rect x="182" y="103" width="18" height="12" fill="#C9A84C" opacity=".25" rx="1"/>
-  <rect x="135" y="68" width="14" height="10" fill="#C9A84C" opacity=".3" rx="1"/>
-  <rect x="181" y="68" width="14" height="10" fill="#C9A84C" opacity=".3" rx="1"/>
-  <rect x="143" y="40" width="12" height="9" fill="#C9A84C" opacity=".35" rx="1"/>
-  <rect x="175" y="40" width="12" height="9" fill="#C9A84C" opacity=".35" rx="1"/>
-  <path d="M170 28 L128 162 L212 162Z" fill="#C9A84C" opacity=".022"/>
-  <rect x="0" y="150" width="340" height="12" fill="#0a0a14"/>
-</svg>`;}
-
-function svgHills(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#0d1a1a"/>
-  <path d="M0 136 Q40 113 80 123 Q120 133 160 108 Q200 83 240 103 Q280 123 340 113 L340 162 L0 162Z" fill="#1a3520" opacity=".8"/>
-  <rect x="68" y="78" width="204" height="5" fill="#2a4a3a"/>
-  <rect x="82" y="83" width="5" height="55" fill="#1a2a2a"/>
-  <rect x="257" y="83" width="5" height="55" fill="#1a2a2a"/>
-  <ellipse cx="100" cy="118" rx="18" ry="8" fill="#2a5a4a" opacity=".6"/>
-  <ellipse cx="100" cy="116" rx="16" ry="6" fill="#3a7a6a" opacity=".4"/>
-  <rect x="68" y="36" width="204" height="46" fill="#1a2820"/>
-  <polygon points="63,36 272,36 272,25 63,50" fill="#263630"/>
-  <rect x="85" y="42" width="48" height="36" fill="#C9A84C" opacity=".12" rx="1"/>
-  <rect x="197" y="42" width="48" height="36" fill="#C9A84C" opacity=".12" rx="1"/>
-  <line x1="68" y1="78" x2="272" y2="78" stroke="#C9A84C" stroke-width="1" opacity=".38"/>
-  <rect x="0" y="146" width="340" height="16" fill="#0d2a3a" opacity=".9"/>
-  <path d="M0 150 Q85 146 170 150 Q255 154 340 148" stroke="#C9A84C" stroke-width=".5" fill="none" opacity=".22"/>
-</svg>`;}
-
-function svgHills2(){return svgHills().replace('cx="100"','cx="240"').replace('cx="100"','cx="240"');}
-
-function svgBlue(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#0a0a12"/>
-  <line x1="0" y1="40" x2="340" y2="40" stroke="#C9A84C" stroke-width=".3" opacity=".1"/>
-  <line x1="0" y1="81" x2="340" y2="81" stroke="#C9A84C" stroke-width=".3" opacity=".1"/>
-  <line x1="0" y1="122" x2="340" y2="122" stroke="#C9A84C" stroke-width=".3" opacity=".1"/>
-  <line x1="85" y1="0" x2="85" y2="162" stroke="#C9A84C" stroke-width=".3" opacity=".1"/>
-  <line x1="170" y1="0" x2="170" y2="162" stroke="#C9A84C" stroke-width=".3" opacity=".1"/>
-  <line x1="255" y1="0" x2="255" y2="162" stroke="#C9A84C" stroke-width=".3" opacity=".1"/>
-  <rect x="85" y="40" width="170" height="122" stroke="#4A9B6F" stroke-width="1.5" fill="none" opacity=".5" stroke-dasharray="6,3"/>
-  <rect x="105" y="60" width="130" height="60" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.04)" stroke-dasharray="4,2"/>
-  <text x="170" y="55" text-anchor="middle" font-family="monospace" font-size="7" fill="#C9A84C" opacity=".5">FUTURE BUILD</text>
-  <text x="170" y="96" text-anchor="middle" font-family="serif" font-size="20" fill="#4A9B6F" opacity=".28">?</text>
-  <text x="170" y="152" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B6F" opacity=".42">ANNE STREET</text>
-  <path d="M85 40 L100 40 M85 40 L85 55" stroke="#C9A84C" stroke-width="1" opacity=".38"/>
-  <path d="M255 40 L240 40 M255 40 L255 55" stroke="#C9A84C" stroke-width="1" opacity=".38"/>
-</svg>`;}
-
-function svgBelize(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#001828"/>
-  <rect width="340" height="88" fill="#001018"/>
-  <circle cx="50" cy="15" r="1" fill="white" opacity=".5"/>
-  <circle cx="120" cy="27" r=".8" fill="#E8C97A" opacity=".6"/>
-  <circle cx="200" cy="9" r="1" fill="white" opacity=".4"/>
-  <circle cx="280" cy="29" r=".8" fill="#E8C97A" opacity=".5"/>
-  <ellipse cx="32" cy="86" rx="24" ry="40" fill="#0a2a0a" opacity=".9"/>
-  <rect x="29" y="106" width="6" height="32" fill="#0a1a05"/>
-  <ellipse cx="308" cy="80" rx="26" ry="34" fill="#0a2a0a" opacity=".9"/>
-  <rect x="0" y="116" width="340" height="46" fill="#003a5a" opacity=".9"/>
-  <path d="M0 124 Q85 119 170 124 Q255 129 340 123" stroke="#4A9B9B" stroke-width=".7" fill="none" opacity=".4"/>
-  <rect x="130" y="113" width="80" height="3" fill="#5a4a2a" opacity=".8"/>
-  <rect x="150" y="108" width="3" height="11" fill="#5a4a2a" opacity=".8"/>
-  <rect x="125" y="70" width="90" height="48" fill="#1a2a2a"/>
-  <rect x="120" y="66" width="100" height="7" fill="#253535"/>
-  <rect x="133" y="76" width="18" height="12" fill="#4A9B9B" opacity=".25" rx="1"/>
-  <rect x="179" y="76" width="18" height="12" fill="#4A9B9B" opacity=".25" rx="1"/>
-</svg>`;}
-
-function svgNic(){return`<svg class="asvg" viewBox="0 0 340 162" preserveAspectRatio="xMidYMid slice">
-  <rect width="340" height="162" fill="#001520"/>
-  <rect width="340" height="93" fill="#001018"/>
-  <circle cx="40" cy="14" r="1" fill="#E8C97A" opacity=".6"/>
-  <circle cx="200" cy="8" r="1" fill="#E8C97A" opacity=".5"/>
-  <rect x="0" y="113" width="340" height="49" fill="#001a3a" opacity=".95"/>
-  <path d="M0 122 Q40 117 80 122 Q120 127 160 120 Q200 113 240 120 Q280 127 340 122" stroke="#3a7a7a" stroke-width="1" fill="none" opacity=".5"/>
-  <path d="M0 97 Q60 74 120 88 Q180 102 240 76 Q280 59 340 72 L340 113 L0 113Z" fill="#0a1a0a"/>
-  <rect x="62" y="86" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/>
-  <text x="92" y="80" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B9B" opacity=".7">SJDS</text>
-  <rect x="212" y="89" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/>
-  <text x="242" y="83" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B9B" opacity=".7">PLAYA YANKEE</text>
-  <path d="M22 128 Q40 122 58 128" stroke="white" stroke-width="1.5" fill="none" opacity=".17"/>
-</svg>`;}
+function s1(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0a1a2e"/><circle cx="55" cy="18" r="1" fill="#E8C97A" opacity=".7"/><circle cx="140" cy="10" r=".8" fill="white" opacity=".5"/><circle cx="220" cy="24" r="1" fill="#E8C97A" opacity=".6"/><circle cx="310" cy="7" r=".8" fill="white" opacity=".4"/><path d="M0 90 Q90 60 180 76 Q270 90 360 63 L360 168 L0 168Z" fill="#1a3a2a"/><path d="M0 110 Q75 86 150 101 Q225 116 300 86 Q335 71 360 81 L360 168 L0 168Z" fill="#2a5a3a"/><rect x="0" y="128" width="360" height="40" fill="#0d2a3a" opacity=".9"/><path d="M20 134 Q90 130 180 134 Q270 138 340 132" stroke="#C9A84C" stroke-width=".7" fill="none" opacity=".3"/><rect x="138" y="116" width="84" height="3" fill="#0a0a0a" opacity=".8"/><rect x="150" y="110" width="3" height="11" fill="#0a0a0a" opacity=".8"/><rect x="215" y="112" width="3" height="9" fill="#0a0a0a" opacity=".8"/><rect x="118" y="68" width="78" height="44" fill="#0d1a0d" opacity=".85"/><polygon points="113,68 201,68 157,45" fill="#0d0d10" opacity=".9"/><rect x="126" y="77" width="17" height="13" fill="#C9A84C" opacity=".28" rx="1"/><rect x="163" y="77" width="17" height="13" fill="#C9A84C" opacity=".28" rx="1"/><text x="180" y="36" text-anchor="middle" font-family="serif" font-size="11" fill="#C9A84C" opacity=".85" font-style="italic">The Tara</text><line x1="132" y1="41" x2="228" y2="41" stroke="#C9A84C" stroke-width=".5" opacity=".4"/></svg>`;}
+function s2(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#1a180a"/><path d="M0 118 Q90 98 180 108 Q270 118 360 98 L360 168 L0 168Z" fill="#2a2410" opacity=".7"/><rect x="118" y="66" width="124" height="72" fill="#221e0a"/><polygon points="113,66 247,66 180,38" fill="#1a1805"/><rect x="128" y="76" width="22" height="17" fill="#C9A84C" opacity=".22" rx="1"/><rect x="214" y="76" width="22" height="17" fill="#C9A84C" opacity=".22" rx="1"/><rect x="169" y="81" width="22" height="32" fill="#0a0a05"/><ellipse cx="72" cy="96" rx="30" ry="36" fill="#1a2a0a" opacity=".8"/></svg>`;}
+function s3(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#181510"/><path d="M0 120 Q90 102 180 110 Q270 120 360 100 L360 168 L0 168Z" fill="#2a2218" opacity=".7"/><rect x="108" y="62" width="144" height="80" fill="#1e1a10"/><polygon points="101,62 258,62 180,34" fill="#161205"/><rect x="120" y="72" width="27" height="18" fill="#C9A84C" opacity=".22" rx="1"/><rect x="217" y="72" width="27" height="18" fill="#C9A84C" opacity=".22" rx="1"/><rect x="172" y="100" width="16" height="26" fill="#0a0808" rx="1"/></svg>`;}
+function s4(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#180d0a"/><path d="M0 118 Q90 98 180 108 Q270 118 360 98 L360 168 L0 168Z" fill="#2a1a12" opacity=".7"/><rect x="113" y="60" width="134" height="72" fill="#221212"/><polygon points="108,60 252,60 180,33" fill="#1a0d0d"/><rect x="118" y="69" width="24" height="18" fill="#C9A84C" opacity=".2" rx="1"/><rect x="218" y="69" width="24" height="18" fill="#C9A84C" opacity=".2" rx="1"/><rect x="169" y="65" width="22" height="30" fill="#0a0505"/><line x1="180" y1="118" x2="180" y2="168" stroke="#C9A84C" stroke-width="1" opacity=".2" stroke-dasharray="4,4"/><text x="236" y="152" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".5">101 ANNE</text><text x="123" y="152" text-anchor="middle" font-family="monospace" font-size="6" fill="#C9A84C" opacity=".5">320 PARK</text></svg>`;}
+function s5(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0a180a"/><path d="M0 126 Q90 106 180 116 Q270 126 360 106 L360 168 L0 168Z" fill="#1a3015" opacity=".7"/><rect x="95" y="66" width="108" height="70" fill="#1a2a1a"/><polygon points="90,66 208,66 149,40" fill="#141e14"/><rect x="103" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/><rect x="130" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/><rect x="159" y="76" width="20" height="15" fill="#C9A84C" opacity=".2" rx="1"/><rect x="138" y="106" width="22" height="30" fill="#0a0a0a"/><rect x="222" y="90" width="72" height="46" fill="#152015"/><text x="258" y="124" text-anchor="middle" font-family="monospace" font-size="5.5" fill="#C9A84C" opacity=".55">ADU · IN RENO</text></svg>`;}
+function s6(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#080812"/><circle cx="65" cy="20" r="1" fill="#E8C97A" opacity=".7"/><circle cx="215" cy="27" r="1" fill="#E8C97A" opacity=".6"/><path d="M0 138 Q42 116 68 126 L68 168 L0 168Z" fill="#0a1a0a"/><path d="M292 116 Q322 101 352 110 L352 168 L292 168Z" fill="#0a1a0a"/><rect x="130" y="96" width="100" height="58" fill="#1a1a2a"/><rect x="137" y="60" width="86" height="40" fill="#1a1a30"/><rect x="145" y="32" width="70" height="32" fill="#1a1a38"/><rect x="141" y="28" width="78" height="6" fill="#2a2a4a"/><rect x="140" y="103" width="18" height="12" fill="#C9A84C" opacity=".25" rx="1"/><rect x="192" y="103" width="18" height="12" fill="#C9A84C" opacity=".25" rx="1"/><rect x="145" y="68" width="14" height="10" fill="#C9A84C" opacity=".3" rx="1"/><rect x="191" y="68" width="14" height="10" fill="#C9A84C" opacity=".3" rx="1"/><rect x="153" y="40" width="12" height="9" fill="#C9A84C" opacity=".35" rx="1"/><rect x="185" y="40" width="12" height="9" fill="#C9A84C" opacity=".35" rx="1"/></svg>`;}
+function s7(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0d1a1a"/><path d="M0 136 Q42 113 82 123 Q122 133 162 108 Q202 83 242 103 Q282 123 360 111 L360 168 L0 168Z" fill="#1a3520" opacity=".8"/><rect x="78" y="78" width="204" height="5" fill="#2a4a3a"/><rect x="92" y="83" width="5" height="55" fill="#1a2a2a"/><rect x="277" y="83" width="5" height="55" fill="#1a2a2a"/><rect x="78" y="36" width="204" height="46" fill="#1a2820"/><rect x="95" y="42" width="48" height="36" fill="#C9A84C" opacity=".12" rx="1"/><rect x="217" y="42" width="48" height="36" fill="#C9A84C" opacity=".12" rx="1"/><line x1="78" y1="78" x2="282" y2="78" stroke="#C9A84C" stroke-width="1" opacity=".38"/></svg>`;}
+function s8(){return s7();}
+function s9(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#0a0a12"/><line x1="0" y1="42" x2="360" y2="42" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="0" y1="84" x2="360" y2="84" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="0" y1="126" x2="360" y2="126" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="90" y1="0" x2="90" y2="168" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="180" y1="0" x2="180" y2="168" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><line x1="270" y1="0" x2="270" y2="168" stroke="#C9A84C" stroke-width=".3" opacity=".1"/><rect x="90" y="42" width="180" height="126" stroke="#4A9B6F" stroke-width="1.5" fill="none" opacity=".5" stroke-dasharray="6,3"/><rect x="110" y="60" width="140" height="64" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.04)" stroke-dasharray="4,2"/><text x="180" y="55" text-anchor="middle" font-family="monospace" font-size="7" fill="#C9A84C" opacity=".5">FUTURE BUILD</text><text x="180" y="97" text-anchor="middle" font-family="serif" font-size="20" fill="#4A9B6F" opacity=".28">?</text><text x="180" y="156" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B6F" opacity=".42">ANNE STREET</text></svg>`;}
+function s10(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#001828"/><rect width="360" height="88" fill="#001018"/><circle cx="55" cy="16" r="1" fill="white" opacity=".5"/><circle cx="130" cy="28" r=".8" fill="#E8C97A" opacity=".6"/><ellipse cx="38" cy="86" rx="24" ry="40" fill="#0a2a0a" opacity=".9"/><ellipse cx="322" cy="80" rx="26" ry="34" fill="#0a2a0a" opacity=".9"/><rect x="0" y="116" width="360" height="52" fill="#003a5a" opacity=".9"/><path d="M0 124 Q90 119 180 124 Q270 129 360 123" stroke="#4A9B9B" stroke-width=".7" fill="none" opacity=".4"/><rect x="140" y="113" width="80" height="3" fill="#5a4a2a" opacity=".8"/><rect x="135" y="70" width="90" height="48" fill="#1a2a2a"/><rect x="143" y="76" width="18" height="12" fill="#4A9B9B" opacity=".25" rx="1"/><rect x="179" y="76" width="18" height="12" fill="#4A9B9B" opacity=".25" rx="1"/></svg>`;}
+function s11(){return`<svg class="asvg" viewBox="0 0 360 168" preserveAspectRatio="xMidYMid slice"><rect width="360" height="168" fill="#001520"/><rect width="360" height="93" fill="#001018"/><rect x="0" y="113" width="360" height="55" fill="#001a3a" opacity=".95"/><path d="M0 122 Q42 117 82 122 Q122 127 162 120 Q202 113 242 120 Q282 127 360 122" stroke="#3a7a7a" stroke-width="1" fill="none" opacity=".5"/><path d="M0 97 Q62 74 122 88 Q182 102 242 76 Q282 59 360 72 L360 113 L0 113Z" fill="#0a1a0a"/><rect x="72" y="86" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/><text x="102" y="80" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B9B" opacity=".7">SJDS</text><rect x="222" y="89" width="60" height="5" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="4,2"/><text x="252" y="83" text-anchor="middle" font-family="monospace" font-size="6" fill="#4A9B9B" opacity=".7">PLAYA YANKEE</text></svg>`;}
 </script>
 </body>
 </html>
