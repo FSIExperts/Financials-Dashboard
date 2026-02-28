@@ -61,6 +61,7 @@ h1{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,50px);font-weig
 .tlic{display:flex;align-items:center;gap:4px;}
 .tlisw{width:9px;height:9px;border-radius:2px;}
 .tlil{font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.6;}
+.az.draghov{outline:2px dashed var(--gold);outline-offset:-4px;}
 
 .trw{position:relative;padding-bottom:32px;}
 .trw::before,.trw::after{content:"";position:absolute;top:0;bottom:32px;width:50px;z-index:10;pointer-events:none;}
@@ -291,6 +292,7 @@ function doGo(role){
   document.getElementById('site').style.display='block';
   if(role==='admin'){document.body.classList.add('admin');document.getElementById('ab').classList.add('on');}
   buildAll();
+  setupEvents();
   loadPhotos();
 }
 function doLogout(){sessionStorage.removeItem('role');location.reload();}
@@ -511,20 +513,21 @@ function buildCard(p){
   var bts=p.baths>0?p.baths+'BA':'--';
   var sf=p.sqft>0?p.sqft.toLocaleString()+'sf':'--';
   var vs=p.ev>0?'$'+(p.ev/1000).toFixed(0)+'K':'--';
-  var html='<div class="cs" id="sc-'+p.id+'" data-tags="'+p.tags+'" data-tier="'+tier+'" data-panel="0" onclick="tapCard(''+p.id+'')">'
+  var nick=p.nick?(' <span class="pnick">'+p.nick+'</span>'):'';
+  var html='<div class="cs" id="sc-'+p.id+'" data-id="'+p.id+'" data-tags="'+p.tags+'" data-tier="'+tier+'" data-panel="0">'
     +'<div class="cw2"><div class="card" id="cd-'+p.id+'">'
     +'<div class="face ff2">'
     +'<div class="tbg">'+TLABELS[tier]+'</div>'
-    +'<div class="az" id="az-'+p.id+'" ondragover="dov(event,''+p.id+'')" ondrop="drp(event,''+p.id+'')">'
+    +'<div class="az" id="az-'+p.id+'" data-pid="'+p.id+'">'
     +p.svg
     +'<div class="ag"></div>'
     +'<img class="pp" id="ph-'+p.id+'" src="" alt="">'
     +'<div class="rb">'+p.rl+'</div>'
-    +'<button class="pbtn" onclick="upc(event,''+p.id+'')">Photo</button>'
-    +'<input type="file" id="fi-'+p.id+'" accept="image/*" style="display:none" onchange="hf(event,''+p.id+'')">'
+    +'<button class="pbtn" data-pid="'+p.id+'">&#128247; Photo</button>'
+    +'<input type="file" id="fi-'+p.id+'" accept="image/*" style="display:none">'
     +'</div>'
     +'<div class="pid"><div class="pnum">'+p.num+'</div>'
-    +'<div class="pname">'+p.name+(p.nick?' <span class="pnick">'+p.nick+'</span>':'')+'</div>'
+    +'<div class="pname">'+p.name+nick+'</div>'
     +'<div class="padr">'+p.addr+'</div></div>'
     +'<div class="vits">'
     +'<div class="vit"><div class="vitl">Beds</div><div class="vitv">'+bs+'</div></div>'
@@ -616,10 +619,64 @@ function setRT(e,id,t){
     +'<div class="ro" style="background:rgba(74,139,155,.07);border-left:2px solid var(--blue);margin-top:2px"><span class="rl">Tier 4 Potential</span><span class="rv blu">'+fm(calcLTR(p.rev,4).noi)+'<span class="rp">'+calcLTR(p.rev,4).pct+'%</span></span></div>';
 }
 
-function upc(e,id){e.stopPropagation();document.getElementById('fi-'+id).click();}
-function hf(e,id){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){savePhoto(id,ev.target.result);};r.readAsDataURL(f);}
-function dov(e,id){e.preventDefault();e.stopPropagation();}
-function drp(e,id){e.preventDefault();e.stopPropagation();var f=e.dataTransfer.files[0];if(!f||!f.type.startsWith('image/'))return;var r=new FileReader();r.onload=function(ev){savePhoto(id,ev.target.result);};r.readAsDataURL(f);}
+function setupEvents(){
+  // Prevent browser from opening dropped files globally
+  document.addEventListener('dragover',function(e){e.preventDefault();});
+  document.addEventListener('drop',function(e){e.preventDefault();});
+
+  // Card tap to flip
+  document.getElementById('track').addEventListener('click',function(e){
+    // Don't flip if clicking a button or input
+    if(e.target.tagName==='BUTTON'||e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+    var sc=e.target.closest('.cs');
+    if(sc) tapCard(sc.dataset.id);
+  });
+
+  // Photo button click
+  document.getElementById('track').addEventListener('click',function(e){
+    var btn=e.target.closest('.pbtn');
+    if(btn){
+      e.stopPropagation();
+      var pid=btn.dataset.pid;
+      document.getElementById('fi-'+pid).click();
+    }
+  });
+
+  // File input change
+  document.getElementById('track').addEventListener('change',function(e){
+    if(e.target.type==='file'){
+      var pid=e.target.id.replace('fi-','');
+      var f=e.target.files[0];
+      if(!f)return;
+      var r=new FileReader();
+      r.onload=function(ev){savePhoto(pid,ev.target.result);};
+      r.readAsDataURL(f);
+    }
+  });
+
+  // Drag and drop onto art zones
+  document.getElementById('track').addEventListener('dragover',function(e){
+    e.preventDefault();
+    var az=e.target.closest('.az');
+    if(az) az.classList.add('draghov');
+  });
+  document.getElementById('track').addEventListener('dragleave',function(e){
+    var az=e.target.closest('.az');
+    if(az) az.classList.remove('draghov');
+  });
+  document.getElementById('track').addEventListener('drop',function(e){
+    e.preventDefault();
+    var az=e.target.closest('.az');
+    if(!az)return;
+    az.classList.remove('draghov');
+    var f=e.dataTransfer.files[0];
+    if(!f||!f.type.startsWith('image/'))return;
+    var pid=az.dataset.pid;
+    var r=new FileReader();
+    r.onload=function(ev){savePhoto(pid,ev.target.result);};
+    r.readAsDataURL(f);
+  });
+}
 function savePhoto(id,data){
   var az=document.getElementById('az-'+id);
   var img=document.getElementById('ph-'+id);
