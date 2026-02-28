@@ -352,7 +352,6 @@ let ADMIN=false;
 function auth(){const v=document.getElementById('pi').value.trim().toLowerCase();if(v===APWD){ADMIN=true;go('admin');}else if(v===IPWD){ADMIN=false;go('investor');}else{document.getElementById('aerr').textContent='Incorrect code';document.getElementById('pi').value='';}}
 function go(role){sessionStorage.setItem('role',role);document.getElementById('loginScreen').style.display='none';document.getElementById('site').style.display='block';if(role==='admin'){document.body.classList.add('admin');document.getElementById('adminBanner').classList.add('on');}buildAll();loadPhotos();}
 function bye(){sessionStorage.removeItem('role');location.reload();}
-(()=>{const r=sessionStorage.getItem('role');if(r){ADMIN=(r==='admin');go(r);}})();
 
 function getTier(v){if(!v||v<=0)return'tbd';if(v<150000)return'bronze';if(v<300000)return'silver';if(v<500000)return'gold';if(v<750000)return'platinum';if(v<1000000)return'black';return'obsidian';}
 const TL={bronze:'Bronze · <$150K',silver:'Silver · $150–300K',gold:'Gold · $300–500K',platinum:'Platinum · $500–750K',black:'Black · $750K–$1M',obsidian:'Obsidian · $1M+',tbd:'TBD'};
@@ -541,6 +540,7 @@ function drp(e,id){e.preventDefault();e.stopPropagation();const f=e.dataTransfer
 function sp(id,data){const art=document.getElementById('art-'+id);const img=document.getElementById('ph-'+id);if(!art||!img)return;img.src=data;art.classList.add('hp');try{localStorage.setItem('trh_ph_'+id,data);}catch(e){}}
 function loadPhotos(){PROPS.forEach(p=>{try{const d=localStorage.getItem('trh_ph_'+p.id);if(d)sp(p.id,d);}catch(e){}});}
 
+(()=>{const r=sessionStorage.getItem('role');if(r){ADMIN=(r==='admin');go(r);}})();
 </script>
 </body>
 </html>
