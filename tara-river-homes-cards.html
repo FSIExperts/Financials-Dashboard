@@ -190,6 +190,44 @@ body.admin .pbtn{display:block;}
 .efft{margin-top:auto;padding-top:7px;border-top:1px solid rgba(224,112,112,.1);}
 .efftl{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.4;line-height:1.5;}
 
+/* IMPROVEMENTS LOG */
+.implog{margin-top:6px;border-top:1px solid rgba(201,168,76,.12);padding-top:6px;}
+.implhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.impltitle{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.55;}
+.impladdbtn{display:none;font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);cursor:pointer;transition:all .2s;}
+.impladdbtn:hover{background:var(--gold);color:var(--black);}
+body.admin .impladdbtn{display:block;}
+.implist{display:flex;flex-direction:column;gap:2px;max-height:120px;overflow-y:auto;scrollbar-width:none;}
+.implist::-webkit-scrollbar{display:none;}
+.impitem{display:flex;align-items:center;gap:4px;padding:3px 6px;border-radius:2px;position:relative;}
+.impitem.done{background:rgba(46,204,113,.06);border-left:2px solid rgba(46,204,113,.35);}
+.impitem.forecast{background:rgba(74,139,155,.06);border-left:2px solid rgba(74,139,155,.35);}
+.impitem-date{font-family:'Courier Prime',monospace;font-size:7px;color:var(--silver);opacity:.55;flex-shrink:0;min-width:34px;}
+.impitem-desc{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--cream2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.impitem-amt{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;flex-shrink:0;}
+.impitem.done .impitem-amt{color:var(--red);}
+.impitem.forecast .impitem-amt{color:var(--blue);}
+.impitem-del{display:none;position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--red);opacity:.4;cursor:pointer;font-size:11px;padding:0 2px;line-height:1;}
+.impitem-del:hover{opacity:1;}
+body.admin .impitem-del{display:block;}
+/* Editable inputs on items in admin mode */
+.impitem input.ei{background:transparent;border:none;outline:none;color:inherit;font:inherit;width:100%;padding:0;}
+.impitem input.ei:focus{background:rgba(255,255,255,.04);border-radius:1px;}
+.impempty{font-family:'Courier Prime',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;padding:3px 6px;}
+/* Add row form (admin only) */
+.impadd{display:none;margin-top:4px;padding:5px 6px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:2px;gap:4px;flex-wrap:wrap;}
+body.admin .impadd.open{display:flex;}
+.impadd input,.impadd select{background:var(--char);border:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Courier Prime',monospace;font-size:9px;padding:3px 5px;outline:none;border-radius:1px;}
+.impadd input:focus,.impadd select:focus{border-color:var(--gold);}
+.impadd input.ia-date{width:58px;}
+.impadd input.ia-desc{flex:1;min-width:80px;}
+.impadd input.ia-amt{width:64px;}
+.impadd select.ia-type{width:72px;}
+.impadd button{font-family:'Courier Prime',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border:none;cursor:pointer;border-radius:1px;}
+.impadd .ia-save{background:var(--gold);color:var(--black);}
+.impadd .ia-cancel{background:rgba(255,255,255,.06);color:var(--silver);}
+
+
 /* SUMMARY */
 .ss-scene{flex-shrink:0;width:min(calc(100vw - 128px),720px);height:var(--ch);scroll-snap-align:start;}
 .ss-inner{width:100%;height:100%;background:var(--char);border:1px solid rgba(201,168,76,.22);border-top:3px solid var(--gold);border-radius:14px;padding:26px 28px;display:flex;flex-direction:column;overflow:hidden;}
@@ -330,7 +368,74 @@ function revFace(p){const r=p.rev;let rows='';
     rows=r.rows.map(row=>`<div class="rfr ${row.c==='inc'?'inc':row.c==='exp'?'exp':'tot'}"><span class="rfl">${row.l}</span><span class="rfv ${row.v>0?'pos':row.v<0?'neg':'gld'}">${row.v?fm(row.v):'—'}</span></div>`).join('');
     if(inc>0&&exp<0)rows+=`<div class="rfr tot"><span class="rfl" style="color:var(--gold)">NOI</span><span class="rfv gld">${fm(noi)}<span class="rfp">${pct}%</span></span></div>`;
     if(r.proj)rows+=`<div class="rfr proj"><span class="rfl" style="font-size:7px">${r.proj}</span></div>`;}
-  return`<div class="rfhd"><div><div class="rft">${p.name}</div><div class="rfs">Revenue Summary</div></div><div class="rfi">REV<br>SIDE</div></div><div class="rfd"></div><div class="rfrows">${rows}</div><div class="rfft"><span class="rfftl">Tap again for expenses</span><span class="rfftv">${p.type}</span></div>`;}
+  const dscr=calcDSCR(p);
+  const dscrRow=dscr?`<div class="rfr ${parseFloat(dscr)>=1.25?'inc':parseFloat(dscr)>=1?'tot':'exp'}"><span class="rfl">DSCR <span style="opacity:.5;font-size:6px">≥1.25 = lender ready</span></span><span class="rfv ${parseFloat(dscr)>=1.25?'pos':parseFloat(dscr)>=1?'gld':'neg'}">${dscr}×</span></div>`:'';
+  return`<div class="rfhd"><div><div class="rft">${p.name}</div><div class="rfs">Revenue Summary</div></div><div class="rfi">REV<br>SIDE</div></div><div class="rfd"></div><div class="rfrows">${rows}${dscrRow}</div><div class="rfft"><span class="rfftl">Tap again for expenses</span><span class="rfftv">${p.type}</span></div>`;}
+
+function calcDSCR(p){
+  // DSCR = NOI / Annual Debt Service (P&I only)
+  const r=p.rev,e=p.exp;
+  let noi=0;
+  if(r.t==='ltr'){const c=calcLTR(r,2);noi=c.noi;}
+  else if(r.t==='str'){const inc=r.rows.filter(x=>x.c==='inc').reduce((s,x)=>s+x.v,0);const exp=r.rows.filter(x=>x.c==='exp').reduce((s,x)=>s+x.v,0);noi=inc+exp-e.pi;}
+  else return null;
+  if(!e.pi||e.pi<=0)return null;
+  return(noi/e.pi).toFixed(2);
+}
+
+function impLogHTML(pid){
+  const items=loadImp(pid);
+  const rows=items.length?items.map((it,i)=>`
+    <div class="impitem ${it.type}" id="impitem-${pid}-${i}">
+      <span class="impitem-date">${it.date||'—'}</span>
+      <span class="impitem-desc">${it.desc||'—'}</span>
+      <span class="impitem-amt">${it.amt?fm(-Math.abs(it.amt))+(it.type==='forecast'?' est.':''):'—'}</span>
+      <button class="impitem-del" onclick="delImp(event,'${pid}',${i})" title="Delete">×</button>
+    </div>`).join(''):`<div class="impempty">No entries yet</div>`;
+  return`<div class="implog">
+    <div class="implhdr">
+      <span class="impltitle">Improvements + Forecast</span>
+      <button class="impladdbtn" onclick="openImpAdd(event,'${pid}')">+ Add</button>
+    </div>
+    <div class="implist" id="implist-${pid}">${rows}</div>
+    <div class="impadd" id="impadd-${pid}">
+      <input class="ia-date" placeholder="2025" maxlength="7">
+      <input class="ia-desc" placeholder="Description">
+      <input class="ia-amt" placeholder="$0" type="number">
+      <select class="ia-type"><option value="done">Done</option><option value="forecast">Forecast</option></select>
+      <button class="ia-save" onclick="saveImp(event,'${pid}')">Save</button>
+      <button class="ia-cancel" onclick="closeImpAdd(event,'${pid}')">✕</button>
+    </div>
+  </div>`;}
+
+function loadImp(pid){try{const d=localStorage.getItem('trh_imp_'+pid);return d?JSON.parse(d):[]}catch(e){return[];}}
+function saveImpData(pid,items){try{localStorage.setItem('trh_imp_'+pid,JSON.stringify(items));}catch(e){}}
+function openImpAdd(e,pid){e.stopPropagation();document.getElementById('impadd-'+pid).classList.add('open');}
+function closeImpAdd(e,pid){e.stopPropagation();const el=document.getElementById('impadd-'+pid);el.classList.remove('open');el.querySelectorAll('input').forEach(i=>i.value='');}
+function saveImp(e,pid){
+  e.stopPropagation();
+  const el=document.getElementById('impadd-'+pid);
+  const date=el.querySelector('.ia-date').value.trim()||'—';
+  const desc=el.querySelector('.ia-desc').value.trim();
+  const amt=parseFloat(el.querySelector('.ia-amt').value)||0;
+  const type=el.querySelector('.ia-type').value;
+  if(!desc)return;
+  const items=loadImp(pid);
+  items.unshift({date,desc,amt,type});
+  saveImpData(pid,items);
+  closeImpAdd(e,pid);
+  refreshExpFace(pid);
+}
+function delImp(e,pid,idx){
+  e.stopPropagation();
+  const items=loadImp(pid);items.splice(idx,1);
+  saveImpData(pid,items);refreshExpFace(pid);
+}
+function refreshExpFace(pid){
+  const p=PROPS.find(x=>x.id===pid);if(!p)return;
+  const face=document.querySelector(`#sc-${pid} .ef`);
+  if(face)face.innerHTML=expFace(p);
+}
 
 function expFace(p){const e=p.exp;const tot=e.pi+e.tax+e.ins+e.maint+e.mgmt;const equity=p.ev>0?p.ev-e.lb:0;const eqPct=p.ev>0?Math.round((equity/p.ev)*100):0;const ltv=p.ev>0?Math.round((e.lb/p.ev)*100):0;const apr=p.ev&&e.pp?p.ev-e.pp:0;const aprPct=e.pp>0?((apr/e.pp)*100).toFixed(0):0;
   let rows='';
@@ -343,7 +448,7 @@ function expFace(p){const e=p.exp;const tot=e.pi+e.tax+e.ins+e.maint+e.mgmt;cons
   if(equity>0)rows+=`<div class="efr eq"><span class="efl">Est. Equity</span><span class="efv blu">${fm(equity)}<span class="efp">${eqPct}%</span></span></div>`;
   if(apr>0)rows+=`<div class="efr apr"><span class="efl">Appreciation</span><span class="efv pos">${fm(apr)}<span class="efp">+${aprPct}%</span></span></div>`;
   const barW=Math.min(100,Math.max(0,eqPct));
-  return`<div class="efhd"><div><div class="eft">${p.name}</div><div class="efs">Expense + Equity</div></div><div class="efi">EXP<br>SIDE</div></div><div class="efd"></div><div class="efrows">${rows}</div>${p.ev>0?`<div class="eqbar"><div class="eqtrack"><div class="eqfill" style="width:${barW}%"></div></div><div class="eqlbls"><span class="eqll">Debt ${ltv}%</span><span class="eqll">Equity ${eqPct}%</span></div></div>`:''}${e.note?`<div class="efft"><span class="efftl">${e.note}</span></div>`:''}`;}
+  return`<div class="efhd"><div><div class="eft">${p.name}</div><div class="efs">Expense + Equity</div></div><div class="efi">EXP<br>SIDE</div></div><div class="efd"></div><div class="efrows">${rows}</div>${p.ev>0?`<div class="eqbar"><div class="eqtrack"><div class="eqfill" style="width:${barW}%"></div></div><div class="eqlbls"><span class="eqll">Debt ${ltv}%</span><span class="eqll">Equity ${eqPct}%</span></div></div>`:''}${impLogHTML(p.id)}`;}
 
 function bCard(p){const tier=getTier(p.ev);const bs=p.beds>0?p.beds+'BD':'—';const bts=p.baths>0?p.baths+'BA':'—';const sf=p.sqft>0?p.sqft.toLocaleString()+'sf':'—';const vs=p.ev>0?'$'+(p.ev/1000).toFixed(0)+'K':'—';
   return`<div class="cs" id="sc-${p.id}" data-tags="${p.tags}" data-tier="${tier}" data-panel="0" onclick="tap('${p.id}')"><div class="cw"><div class="card" id="cd-${p.id}">
