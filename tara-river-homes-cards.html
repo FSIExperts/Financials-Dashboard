@@ -343,7 +343,7 @@ function buildImpLog(pid){
         +'<span class="iid">'+(it.date||'--')+'</span>'
         +'<span class="iis">'+(it.desc||'--')+'</span>'
         +'<span class="iia">'+(it.amt?fm(-Math.abs(it.amt))+(it.type==='fore'?' est.':''):'--')+'</span>'
-        +'<button class="iidel" onclick="delImp(event,''+pid+'','+i+')">x</button>'
+        +'<button class="iidel" data-pid="'+pid+'" data-idx="'+i+'">x</button>'
         +'</div>';
     }
   } else {
@@ -351,15 +351,15 @@ function buildImpLog(pid){
   }
   return '<div class="imp">'
     +'<div class="imph"><span class="impt">Improvements + Forecast</span>'
-    +'<button class="impab" onclick="openImpAdd(event,''+pid+'')">+ Add</button></div>'
+    +'<div class="imph"><span class="impt">Improvements + Forecast</span><button class="impab" data-action="impadd" data-pid="'+pid+'">+ Add</button></div>'
     +'<div class="impl" id="impl-'+pid+'">'+rows+'</div>'
     +'<div class="impaf" id="impaf-'+pid+'">'
     +'<input class="iad" placeholder="2025" maxlength="7">'
     +'<input class="ias" placeholder="Description">'
     +'<input class="iaa" placeholder="$0" type="number">'
     +'<select class="iat"><option value="done">Done</option><option value="fore">Forecast</option></select>'
-    +'<button class="iasv" onclick="saveImp(event,''+pid+'')">Save</button>'
-    +'<button class="iacn" onclick="closeImpAdd(event,''+pid+'')">X</button>'
+    +'<button class="iasv" data-action="impsave" data-pid="'+pid+'">Save</button>'
+    +'<button class="iacn" data-action="impclose" data-pid="'+pid+'">X</button>'
     +'</div></div>';
 }
 function openImpAdd(e,pid){e.stopPropagation();document.getElementById('impaf-'+pid).classList.add('op');}
@@ -400,10 +400,10 @@ function buildRevFace(p){
     var c=calcLTR(r,2);
     rows='<div class="rftp"><span class="rftpl">Tier</span>'
       +'<div class="htiers">'
-      +'<button class="tbtn" onclick="setRT(event,''+p.id+'',1)">'+hi(1)+'</button>'
-      +'<button class="tbtn act" onclick="setRT(event,''+p.id+'',2)">'+hi(2)+'</button>'
-      +'<button class="tbtn" onclick="setRT(event,''+p.id+'',3)">'+hi(3)+'</button>'
-      +'<button class="tbtn" onclick="setRT(event,''+p.id+'',4)">'+hi(4)+'</button>'
+      +'<button class="tbtn" data-action="setrt" data-pid="'+p.id+'" data-tier="1">'+hi(1)+'</button>'
+      +'<button class="tbtn act" data-action="setrt" data-pid="'+p.id+'" data-tier="2">'+hi(2)+'</button>'
+      +'<button class="tbtn" data-action="setrt" data-pid="'+p.id+'" data-tier="3">'+hi(3)+'</button>'
+      +'<button class="tbtn" data-action="setrt" data-pid="'+p.id+'" data-tier="4">'+hi(4)+'</button>'
       +'</div></div>'
       +'<div id="rfl-'+p.id+'">'
       +'<div class="ro inc"><span class="rl">Monthly Rent</span><span class="rv pos">$'+c.r.toLocaleString()+'<span class="rp">/mo</span></span></div>'
@@ -475,10 +475,10 @@ function buildFrontPL(p,tier){
     var c=calcLTR(r,tier);
     return '<div class="hrow"><span class="hlbl">Rent Tier</span>'
       +'<div class="htiers">'
-      +'<button class="tbtn'+(tier===1?' act':'')+'" onclick="setTier(event,''+p.id+'',1)">'+hi(1)+'</button>'
-      +'<button class="tbtn'+(tier===2?' act':'')+'" onclick="setTier(event,''+p.id+'',2)">'+hi(2)+'</button>'
-      +'<button class="tbtn'+(tier===3?' act':'')+'" onclick="setTier(event,''+p.id+'',3)">'+hi(3)+'</button>'
-      +'<button class="tbtn'+(tier===4?' act':'')+'" onclick="setTier(event,''+p.id+'',4)">'+hi(4)+'</button>'
+      +'<button class="tbtn'+(tier===1?' act':'')+'" data-action="settier" data-pid="'+p.id+'" data-tier="1">'+hi(1)+'</button>'
+      +'<button class="tbtn'+(tier===2?' act':'')+'" data-action="settier" data-pid="'+p.id+'" data-tier="2">'+hi(2)+'</button>'
+      +'<button class="tbtn'+(tier===3?' act':'')+'" data-action="settier" data-pid="'+p.id+'" data-tier="3">'+hi(3)+'</button>'
+      +'<button class="tbtn'+(tier===4?' act':'')+'" data-action="settier" data-pid="'+p.id+'" data-tier="4">'+hi(4)+'</button>'
       +'</div></div>'
       +'<div class="fpl" id="fpl-'+p.id+'">'
       +'<div class="ro inc"><span class="rl">Monthly Rent</span><span class="rv pos">$'+c.r.toLocaleString()+'<span class="rp">/mo</span></span></div>'
@@ -654,6 +654,22 @@ function setupEvents(){
     }
   });
 
+  // Tier buttons (revenue face and front face)
+  document.getElementById('track').addEventListener('click',function(e){
+    var btn=e.target.closest('[data-action]');
+    if(!btn)return;
+    e.stopPropagation();
+    var action=btn.dataset.action;
+    var pid=btn.dataset.pid;
+    var tier=parseInt(btn.dataset.tier||'0');
+    if(action==='setrt') setRT(e,pid,tier);
+    else if(action==='settier') setTier(e,pid,tier);
+    else if(action==='impadd') openImpAdd(e,pid);
+    else if(action==='impsave') saveImp(e,pid);
+    else if(action==='impclose') closeImpAdd(e,pid);
+    else if(action==='imdel'){var idx=parseInt(btn.dataset.idx||'0');delImp(e,pid,idx);}
+  });
+
   // Drag and drop onto art zones
   document.getElementById('track').addEventListener('dragover',function(e){
     e.preventDefault();
@@ -703,7 +719,7 @@ nic:'<svg viewBox="0 0 360 195" xmlns="http://www.w3.org/2000/svg" style="positi
 };
 
 var PROPS=[
-  {id:'p01',num:'TRH-001',tags:'active bellaire',name:'315 Seneca',nick:'"The Tara"',addr:'Bellaire, MI - Intermediate River',type:'Active STR',rl:'Mythic - Anchor',svg:SVG.river,beds:3,baths:2,sqft:1800,ev:314000,
+  {id:'p01',num:'TRH-001',tags:'active bellaire',name:'315 Seneca',nick:'“The Tara”',addr:'Bellaire, MI - Intermediate River',type:'Active STR',rl:'Mythic - Anchor',svg:SVG.river,beds:3,baths:2,sqft:1800,ev:314000,
    rev:{t:'str',rows:[{l:'Airbnb Net',v:16148,c:'inc'},{l:'VRBO (Est.)',v:16148,c:'inc'},{l:'Platform Fees',v:-5812,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'}],proj:'Target $45-60K NOI at optimisation'},
    exp:{pi:15140,tax:2400,ins:1362,maint:2400,mgmt:0,pp:254750,lb:249000}},
   {id:'p02',num:'TRH-002',tags:'active',name:'535 Ethel',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR - GR Cashflow',svg:SVG.gr,beds:3,baths:1,sqft:1200,ev:289400,
