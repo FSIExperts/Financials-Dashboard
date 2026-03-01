@@ -98,8 +98,10 @@ body{background:#050505;font-family:"Cormorant Garamond",serif;color:#F5EDD9;}
 .right{padding:40px 60px 40px 30px;display:flex;flex-direction:column;gap:20px;}
 .right-tag{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#C9A84C;opacity:.5;}
 .portal-preview{display:flex;flex-direction:column;gap:12px;}
-.pp{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid rgba(201,168,76,.1);background:rgba(255,255,255,.02);cursor:pointer;transition:all .25s;}
+.pp{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid rgba(201,168,76,.1);background:rgba(255,255,255,.02);cursor:pointer;transition:all .25s;opacity:.4;filter:blur(1px);pointer-events:none;}
 .pp:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04);}
+.pp.unlocked{opacity:1;filter:none;pointer-events:all;}
+.pp.unlocked:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04);}
 .pp.dim{opacity:.3;cursor:default;}
 .pp-icon{font-size:24px;flex-shrink:0;}
 .pp-info{flex:1;}
@@ -283,6 +285,9 @@ function tryLogin() {
 function expandAndShow() {
   var glass = document.getElementById('peepGlass');
   glass.classList.add('peep-expanding');
+  document.querySelectorAll('.pp:not(.dim)').forEach(function(pp) {
+    pp.classList.add('unlocked');
+  });
   setTimeout(function() { showPortals(); }, 700);
 }
 
@@ -311,6 +316,9 @@ function toggleHint() {
 // Check session
 if (sessionStorage.getItem('anand_auth')) {
   unlocked = true;
+  document.querySelectorAll('.pp:not(.dim)').forEach(function(pp) {
+    pp.classList.add('unlocked');
+  });
   showPortals();
 }
 

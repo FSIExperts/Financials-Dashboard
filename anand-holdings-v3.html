@@ -12,7 +12,7 @@
   --cream:#F5EDD9;--cream2:#DDD0B0;--silver:#A0A0A0;
   --green:#2ECC71;--red:#E07070;--blue:#4A8B9B;
   --tb:#CD7F32;--ts:#C0C0C0;--tg:#C9A84C;--tp:#E5E4E2;--tk:#777;--to:#9B6FD4;
-  --cw:560px;--ch:780px;--gap:28px;
+  --cw:420px;--ch:620px;--gap:20px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--black);min-height:100vh;font-family:"Cormorant Garamond",serif;color:var(--cream);overflow-x:hidden;}
@@ -40,7 +40,7 @@ body{background:var(--black);min-height:100vh;font-family:"Cormorant Garamond",s
 /* HEADER */
 header{text-align:center;padding:20px 20px 12px;}
 .btag{font-family:"Courier Prime",monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px;}
-h1{font-family:"Playfair Display",serif;font-size:clamp(32px,4vw,58px);font-weight:900;background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;margin-bottom:4px;}
+h1{font-family:"Playfair Display",serif;font-size:clamp(24px,3vw,42px);font-weight:900;background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;margin-bottom:4px;}
 .hs{font-style:italic;font-size:15px;color:var(--cream2);opacity:.55;margin-bottom:14px;}
 
 /* FILTER TABS */
@@ -105,7 +105,7 @@ h1{font-family:"Playfair Display",serif;font-size:clamp(32px,4vw,58px);font-weig
 
 /* NAV BAR — fixed top of every panel */
 .cnav{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,10,10,.6);}
-.cnavname{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+.cnavname{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
 .cnavnick{font-style:italic;font-size:16px;opacity:.55;margin-left:6px;}
 .cnavr{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:10px;}
 .cpanels{display:flex;gap:6px;}
@@ -118,7 +118,7 @@ h1{font-family:"Playfair Display",serif;font-size:clamp(32px,4vw,58px);font-weig
 .tbg{position:absolute;top:52px;right:14px;z-index:20;font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid var(--tc,var(--gold));color:var(--tc,var(--gold));background:rgba(10,10,10,.85);}
 
 /* GALLERY */
-.gal{flex-shrink:0;height:240px;position:relative;overflow:hidden;background:#080808;}
+.gal{flex-shrink:0;height:180px;position:relative;overflow:hidden;background:#080808;}
 .gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s;}
 .gal img.gshow{opacity:1;}
 .gal .gsvg{position:absolute;inset:0;width:100%;height:100%;}
@@ -147,7 +147,7 @@ body.admin .pbtn{display:block;}
 .vit{flex:1;padding:10px 8px;border-right:1px solid rgba(255,255,255,.06);text-align:center;}
 .vit:last-child{border-right:none;}
 .vitl{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver);opacity:.7;margin-bottom:3px;}
-.vitv{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:var(--tc,var(--gold));}
+.vitv{font-family:"Playfair Display",serif;font-size:17px;font-weight:700;color:var(--tc,var(--gold));}
 .ltype{font-family:"Courier Prime",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);opacity:.6;}
 .lnote{font-style:italic;font-size:15px;color:var(--cream2);opacity:.75;line-height:1.5;border-left:2px solid rgba(201,168,76,.2);padding-left:10px;}
 
@@ -161,7 +161,7 @@ body.admin .pbtn{display:block;}
 .vr.apr{background:rgba(46,204,113,.07);border-left:3px solid var(--green);}
 .vr.neutral{background:rgba(255,255,255,.03);border-left:3px solid rgba(255,255,255,.1);}
 .vrl{font-family:"Courier Prime",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.vrv{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;}
+.vrv{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;}
 .vrv.gld{color:var(--gold);}
 .vrv.red{color:var(--red);}
 .vrv.blu{color:var(--blue);}
@@ -175,7 +175,7 @@ body.admin .pbtn{display:block;}
 .eql{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);opacity:.6;}
 .vdscr{margin:0 18px 8px;padding:10px 14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:3px;display:flex;justify-content:space-between;align-items:center;}
 .vdscrl{font-family:"Courier Prime",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.7;}
-.vdscrv{font-family:"Playfair Display",serif;font-size:24px;font-weight:700;}
+.vdscrv{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;}
 
 /* PANEL 3 — P&L VIEW */
 .p3face{background:var(--char);border:1px solid rgba(46,204,113,.15);border-top:3px solid var(--green);}
@@ -188,7 +188,7 @@ body.admin .pbtn{display:block;}
 .plr.proj{background:rgba(74,139,155,.07);border-left:3px solid var(--blue);}
 .plr.tier{background:rgba(46,204,113,.04);border-left:3px solid rgba(46,204,113,.2);}
 .pll{font-family:"Courier Prime",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--silver);}
-.plv{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;}
+.plv{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;}
 .plv.pos{color:var(--green);}.plv.neg{color:var(--red);}.plv.gld{color:var(--gold);}.plv.blu{color:var(--blue);}
 .plp{font-family:"Courier Prime",monospace;font-size:10px;color:var(--silver);opacity:.6;margin-left:4px;}
 
@@ -232,13 +232,13 @@ footer{border-top:1px solid rgba(201,168,76,.1);padding:14px 28px;margin-top:8px
 .fcopy{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.3;}
 
 /* RESPONSIVE */
-@media(min-width:1000px){:root{--cw:580px;--ch:800px;}}
-@media(min-width:1400px){:root{--cw:600px;--ch:820px;}}
+@media(min-width:1000px){:root{--cw:440px;--ch:640px;}}
+@media(min-width:1400px){:root{--cw:460px;--ch:660px;}}
 @media(max-width:650px){:root{--cw:calc(100vw - 40px);--ch:760px;}.tr{padding:14px 20px;}}
 
 /* COMPACT MODE */
-body.compact{--cw:380px;--ch:640px;}
-body.compact .gal{height:160px;}
+body.compact{--cw:300px;--ch:520px;}
+body.compact .gal{height:120px;}
 body.compact .cnav{padding:8px 14px;}
 body.compact .cnavname{font-size:16px;}
 body.compact .vitv{font-size:15px;}
@@ -269,7 +269,7 @@ body.compact .pll{font-size:9px;}
   <header>
     <div class="btag">Portfolio Deck &middot; Established 2015</div>
     <h1>ANAND Holdings, LLC</h1>
-    <div class="hs">Bellaire, Michigan &middot; Intermediate River &middot; Seneca Corridor</div>
+    <div class="hs">Michigan &middot; Belize &middot; Nicaragua &middot; Mexico</div>
   </header>
   <div class="tabs">
     <button class="tab act" onclick="doFilt('all',this)">All</button>
@@ -286,11 +286,11 @@ body.compact .pll{font-size:9px;}
     <div class="sb">
       <div class="sg">
         <div class="si"><div class="sil">Properties</div><div class="siv">15</div><div class="sis">Active + Future</div></div>
-        <div class="si"><div class="sil">Portfolio Value</div><div class="siv">$1.8M+</div><div class="sis">Est. current</div></div>
+        <div class="si"><div class="sil">Portfolio Value</div><div class="siv">$1.4M+</div><div class="sis">Active props only</div></div>
         <div class="si"><div class="sil">LTR NOI</div><div class="siv">$22.9K</div><div class="sis">Annual &middot; 3 rentals</div></div>
-        <div class="si"><div class="sil">The Tara STR</div><div class="siv">$32.3K</div><div class="sis">Est. gross 2024</div></div>
-        <div class="si"><div class="sil">Full Build NOI</div><div class="siv">$250K+</div><div class="sis">Seneca corridor</div></div>
-        <div class="si"><div class="sil">GR Equity</div><div class="siv">$340K+</div><div class="sis">Bellaire leverage</div></div>
+        <div class="si"><div class="sil">The Tara STR</div><div class="siv">$34.0K</div><div class="sis">2024 actual net</div></div>
+        <div class="si"><div class="sil">Full Build NOI</div><div class="siv">$62.9K</div><div class="sis">2024 combined NOI</div></div>
+        <div class="si"><div class="sil">GR Equity</div><div class="siv">$761.9K</div><div class="sis">Active props equity</div></div>
         <div class="si"><div class="sil">Raise Open</div><div class="siv">$25K</div><div class="sis">320 Park</div></div>
         <div class="si"><div class="sil">ADU Priority</div><div class="siv">Court</div><div class="sis">Next STR project</div></div>
         <div class="si"><div class="sil">International</div><div class="siv">5</div><div class="sis">Belize · Nicaragua · Mexico</div></div>
@@ -917,10 +917,10 @@ var SVG = {
 };
 
 var PROPS = [
-  {id:'p01',num:'TRH-001',tags:'active bellaire',name:'315 Seneca',nick:'“The Tara”',addr:'Bellaire, MI · Intermediate River',type:'Active STR',rl:'Mythic · Anchor',svg:SVG.river,beds:3,baths:2,sqft:1800,ev:314000,plate:'<div class="mplate"><div class="mpname">THE TARA</div><div class="mpest">Built 1887 &middot; Est. 2023</div></div>',lnote:'Riverfront · Docks · Hillside gardens · Seneca corridor anchor',rev:{t:'str',rows:[{l:'Airbnb Net',v:16148,c:'inc'},{l:'VRBO (Est.)',v:16148,c:'inc'},{l:'Platform Fees',v:-5812,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'}],proj:'Target $45-60K NOI at optimization'},exp:{pp:254750,lb:249000,rate:'--',balloon:'--',pi:15140,tax:2400,ins:1362,maint:2400,mgmt:0}},
-  {id:'p02',num:'TRH-002',tags:'active',name:'535 Ethel',nick:'Ethel',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',svg:SVG.gr,beds:3,baths:1,sqft:1200,ev:289400,plate:'<div class="mplate"><div class="mpname">ETHEL</div><div class="mpest">An ANAND Home &middot; Est. 2015</div></div>',lnote:'23% LTV · Primary leverage asset for Phase 2',rev:{t:'ltr',rent:1500,pi:354.72,tax:200,mgmt:0.05},exp:{pp:92000,lb:68000,rate:'--',balloon:'--',pi:4257,tax:1200,ins:1200,maint:1200,mgmt:900}},
-  {id:'p03',num:'TRH-003',tags:'active',name:'1032 Watson',nick:'Watson',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',svg:SVG.gr,beds:4,baths:2,sqft:1600,ev:238000,plate:'<div class="mplate"><div class="mpname">WATSON</div><div class="mpest">An ANAND Home &middot; Est. 2019</div></div>',lnote:'50% LTV · Highest rent · Combined GR equity $340K+',rev:{t:'ltr',rent:1900,pi:603.97,tax:200,mgmt:0.05},exp:{pp:149000,lb:119200,rate:'--',balloon:'--',pi:7248,tax:1200,ins:1200,maint:1200,mgmt:1140}},
-  {id:'p04',num:'TRH-004',tags:'active bellaire future',name:'320 Park',nick:'The Will C. Water House',addr:'Bellaire, MI · Park View',type:'LTR + Lot Split',rl:'$25K Raise Open',svg:SVG.park,beds:3,baths:1,sqft:1400,ev:275000,plate:'<div class="mplate"><div class="mpname big">THE WILL C. WATER HOUSE</div><div class="mpest">An ANAND Home &middot; Est. 2021</div></div>',lnote:'Tier 3 pond views to Intermediate Lake · Lot split creates Anne parcel · $25K raise for debt retirement',rev:{t:'ltr',rent:1600,pi:603.97,tax:200,mgmt:0.05},exp:{pp:149000,lb:119000,rate:'--',balloon:'--',pi:7248,tax:1400,ins:1200,maint:800,mgmt:960}},
+  {id:'p01',num:'TRH-001',tags:'active bellaire',name:'315 Seneca',nick:'“The Tara”',addr:'Bellaire, MI · Intermediate River',type:'Active STR',rl:'Mythic · Anchor',svg:SVG.river,beds:3,baths:2,sqft:1800,ev:314000,plate:'<div class="mplate"><div class="mpname">THE TARA</div><div class="mpest">Built 1887 &middot; Est. 2023</div></div>',lnote:'Built 1887 · Riverfront · Docks · Seneca anchor · 50 nights booked 2024 · 2.6 avg stay',rev:{t:'str',rows:[{l:'Airbnb 2024 Net',v:16148,c:'inc'},{l:'VRBO 2024 Net',v:17852,c:'inc'},{l:'Airbnb Svc Fees',v:-499,c:'exp'},{l:'VRBO Svc Fees',v:-1498,c:'exp'},{l:'Supplies + Ops',v:-7532,c:'exp'}],proj:'2025 tracking ahead of 2024 · Target $45-60K NOI'},exp:{pp:254750,lb:249000,rate:'--',balloon:'--',pi:15140,tax:2400,ins:1362,maint:2400,mgmt:0}},
+  {id:'p02',num:'TRH-002',tags:'active',name:'535 Ethel',nick:'Ethel',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',svg:SVG.gr,beds:3,baths:1,sqft:1200,ev:289400,plate:'<div class="mplate"><div class="mpname">ETHEL</div><div class="mpest">An ANAND Home &middot; Est. 2015</div></div>',lnote:'23% LTV · Primary leverage asset for Phase 2',rev:{t:'ltr',rent:1500,pi:354.72,tax:200,mgmt:0.05},exp:{pp:92000,lb:68000,rate:'4.75% 30yr',balloon:'--',pi:4257,tax:3300,ins:1500,maint:1800,mgmt:900}},
+  {id:'p03',num:'TRH-003',tags:'active',name:'1032 Watson',nick:'Watson',addr:'Grand Rapids, MI',type:'Active LTR',rl:'LTR · GR Cashflow',svg:SVG.gr,beds:4,baths:2,sqft:1600,ev:238000,plate:'<div class="mplate"><div class="mpname">WATSON</div><div class="mpest">An ANAND Home &middot; Est. 2019</div></div>',lnote:'50% LTV · Highest rent · Combined GR equity $340K+',rev:{t:'ltr',rent:1900,pi:603.97,tax:200,mgmt:0.05},exp:{pp:149000,lb:119200,rate:'3.85% 30yr',balloon:'--',pi:6324,tax:3000,ins:1150,maint:1800,mgmt:1140}},
+  {id:'p04',num:'TRH-004',tags:'active bellaire future',name:'320 Park',nick:'The Will C. Water House',addr:'Bellaire, MI · Park View',type:'LTR + Lot Split',rl:'$25K Raise Open',svg:SVG.park,beds:3,baths:1,sqft:1400,ev:275000,plate:'<div class="mplate"><div class="mpname big">THE WILL C. WATER HOUSE</div><div class="mpest">An ANAND Home &middot; Est. 2021</div></div>',lnote:'Tier 3 pond views to Intermediate Lake · Lot split creates Anne parcel · $25K raise for debt retirement',rev:{t:'ltr',rent:1600,pi:603.97,tax:200,mgmt:0.05},exp:{pp:149000,lb:119000,rate:'4.45% 30yr',balloon:'--',pi:8376,tax:3000,ins:1150,maint:800,mgmt:960}},
   {id:'p05',num:'TRH-005',tags:'residence bellaire',name:'104 Court',nick:'The Courthouse',addr:'Bellaire, MI · Residence',type:'Residence',rl:'Primary Residence',svg:SVG.court,beds:3,baths:2,sqft:1600,ev:244200,plate:'<div class="mplate"><div class="mpname">THE COURTHOUSE</div><div class="mpest">An ANAND Home &middot; Est. 2023</div></div>',lnote:'Zero debt · ADU renovation in progress · Future income potential',rev:{t:'fut',rows:[{l:'Future Income',v:0,c:'proj'}],proj:'Income TBD pending ADU + future plans'},exp:{pp:101000,lb:0,rate:'Paid Off',balloon:'--',pi:0,tax:1600,ins:1200,maint:15000,mgmt:0}},
   {id:'p06',num:'TRH-006',tags:'bellaire future',name:'104 Court ADU',nick:'The Carriage House',addr:'Bellaire, MI · Alley Access',type:'Future STR · Priority',rl:'Priority Project',svg:SVG.adu,beds:1,baths:1,sqft:600,ev:0,plate:'<div class="mplate"><div class="mpname big">THE CARRIAGE HOUSE</div><div class="mpest">An ANAND Home &middot; Est. 2025</div></div>',lnote:'Next income project · Alley access · STR target $25-40K/yr · Zero debt = pure cashflow',rev:{t:'fut',rows:[{l:'STR Target',v:32500,c:'inc'},{l:'Est. Platform Fees',v:-5850,c:'exp'}],proj:'$25-40K/yr · Pure cashflow'},exp:{pp:0,lb:0,rate:'--',balloon:'--',pi:0,tax:0,ins:600,maint:0,mgmt:0}},
   {id:'p07',num:'TRH-007',tags:'bellaire future',name:'313 Seneca',nick:'Tara Nueva',addr:'Bellaire, MI · Seneca Corridor',type:'Future STR',rl:'Legendary · Torre',svg:SVG.tower,beds:3,baths:3,sqft:2200,ev:125000,plate:'<div class="mplate"><div class="mpname">TARA NUEVA</div><div class="mpest">An ANAND Home &middot; Est. 2022</div></div>',lnote:'3-story tower design · Sister to The Tara · 5-year balloon note · Premium ADR destination',rev:{t:'fut',rows:[{l:'Projected Revenue',v:62500,c:'inc'},{l:'Est. Expenses',v:-20000,c:'exp'}],proj:'$45-80K/yr · High ADR potential'},exp:{pp:85000,lb:80000,rate:'--',balloon:'5-yr note',pi:0,tax:800,ins:800,maint:0,mgmt:0}},
