@@ -3,368 +3,446 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FSI Experts — Private Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<title>ANAND · Private Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --gold: #C9A84C;
-  --gold-lt: #E8C97A;
-  --gold-dk: #8B6914;
-  --black: #0A0A0A;
-  --char: #141414;
-  --char2: #1C1C1C;
-  --cream: #F5EDD9;
-  --cream2: #DDD0B0;
-  --silver: #888;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;--gold-lt:#E8C97A;--gold-dk:#8B6914;
+  --black:#080808;--char:#111;--char2:#1a1a1a;
+  --cream:#F5EDD9;--cream2:#DDD0B0;--silver:#999;
+  --green:#2ECC71;--red:#E07070;--blue:#4A8B9B;
 }
+html,body{width:100%;height:100%;overflow:hidden;}
+body{background:var(--black);font-family:"Cormorant Garamond",serif;color:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;}
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* BACKGROUND */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;}
+.bg svg{width:100%;height:100%;opacity:.06;}
 
-html, body {
-  height: 100%;
-  background: var(--black);
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--cream);
-  overflow-x: hidden;
-}
+/* VAULT WRAPPER */
+.vault{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:700px;padding:20px;}
 
-/* ── BACKGROUND ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 15% 50%, rgba(201,168,76,.055) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 80% at 85% 30%, rgba(201,168,76,.035) 0%, transparent 65%),
-    repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 60px,
-      rgba(201,168,76,.012) 60px,
-      rgba(201,168,76,.012) 61px
-    );
-}
+/* BRAND */
+.brand{text-align:center;margin-bottom:32px;}
+.anand{font-family:"Playfair Display",serif;font-weight:900;font-size:clamp(48px,8vw,96px);letter-spacing:12px;background:linear-gradient(160deg,var(--gold-lt),var(--gold),var(--gold-dk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.anand span{opacity:0;display:inline-block;transform:translateY(12px);transition:opacity .4s,transform .4s;}
+.anand span.vis{opacity:1;transform:translateY(0);}
+.subtitle{font-family:"Courier Prime",monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:8px;transition:opacity .6s;}
+.subtitle.vis{opacity:.55;}
+.tagline{font-style:italic;font-size:16px;color:var(--cream2);opacity:0;margin-top:4px;transition:opacity .6s;}
+.tagline.vis{opacity:.45;}
 
-/* ── LAYOUT ── */
-.page {
-  position: relative; z-index: 1;
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 60px 24px;
-}
+/* DIVIDER */
+.divider{width:200px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:20px auto;opacity:0;transition:opacity .6s;}
+.divider.vis{opacity:.3;}
 
-/* ── TOP RULE ── */
-.top-rule {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(to right, transparent, var(--gold), var(--gold-lt), var(--gold), transparent);
-  opacity: .7;
-}
+/* SCREENS */
+.screen{display:none;flex-direction:column;align-items:center;width:100%;}
+.screen.active{display:flex;}
 
-/* ── HEADER ── */
-.header {
-  text-align: center;
-  margin-bottom: 64px;
-  animation: fadeUp .9s cubic-bezier(.2,.8,.3,1) both;
-}
+/* ── DIAL ── */
+.dial-wrap{position:relative;width:260px;height:260px;margin:0 auto 20px;}
+.dial-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(201,168,76,.2);background:radial-gradient(circle at 40% 35%,#2a2a2a,#0d0d0d);}
+.dial-ring::before{content:"";position:absolute;inset:10px;border-radius:50%;border:1px solid rgba(201,168,76,.1);}
+.dial-ring::after{content:"";position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(201,168,76,.06);}
+.dial-letters{position:absolute;inset:0;border-radius:50%;}
+.dial-letter{position:absolute;font-family:"Courier Prime",monospace;font-size:11px;font-weight:700;letter-spacing:1px;color:rgba(201,168,76,.35);transform-origin:130px 130px;transition:color .2s;}
+.dial-letter.active-l{color:var(--gold-lt);text-shadow:0 0 8px rgba(201,168,76,.6);}
+.dial-notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:18px;background:var(--gold);border-radius:2px;box-shadow:0 0 8px rgba(201,168,76,.8);}
+.dial-center{position:absolute;inset:70px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#222,#0a0a0a);border:1px solid rgba(201,168,76,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;}
+.dial-center:active{cursor:grabbing;}
+.dial-char{font-family:"Playfair Display",serif;font-size:36px;font-weight:700;color:var(--gold);min-height:44px;text-align:center;line-height:1;}
+.dial-hint{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.4;margin-top:4px;}
+.dial-input{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:280px;display:flex;justify-content:center;gap:6px;}
+.dial-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(201,168,76,.25);background:transparent;transition:background .3s,border-color .3s;}
+.dial-dot.filled{background:var(--gold);border-color:var(--gold);}
+.dial-dot.correct{background:var(--green);border-color:var(--green);}
+.dial-dot.wrong{background:var(--red);border-color:var(--red);}
+.dial-controls{display:flex;gap:16px;margin-top:28px;}
+.dial-btn{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:8px 20px;border:1px solid rgba(201,168,76,.3);background:transparent;color:var(--gold);cursor:pointer;transition:all .2s;}
+.dial-btn:hover{background:rgba(201,168,76,.1);}
+.dial-btn.primary{background:var(--gold);color:var(--black);border-color:var(--gold);}
+.dial-btn.primary:hover{background:var(--gold-lt);}
+.dial-msg{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;min-height:16px;margin-top:10px;text-align:center;}
+.dial-msg.err{color:var(--red);}
+.dial-msg.ok{color:var(--green);}
+.portal-label{font-family:"Courier Prime",monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:16px;text-align:center;}
 
-.monogram {
-  display: inline-block;
-  font-family: 'Playfair Display', serif;
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 8px; text-transform: uppercase;
-  color: var(--gold); opacity: .7;
-  margin-bottom: 22px;
-  position: relative;
-}
-.monogram::before, .monogram::after {
-  content: '—';
-  margin: 0 12px;
-  opacity: .5;
-}
+/* TYPE SHORTCUT */
+.type-hint{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);opacity:.25;margin-top:14px;cursor:pointer;transition:opacity .2s;}
+.type-hint:hover{opacity:.5;}
+.type-input-wrap{display:none;margin-top:10px;flex-direction:column;align-items:center;gap:8px;}
+.type-input-wrap.show{display:flex;}
+.type-input{background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.3);color:var(--cream);font-family:"Courier Prime",monospace;font-size:16px;letter-spacing:6px;text-align:center;padding:6px 12px;outline:none;width:220px;}
+.type-input:focus{border-bottom-color:var(--gold);}
 
-.wordmark {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(42px, 6vw, 80px);
-  font-weight: 900; line-height: .95;
-  letter-spacing: -2px;
-  background: linear-gradient(160deg, var(--gold-lt) 0%, var(--gold) 45%, var(--gold-dk) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 16px;
-}
+/* PORTALS */
+.portals{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;width:100%;}
+.portal-card{flex:1;min-width:220px;max-width:280px;border:1px solid rgba(201,168,76,.15);background:linear-gradient(160deg,var(--char2),var(--char));padding:28px 24px;cursor:pointer;transition:all .35s;position:relative;overflow:hidden;text-decoration:none;}
+.portal-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04),transparent);opacity:0;transition:opacity .3s;}
+.portal-card:hover{border-color:rgba(201,168,76,.5);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.6);}
+.portal-card:hover::before{opacity:1;}
+.portal-icon{font-size:32px;margin-bottom:12px;display:block;}
+.portal-name{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:4px;}
+.portal-sub{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px;}
+.portal-desc{font-style:italic;font-size:14px;color:var(--silver);line-height:1.5;}
+.portal-arrow{position:absolute;bottom:16px;right:18px;font-size:20px;color:var(--gold);opacity:.3;transition:opacity .3s,transform .3s;}
+.portal-card:hover .portal-arrow{opacity:.8;transform:translateX(4px);}
+.portal-locked{position:absolute;top:14px;right:14px;font-family:"Courier Prime",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.35;border:1px solid rgba(201,168,76,.2);padding:2px 6px;}
+.portal-locked.open{color:var(--green);border-color:rgba(46,204,113,.3);opacity:.7;}
 
-.tagline {
-  font-style: italic;
-  font-size: clamp(14px, 2vw, 18px);
-  color: var(--cream2); opacity: .55;
-  letter-spacing: .5px;
-}
+.back-btn{font-family:"Courier Prime",monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);opacity:.35;cursor:pointer;margin-top:24px;padding:6px 12px;border:none;background:none;transition:opacity .2s;}
+.back-btn:hover{opacity:.7;}
 
-/* ── ORNAMENT ── */
-.ornament {
-  display: flex; align-items: center; gap: 16px;
-  margin-top: 20px;
-  animation: fadeUp .9s .15s cubic-bezier(.2,.8,.3,1) both;
-}
-.orn-line {
-  width: 80px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold));
-  opacity: .35;
-}
-.orn-line.rev { transform: scaleX(-1); }
-.orn-diamond {
-  width: 6px; height: 6px;
-  background: var(--gold); opacity: .5;
-  transform: rotate(45deg);
-}
+/* UNLOCK ANIMATION */
+@keyframes vaultOpen{0%{transform:scaleX(1);opacity:1;}60%{transform:scaleX(1.04);opacity:.8;}100%{transform:scaleX(0);opacity:0;}}
+.vault-opening{animation:vaultOpen .7s ease-in forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .5s ease forwards;}
 
-/* ── PORTAL CARDS ── */
-.portals {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
-  width: 100%;
-  max-width: 820px;
-}
-
-.portal {
-  position: relative;
-  background: var(--char);
-  border: 1px solid rgba(201,168,76,.16);
-  border-radius: 4px;
-  padding: 44px 38px 38px;
-  text-decoration: none; color: inherit;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .35s cubic-bezier(.2,.8,.3,1),
-              border-color .35s ease,
-              box-shadow .35s ease;
-  animation: fadeUp .9s cubic-bezier(.2,.8,.3,1) both;
-}
-.portal:nth-child(1) { animation-delay: .25s; }
-.portal:nth-child(2) { animation-delay: .4s; }
-
-/* Corner brackets */
-.portal::before, .portal::after {
-  content: '';
-  position: absolute;
-  width: 20px; height: 20px;
-  border-color: var(--gold); border-style: solid;
-  opacity: .4; transition: opacity .3s, width .3s, height .3s;
-}
-.portal::before { top: 14px; left: 14px; border-width: 1px 0 0 1px; }
-.portal::after  { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
-
-.portal:hover {
-  transform: translateY(-6px);
-  border-color: rgba(201,168,76,.45);
-  box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 40px rgba(201,168,76,.06);
-}
-.portal:hover::before, .portal:hover::after {
-  opacity: .8; width: 28px; height: 28px;
-}
-
-/* Glow sweep on hover */
-.portal .sweep {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(201,168,76,.07) 0%, transparent 60%);
-  opacity: 0; transition: opacity .4s;
-  pointer-events: none;
-}
-.portal:hover .sweep { opacity: 1; }
-
-/* Top accent bar */
-.portal-bar {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 2px;
-}
-.portal-bar.finance {
-  background: linear-gradient(to right, transparent, #4A8B9B, transparent);
-}
-.portal-bar.property {
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
-}
-
-/* Icon */
-.portal-icon {
-  width: 48px; height: 48px;
-  margin-bottom: 22px;
-  opacity: .75;
-}
-
-/* Label */
-.portal-eyebrow {
-  font-family: 'Courier Prime', monospace;
-  font-size: 8px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--gold); opacity: .6;
-  margin-bottom: 10px;
-}
-.portal-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px; font-weight: 700; line-height: 1.1;
-  color: var(--cream);
-  margin-bottom: 12px;
-}
-.portal-desc {
-  font-size: 14px; line-height: 1.65;
-  color: var(--cream2); opacity: .6;
-  margin-bottom: 28px;
-}
-
-/* Stats row */
-.portal-stats {
-  display: flex; gap: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(201,168,76,.1);
-}
-.pstat-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px; font-weight: 700;
-  color: var(--gold); line-height: 1;
-  margin-bottom: 2px;
-}
-.pstat-lbl {
-  font-family: 'Courier Prime', monospace;
-  font-size: 7px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--silver); opacity: .7;
-}
-
-/* Arrow */
-.portal-arrow {
-  position: absolute; bottom: 38px; right: 38px;
-  font-family: 'Courier Prime', monospace;
-  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold); opacity: .35;
-  transition: opacity .3s, transform .3s;
-}
-.portal:hover .portal-arrow {
-  opacity: .8; transform: translateX(5px);
-}
-
-/* ── FOOTER ── */
-.footer {
-  margin-top: 60px;
-  text-align: center;
-  animation: fadeUp .9s .55s cubic-bezier(.2,.8,.3,1) both;
-}
-.footer-line {
-  font-family: 'Courier Prime', monospace;
-  font-size: 8px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--silver); opacity: .3;
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── MOBILE ── */
-@media (max-width: 600px) {
-  .portals { grid-template-columns: 1fr; gap: 20px; }
-  .header { margin-bottom: 44px; }
-  .portal { padding: 36px 28px 32px; }
-  .portal-title { font-size: 22px; }
+@media(max-width:500px){
+  .portals{flex-direction:column;align-items:center;}
+  .portal-card{min-width:280px;max-width:100%;}
+  .dial-wrap{width:220px;height:220px;}
+  .dial-center{inset:56px;}
+  .dial-letter{font-size:10px;}
 }
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="top-rule"></div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="monogram">FSI Experts</div>
-    <div class="wordmark">Private Portal</div>
-    <div class="tagline">Confidential · Authorized Access Only</div>
-    <div class="ornament">
-      <div class="orn-line"></div>
-      <div class="orn-diamond"></div>
-      <div class="orn-line rev"></div>
+<div class="bg">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <rect width="1200" height="800" fill="#0a0a0a"/>
+  <path d="M0 400 Q300 280 600 350 Q900 420 1200 300 L1200 800 L0 800Z" fill="#C9A84C" opacity=".08"/>
+  <path d="M0 500 Q200 420 400 460 Q600 500 800 430 Q1000 360 1200 400 L1200 800 L0 800Z" fill="#C9A84C" opacity=".05"/>
+  <circle cx="200" cy="150" r="2" fill="#C9A84C" opacity=".4"/>
+  <circle cx="600" cy="80" r="1.5" fill="#C9A84C" opacity=".3"/>
+  <circle cx="1000" cy="200" r="2" fill="#C9A84C" opacity=".35"/>
+  <circle cx="400" cy="60" r="1" fill="white" opacity=".2"/>
+  <circle cx="900" cy="120" r="1" fill="white" opacity=".15"/>
+</svg>
+</div>
+
+<div class="vault" id="vault">
+  <div class="brand">
+    <div class="anand" id="anand-letters">
+      <span id="l0">A</span><span id="l1">N</span><span id="l2">A</span><span id="l3">N</span><span id="l4">D</span>
+    </div>
+    <div class="subtitle" id="subtitle">Anne &middot; N &middot; Dave</div>
+    <div class="tagline" id="tagline">A private real estate &amp; equity story</div>
+  </div>
+  <div class="divider" id="divider"></div>
+
+  <!-- SCREEN 1: CHOOSE PORTAL -->
+  <div class="screen active" id="screen-portals">
+    <div class="portal-label">Select Your Portal</div>
+    <div class="portals">
+      <div class="portal-card" onclick="selectPortal('holdings')">
+        <span class="portal-icon">&#127968;</span>
+        <div class="portal-name">ANAND Holdings</div>
+        <div class="portal-sub">Real Estate Portfolio</div>
+        <div class="portal-desc">Bellaire &middot; Grand Rapids &middot; International</div>
+        <div class="portal-locked" id="lock-holdings">LOCKED</div>
+        <div class="portal-arrow">&#8594;</div>
+      </div>
+      <div class="portal-card" onclick="selectPortal('warroom')">
+        <span class="portal-icon">&#128200;</span>
+        <div class="portal-name">War Room</div>
+        <div class="portal-sub">Equity Portfolio</div>
+        <div class="portal-desc">Stocks &middot; Positions &middot; Market Monitor</div>
+        <div class="portal-locked" id="lock-warroom">LOCKED</div>
+        <div class="portal-arrow">&#8594;</div>
+      </div>
     </div>
   </div>
 
-  <!-- PORTALS -->
-  <div class="portals">
-
-    <!-- FINANCIAL DASHBOARD -->
-    <a class="portal" href="portfolio-monitor.html">
-      <div class="sweep"></div>
-      <div class="portal-bar finance"></div>
-      <svg class="portal-icon" viewBox="0 0 48 48" fill="none">
-        <rect x="4" y="28" width="8" height="16" fill="#4A8B9B" opacity=".7" rx="1"/>
-        <rect x="16" y="18" width="8" height="26" fill="#4A8B9B" opacity=".85" rx="1"/>
-        <rect x="28" y="10" width="8" height="34" fill="#4A8B9B" rx="1"/>
-        <rect x="40" y="20" width="8" height="24" fill="#4A8B9B" opacity=".6" rx="1"/>
-        <path d="M6 26 L18 16 L30 8 L42 18" stroke="#E8C97A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="6" cy="26" r="2" fill="#E8C97A"/>
-        <circle cx="18" cy="16" r="2" fill="#E8C97A"/>
-        <circle cx="30" cy="8" r="2" fill="#E8C97A"/>
-        <circle cx="42" cy="18" r="2" fill="#E8C97A"/>
-      </svg>
-      <div class="portal-eyebrow">Financial Intelligence</div>
-      <div class="portal-title">Portfolio<br>Dashboard</div>
-      <div class="portal-desc">Live financial monitoring across all holdings. Net worth tracking, income analysis, mortgage positions, and investment performance.</div>
-      <div class="portal-stats">
-        <div>
-          <div class="pstat-val">$1.8M+</div>
-          <div class="pstat-lbl">Portfolio Value</div>
-        </div>
-        <div>
-          <div class="pstat-val">13</div>
-          <div class="pstat-lbl">Properties</div>
-        </div>
-        <div>
-          <div class="pstat-val">$22.9K</div>
-          <div class="pstat-lbl">LTR NOI / yr</div>
+  <!-- SCREEN 2: DIAL -->
+  <div class="screen" id="screen-dial">
+    <div class="portal-label" id="dial-portal-label">Enter Combination</div>
+    <div class="dial-wrap" id="dial-wrap">
+      <div class="dial-ring">
+        <div class="dial-notch"></div>
+        <div class="dial-letters" id="dial-letters"></div>
+        <div class="dial-center" id="dial-center">
+          <div class="dial-char" id="dial-char">&middot;</div>
+          <div class="dial-hint">SPIN DIAL</div>
         </div>
       </div>
-      <div class="portal-arrow">Enter →</div>
-    </a>
-
-    <!-- PROPERTY CARDS -->
-    <a class="portal" href="tara-river-homes-cards.html">
-      <div class="sweep"></div>
-      <div class="portal-bar property"></div>
-      <svg class="portal-icon" viewBox="0 0 48 48" fill="none">
-        <path d="M24 6 L42 20 L42 44 L6 44 L6 20 Z" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M24 6 L42 20" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M6 20 L24 6" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="18" y="28" width="12" height="16" fill="#C9A84C" opacity=".25" rx="1"/>
-        <rect x="10" y="24" width="8" height="8" fill="#C9A84C" opacity=".35" rx="1"/>
-        <rect x="30" y="24" width="8" height="8" fill="#C9A84C" opacity=".35" rx="1"/>
-        <path d="M14 44 L14 36 Q14 32 18 32" stroke="#C9A84C" stroke-width=".8" fill="none" opacity=".4"/>
-        <circle cx="38" cy="10" r="6" fill="#1A1A1A" stroke="#C9A84C" stroke-width="1" opacity=".8"/>
-        <path d="M35 10 L37 12 L41 8" stroke="#E8C97A" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div class="portal-eyebrow">Tara River Homes</div>
-      <div class="portal-title">Property<br>Card Deck</div>
-      <div class="portal-desc">Interactive investment cards for all 13 properties. P&L scenarios, rent tier modelling, strategic narratives, and development pipeline.</div>
-      <div class="portal-stats">
-        <div>
-          <div class="pstat-val">11</div>
-          <div class="pstat-lbl">Property Cards</div>
-        </div>
-        <div>
-          <div class="pstat-val">$250K+</div>
-          <div class="pstat-lbl">Build-Out NOI</div>
-        </div>
-        <div>
-          <div class="pstat-val">4</div>
-          <div class="pstat-lbl">STR Pipeline</div>
-        </div>
-      </div>
-      <div class="portal-arrow">Enter →</div>
-    </a>
-
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-line">Private &amp; Confidential · Not for Distribution · FSI Experts LLC</div>
+      <div class="dial-input" id="dial-dots"></div>
+    </div>
+    <div class="dial-controls">
+      <button class="dial-btn" onclick="dialBack()">&#8592; Back</button>
+      <button class="dial-btn" onclick="dialConfirm()">Confirm Letter</button>
+      <button class="dial-btn" onclick="dialClear()">Clear</button>
+    </div>
+    <div class="dial-msg" id="dial-msg"></div>
+    <div class="type-hint" onclick="toggleTypeInput()">&#9000; Type instead</div>
+    <div class="type-input-wrap" id="type-wrap">
+      <input type="password" class="type-input" id="type-input" placeholder="password" autocomplete="off" onkeydown="if(event.key==='Enter')checkTypeInput()">
+      <button class="dial-btn primary" onclick="checkTypeInput()">Open</button>
+    </div>
+    <button class="back-btn" onclick="showScreen('screen-portals')">&#8592; Back to Portals</button>
   </div>
 
 </div>
+
+<script>
+var PORTALS = {
+  holdings: { pwd: 'bellaire2025', url: 'anand-holdings-v2.html', label: 'ANAND Holdings' },
+  warroom:  { pwd: 'warroom2025',  url: 'portfolio-monitor.html', label: 'War Room' }
+};
+
+var currentPortal = null;
+var dialAngle = 0;
+var dialTyped = '';
+var LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+var NUM_LETTERS = LETTERS.length;
+var dialDragging = false;
+var dialLastAngle = 0;
+var dialStartAngle = 0;
+var dialVelocity = 0;
+var dialLastTime = 0;
+
+// ── BRAND REVEAL ──────────────────────────────────────────────────
+function revealBrand() {
+  var delays = [0, 150, 300, 450, 600];
+  for (var i = 0; i < 5; i++) {
+    (function(idx, delay) {
+      setTimeout(function() {
+        document.getElementById('l' + idx).classList.add('vis');
+      }, delay);
+    })(i, delays[i]);
+  }
+  setTimeout(function() { document.getElementById('subtitle').classList.add('vis'); }, 900);
+  setTimeout(function() { document.getElementById('tagline').classList.add('vis'); }, 1100);
+  setTimeout(function() { document.getElementById('divider').classList.add('vis'); }, 1200);
+}
+
+// ── DIAL SETUP ────────────────────────────────────────────────────
+function buildDial() {
+  var container = document.getElementById('dial-letters');
+  container.innerHTML = '';
+  var r = 108;
+  for (var i = 0; i < NUM_LETTERS; i++) {
+    var angle = (i / NUM_LETTERS) * 360;
+    var rad = (angle - 90) * Math.PI / 180;
+    var x = 130 + r * Math.cos(rad);
+    var y = 130 + r * Math.sin(rad);
+    var el = document.createElement('div');
+    el.className = 'dial-letter';
+    el.id = 'dl-' + i;
+    el.textContent = LETTERS[i];
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.transform = 'translate(-50%,-50%) rotate(' + angle + 'deg)';
+    container.appendChild(el);
+  }
+  updateDialDisplay();
+}
+
+function getAngleFromCenter(cx, cy, px, py) {
+  return Math.atan2(py - cy, px - cx) * 180 / Math.PI;
+}
+
+function updateDialDisplay() {
+  var normalized = (((-dialAngle) % 360) + 360) % 360;
+  var idx = Math.round(normalized / (360 / NUM_LETTERS)) % NUM_LETTERS;
+  var charEl = document.getElementById('dial-char');
+  charEl.textContent = LETTERS[idx];
+  var letters = document.querySelectorAll('.dial-letter');
+  for (var i = 0; i < letters.length; i++) {
+    letters[i].classList.toggle('active-l', i === idx);
+  }
+  updateDots();
+}
+
+function getCurrentLetter() {
+  var normalized = (((-dialAngle) % 360) + 360) % 360;
+  var idx = Math.round(normalized / (360 / NUM_LETTERS)) % NUM_LETTERS;
+  return LETTERS[idx];
+}
+
+function updateDots() {
+  var dotsEl = document.getElementById('dial-dots');
+  var pwd = currentPortal ? PORTALS[currentPortal].pwd.toUpperCase() : '';
+  dotsEl.innerHTML = '';
+  for (var i = 0; i < pwd.length; i++) {
+    var d = document.createElement('div');
+    d.className = 'dial-dot' + (i < dialTyped.length ? ' filled' : '');
+    dotsEl.appendChild(d);
+  }
+}
+
+function dialConfirm() {
+  var letter = getCurrentLetter();
+  var pwd = currentPortal ? PORTALS[currentPortal].pwd.toUpperCase() : '';
+  dialTyped += letter;
+  document.getElementById('dial-msg').textContent = '';
+  if (dialTyped.length === pwd.length) {
+    checkPassword();
+  } else if (!pwd.startsWith(dialTyped)) {
+    document.getElementById('dial-msg').className = 'dial-msg err';
+    document.getElementById('dial-msg').textContent = 'Wrong combination';
+    setTimeout(function() { dialClear(); }, 800);
+  }
+  updateDots();
+}
+
+function dialBack() {
+  dialTyped = dialTyped.slice(0, -1);
+  document.getElementById('dial-msg').textContent = '';
+  updateDots();
+}
+
+function dialClear() {
+  dialTyped = '';
+  document.getElementById('dial-msg').textContent = '';
+  updateDots();
+}
+
+function checkPassword() {
+  var portal = PORTALS[currentPortal];
+  if (dialTyped.toLowerCase() === portal.pwd.toLowerCase()) {
+    unlockPortal();
+  } else {
+    var msg = document.getElementById('dial-msg');
+    msg.className = 'dial-msg err';
+    msg.textContent = 'Incorrect combination';
+    var dots = document.querySelectorAll('.dial-dot');
+    for (var i = 0; i < dots.length; i++) dots[i].classList.add('wrong');
+    setTimeout(function() { dialClear(); }, 1000);
+  }
+}
+
+function unlockPortal() {
+  var msg = document.getElementById('dial-msg');
+  msg.className = 'dial-msg ok';
+  msg.textContent = 'Vault open';
+  var dots = document.querySelectorAll('.dial-dot');
+  for (var i = 0; i < dots.length; i++) { dots[i].classList.remove('filled'); dots[i].classList.add('correct'); }
+  var lockEl = document.getElementById('lock-' + currentPortal);
+  if (lockEl) { lockEl.textContent = 'OPEN'; lockEl.classList.add('open'); }
+  document.getElementById('vault').classList.add('vault-opening');
+  setTimeout(function() {
+    window.location.href = PORTALS[currentPortal].url;
+  }, 700);
+}
+
+// ── DIAL INTERACTION ─────────────────────────────────────────────
+function initDialEvents() {
+  var center = document.getElementById('dial-center');
+  var wrap = document.getElementById('dial-wrap');
+
+  function getCenter() {
+    var rect = wrap.getBoundingClientRect();
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  }
+
+  function onStart(px, py) {
+    dialDragging = true;
+    var c = getCenter();
+    dialStartAngle = getAngleFromCenter(c.x, c.y, px, py) - dialAngle;
+    dialLastAngle = dialAngle;
+    dialLastTime = Date.now();
+    dialVelocity = 0;
+  }
+  function onMove(px, py) {
+    if (!dialDragging) return;
+    var c = getCenter();
+    var angle = getAngleFromCenter(c.x, c.y, px, py) - dialStartAngle;
+    var now = Date.now();
+    dialVelocity = (angle - dialAngle) / Math.max(1, now - dialLastTime) * 16;
+    dialLastAngle = dialAngle;
+    dialAngle = angle;
+    dialLastTime = now;
+    updateDialDisplay();
+  }
+  function onEnd() {
+    if (!dialDragging) return;
+    dialDragging = false;
+    spinInertia();
+  }
+
+  wrap.addEventListener('mousedown', function(e) { onStart(e.clientX, e.clientY); e.preventDefault(); });
+  document.addEventListener('mousemove', function(e) { onMove(e.clientX, e.clientY); });
+  document.addEventListener('mouseup', onEnd);
+  wrap.addEventListener('touchstart', function(e) { onStart(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
+  document.addEventListener('touchmove', function(e) { if(dialDragging) onMove(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
+  document.addEventListener('touchend', onEnd);
+
+  // Keyboard: arrow keys spin, Enter confirms, Backspace backs
+  document.addEventListener('keydown', function(e) {
+    var screen = document.getElementById('screen-dial');
+    if (!screen.classList.contains('active')) return;
+    if (document.getElementById('type-wrap').classList.contains('show')) return;
+    var step = 360 / NUM_LETTERS;
+    if (e.key === 'ArrowLeft') { dialAngle -= step; updateDialDisplay(); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { dialAngle += step; updateDialDisplay(); e.preventDefault(); }
+    else if (e.key === 'Enter') { dialConfirm(); e.preventDefault(); }
+    else if (e.key === 'Backspace') { dialBack(); e.preventDefault(); }
+  });
+}
+
+function spinInertia() {
+  if (Math.abs(dialVelocity) < 0.05) { snapToNearest(); return; }
+  dialAngle += dialVelocity;
+  dialVelocity *= 0.94;
+  updateDialDisplay();
+  requestAnimationFrame(spinInertia);
+}
+
+function snapToNearest() {
+  var step = 360 / NUM_LETTERS;
+  var normalized = (((-dialAngle) % 360) + 360) % 360;
+  var nearest = Math.round(normalized / step) * step;
+  dialAngle = -nearest;
+  updateDialDisplay();
+}
+
+// ── TYPE SHORTCUT ─────────────────────────────────────────────────
+function toggleTypeInput() {
+  document.getElementById('type-wrap').classList.toggle('show');
+  if (document.getElementById('type-wrap').classList.contains('show')) {
+    setTimeout(function() { document.getElementById('type-input').focus(); }, 100);
+  }
+}
+
+function checkTypeInput() {
+  var val = document.getElementById('type-input').value.trim();
+  var portal = PORTALS[currentPortal];
+  if (val.toLowerCase() === portal.pwd.toLowerCase()) {
+    dialTyped = portal.pwd.toUpperCase();
+    unlockPortal();
+  } else {
+    document.getElementById('dial-msg').className = 'dial-msg err';
+    document.getElementById('dial-msg').textContent = 'Incorrect';
+    document.getElementById('type-input').value = '';
+  }
+}
+
+// ── SCREENS ───────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+function selectPortal(name) {
+  currentPortal = name;
+  dialTyped = '';
+  dialAngle = 0;
+  document.getElementById('dial-portal-label').textContent = 'Enter ' + PORTALS[name].label + ' Combination';
+  document.getElementById('dial-msg').textContent = '';
+  document.getElementById('type-input').value = '';
+  document.getElementById('type-wrap').classList.remove('show');
+  buildDial();
+  showScreen('screen-dial');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
+revealBrand();
+initDialEvents();
+</script>
 </body>
 </html>
