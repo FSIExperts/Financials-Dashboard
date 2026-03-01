@@ -84,16 +84,14 @@ h1{font-family:"Playfair Display",serif;font-size:clamp(32px,4vw,58px);font-weig
 .arl{left:12px;}.arr2{right:12px;}
 
 /* CARD STRUCTURE */
-.cs{perspective:1600px;flex-shrink:0;width:var(--cw);scroll-snap-align:start;}
+.cs{flex-shrink:0;width:var(--cw);scroll-snap-align:start;}
 .cs.hid{display:none;}
-.cw2{width:100%;height:var(--ch);position:relative;}
-.card{width:100%;height:var(--ch);position:absolute;top:0;left:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.2,.2,1);}
-.cs.p1 .card{transform:rotateY(120deg);}
-.cs.p2 .card{transform:rotateY(240deg);}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;}
-.f1{transform:rotateY(0deg);}
-.f2{transform:rotateY(-120deg);}
-.f3{transform:rotateY(-240deg);}
+.cw2{width:var(--cw);height:var(--ch);overflow:hidden;border-radius:14px;}
+.card{display:flex;flex-direction:row;width:calc(var(--cw) * 3);height:var(--ch);transition:transform .55s cubic-bezier(.4,.0,.2,1);}
+.cs.p1 .card{transform:translateX(calc(var(--cw) * -1));}
+.cs.p2 .card{transform:translateX(calc(var(--cw) * -2));}
+.face{flex-shrink:0;width:var(--cw);height:var(--ch);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;}
+.f1{}.f2{}.f3{}
 
 /* TIER COLORS */
 [data-tier="bronze"]{--tc:var(--tb);}
@@ -439,25 +437,25 @@ function buildP2(p) {
   var equity = p.ev > 0 ? p.ev - e.lb : 0;
   var eqPct = p.ev > 0 ? Math.round((equity / p.ev) * 100) : 0;
   var ltv = p.ev > 0 ? Math.round((e.lb / p.ev) * 100) : 0;
-  var apr = p.ev && e.pp ? p.ev - e.pp : 0;
-  var aprPct = e.pp > 0 ? ((apr / e.pp) * 100).toFixed(0) : 0;
+  var delta = (p.ev > 0 && e.pp > 0) ? p.ev - e.pp : 0;
+  var deltaPct = e.pp > 0 ? ((delta / e.pp) * 100).toFixed(0) : 0;
   var barW = Math.min(100, Math.max(0, eqPct));
   var dscr = calcDSCR(p);
   var rows = '';
+  rows += '<div class="vr neutral"><span class="vrl">Current Value</span><span class="vrv wht">' + (p.ev > 0 ? fm(p.ev) : 'TBD') + '</span></div>';
   rows += '<div class="vr purchase"><span class="vrl">Purchase Price</span><span class="vrv gld">' + (e.pp > 0 ? fm(e.pp) : '--') + '</span></div>';
-  rows += '<div class="vr debt"><span class="vrl">Mortgage Balance</span><span class="vrv red">' + (e.lb > 0 ? fm(e.lb) : (e.pp > 0 ? '$0' : '--')) + '</span></div>';
-  if (e.rate) rows += '<div class="vr neutral"><span class="vrl">Rate &middot; Term</span><span class="vrv wht">' + e.rate + '</span></div>';
-  if (e.balloon) rows += '<div class="vr neutral"><span class="vrl">Balloon</span><span class="vrv wht">' + e.balloon + '</span></div>';
   if (equity > 0) rows += '<div class="vr equity"><span class="vrl">Est. Equity</span><span class="vrv blu">' + fm(equity) + '<span class="vrp">' + eqPct + '%</span></span></div>';
-  if (apr > 0) rows += '<div class="vr apr"><span class="vrl">Appreciation</span><span class="vrv grn">' + fm(apr) + '<span class="vrp">+' + aprPct + '%</span></span></div>';
-  if (p.ev > 0) rows += '<div class="vr neutral"><span class="vrl">Est. Value</span><span class="vrv wht">' + fm(p.ev) + '</span></div>';
+  rows += '<div class="vr debt"><span class="vrl">Mortgage Balance</span><span class="vrv red">' + (e.lb > 0 ? fm(e.lb) : (e.pp > 0 ? 'Paid Off' : '--')) + '</span></div>';
+  if (delta > 0) rows += '<div class="vr apr"><span class="vrl">Value Delta</span><span class="vrv grn">+' + fm(delta) + '<span class="vrp">+' + deltaPct + '%</span></span></div>';
+  if (e.rate && e.rate !== '--') rows += '<div class="vr neutral"><span class="vrl">Rate &middot; Term</span><span class="vrv wht">' + e.rate + '</span></div>';
+  if (e.balloon && e.balloon !== '--') rows += '<div class="vr neutral"><span class="vrl">Balloon</span><span class="vrv wht">' + e.balloon + '</span></div>';
+  var eqBarHtml = p.ev > 0 ? '<div class="eqbar"><div class="eqtrack"><div class="eqfill" style="width:' + barW + '%"></div></div><div class="eqls"><span class="eql">Debt ' + ltv + '%</span><span class="eql">Equity ' + eqPct + '%</span></div></div>' : '';
   var dscrHtml = '';
   if (dscr) {
     var dv = parseFloat(dscr);
     var dc = dv >= 1.25 ? 'grn' : dv >= 1 ? 'gld' : 'red';
     dscrHtml = '<div class="vdscr"><span class="vdscrl">DSCR &middot; 1.25+ lender ready</span><span class="vdscrv ' + dc + '">' + dscr + 'x</span></div>';
   }
-  var eqBarHtml = p.ev > 0 ? '<div class="eqbar"><div class="eqtrack"><div class="eqfill" style="width:' + barW + '%"></div></div><div class="eqls"><span class="eql">Debt ' + ltv + '%</span><span class="eql">Equity ' + eqPct + '%</span></div></div>' : '';
   return '<div class="face f2 p2face">'
     + buildNav(p, 1)
     + '<div class="vrows">' + rows + '</div>'
@@ -643,7 +641,22 @@ function savePhotos(pid, files) {
     if (count >= toAdd) { savePhotoData(pid, stored); refreshGallery(pid); return; }
     var f = files[count++];
     var rd = new FileReader();
-    rd.onload = function(ev) { stored.push(ev.target.result); next(); };
+    rd.onload = function(ev) {
+      var img = new Image();
+      img.onload = function() {
+        var MAX = 1200;
+        var scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        var w = Math.round(img.width * scale);
+        var cv = document.createElement('canvas');
+        cv.width = w;
+        cv.height = Math.round(img.height * scale);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        var compressed = cv.toDataURL('image/jpeg', 0.72);
+        stored.push(compressed);
+        next();
+      };
+      img.src = ev.target.result;
+    };
     rd.readAsDataURL(f);
   }
   next();
@@ -758,6 +771,23 @@ function setupEvents() {
     var pid = gal.dataset.pid;
     savePhotos(pid, files);
   });
+
+  // Hover scroll — edge cards drift toward center
+  track.addEventListener('mouseover', function(e) {
+    var cs = e.target.closest('.cs');
+    if (!cs || cs.style.display === 'none') return;
+    var tr = document.getElementById('track');
+    var trRect = tr.getBoundingClientRect();
+    var csRect = cs.getBoundingClientRect();
+    var cw = csRect.width;
+    var leftEdge = csRect.left - trRect.left;
+    var rightEdge = trRect.right - csRect.right;
+    if (leftEdge < cw * 0.25) {
+      tr.scrollBy({ left: -(cw * 0.6), behavior: 'smooth' });
+    } else if (rightEdge < cw * 0.25) {
+      tr.scrollBy({ left: cw * 0.6, behavior: 'smooth' });
+    }
+  });
 }
 
 var SVG = {
@@ -799,7 +829,7 @@ var PROPS = [
    rev:{t:'fut', rows:[{l:'Future ADU Revenue',v:0,c:'proj'}], proj:'Income TBD pending ADU completion'},
    exp:{pp:101000, lb:0, rate:'Paid Off', balloon:'--', pi:0, tax:1600, ins:1200, maint:15000, mgmt:0}},
 
-  {id:'p06', num:'TRH-006', tags:'active bellaire future', name:'104 Court ADU', addr:'Bellaire, MI · Accessory Unit', type:'Future STR · Priority', rl:'Priority Project', svg:SVG.adu, beds:1, baths:1, sqft:600, ev:0,
+  {id:'p06', num:'TRH-006', tags:'bellaire future', name:'104 Court ADU', addr:'Bellaire, MI · Accessory Unit', type:'Future STR · Priority', rl:'Priority Project', svg:SVG.adu, beds:1, baths:1, sqft:600, ev:0,
    lnote:'Next income project · Faster completion = sooner revenue · STR target $25-40K/yr',
    rev:{t:'fut', rows:[{l:'STR Target Revenue',v:32500,c:'inc'},{l:'Est. Platform Fees',v:-5850,c:'exp'}], proj:'$25-40K/yr · Zero debt = pure cashflow'},
    exp:{pp:0, lb:0, rate:'--', balloon:'--', pi:0, tax:0, ins:600, maint:0, mgmt:0}},
